@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Coffee & Asados - Servicios profesionales de café y asados</title>
-    <!-- Favicon (ícono en la pestaña del navegador) -->
-    <link rel="icon" type="Imagenes" href="logo_2.jpg">
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="Imagenes/logo_2.jpg">
     <style>
         /* ========== RESET Y ESTILOS BASE ========== */
         * {
@@ -43,9 +43,8 @@
             gap: 1rem;
         }
 
-        /* LOGO MÁS GRANDE - Cambiado de 50px a 80px */
         .logo-area img {
-            height: 100px;
+            height: 80px;
             width: auto;
             border-radius: 12px;
             transition: transform 0.2s;
@@ -62,7 +61,6 @@
             letter-spacing: 1px;
         }
 
-        /* Espacio reservado para redes sociales */
         .social-placeholder {
             display: flex;
             gap: 1rem;
@@ -183,7 +181,15 @@
             font-weight: 600;
         }
 
-        /* ========== BOTÓN WHATSAPP ========== */
+        /* ========== BOTONES ========== */
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
         .whatsapp-btn {
             display: inline-block;
             background: linear-gradient(115deg, #25D366, #128C7E);
@@ -193,13 +199,30 @@
             font-weight: bold;
             border-radius: 60px;
             text-decoration: none;
-            margin: 1.5rem 0;
             transition: all 0.3s;
             box-shadow: 0 10px 20px -6px rgba(0,0,0,0.25);
         }
 
         .whatsapp-btn:hover {
             background: linear-gradient(115deg, #128C7E, #0D6C5E);
+            transform: scale(1.02);
+        }
+
+        .form-btn {
+            display: inline-block;
+            background: linear-gradient(115deg, #B45F2B, #8B4513);
+            color: white;
+            padding: 15px 38px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px -6px rgba(0,0,0,0.25);
+        }
+
+        .form-btn:hover {
+            background: linear-gradient(115deg, #8B4513, #5C2E0E);
             transform: scale(1.02);
         }
 
@@ -283,9 +306,8 @@
                 flex-direction: column;
                 text-align: center;
             }
-            /* Logo más pequeño en celular pero aún visible */
             .logo-area img {
-                height: 70px;
+                height: 55px;
             }
             .logo-area span {
                 font-size: 1.2rem;
@@ -305,6 +327,10 @@
             .info-section h3 {
                 font-size: 1.4rem;
             }
+            .whatsapp-btn, .form-btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -316,7 +342,6 @@
             <img src="Imagenes/logo_2.jpg" alt="Logo Coffee & Asados">
             <span>Coffee & Asados</span>
         </div>
-        <!-- Espacio reservado para redes sociales -->
         <div class="social-placeholder">
             <a href="#">Instagram (próximamente)</a>
             <a href="#">Facebook (próximamente)</a>
@@ -363,10 +388,13 @@
             </div>
         </div>
 
-        <!-- Botón WhatsApp -->
-        <div style="text-align: center;">
+        <!-- Botones: WhatsApp y Formulario -->
+        <div class="buttons-container">
             <a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="whatsapp-btn" target="_blank">
                 💬 Pedir por WhatsApp
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0kK9ovZFME4UBhsYkvY15cmo5Sj1s2I8hBgXccXU6yhJMhg/viewform?usp=header" class="form-btn" target="_blank">
+                📝 Pedir por formulario
             </a>
         </div>
 
