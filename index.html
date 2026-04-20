@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Coffee & Asados - Servicios profesionales de café y asados</title>
+    <!-- Favicon (ícono en la pestaña del navegador) -->
+    <link rel="icon" type="image/png" href="logo_1.png">
     <style>
         /* ========== RESET Y ESTILOS BASE ========== */
         * {
@@ -20,14 +22,77 @@
             scroll-behavior: smooth;
         }
 
-        /* ========== ENCABEZADO CON DEGRADADO CAFÉ ========== */
+        /* ========== BARRA SUPERIOR CON LOGO ========== */
+        .top-bar {
+            background: #2C1A10;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-area img {
+            height: 50px;
+            width: auto;
+            border-radius: 12px;
+            transition: transform 0.2s;
+        }
+
+        .logo-area img:hover {
+            transform: scale(1.02);
+        }
+
+        .logo-area span {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #F5D5B0;
+            letter-spacing: 1px;
+        }
+
+        /* Espacio reservado para redes sociales (oculto hasta que actives enlaces) */
+        .social-placeholder {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-placeholder a {
+            color: #F5D5B0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.2s;
+        }
+
+        .social-placeholder a:hover {
+            background: #B87C4F;
+            color: white;
+        }
+
+        /* Cuando tengas redes, cambia los # por tus enlaces reales */
+        /* Ejemplo: <a href="https://instagram.com/tuusuario">Instagram</a> */
+
+        /* ========== ENCABEZADO HERO ========== */
         .hero {
             background: linear-gradient(115deg, rgba(44, 26, 16, 0.7), rgba(92, 51, 23, 0.8)), 
                         url('https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=1600');
             background-size: cover;
             background-position: center 30%;
-            height: 70vh;
-            min-height: 380px;
+            height: 60vh;
+            min-height: 350px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -37,18 +102,16 @@
         }
 
         .hero h1 {
-            font-size: 3.8rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
             text-shadow: 3px 3px 8px rgba(0,0,0,0.6);
-            letter-spacing: 1px;
         }
 
         .hero p {
-            font-size: 1.4rem;
-            max-width: 650px;
+            font-size: 1.3rem;
+            max-width: 600px;
             margin: 0 auto;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-            font-weight: 500;
         }
 
         /* ========== CONTENEDOR PRINCIPAL ========== */
@@ -58,7 +121,7 @@
             padding: 2rem 1.5rem;
         }
 
-        /* ========== TARJETAS DE MENÚ (EFECTO CAFÉ) ========== */
+        /* ========== TARJETAS DE MENÚ ========== */
         .menu-section {
             display: flex;
             flex-wrap: wrap;
@@ -80,22 +143,19 @@
         .menu-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 28px 40px -14px rgba(70, 35, 15, 0.35);
-            border-color: #C4844A;
         }
 
         .menu-card h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 1.2rem;
             border-left: 5px solid #B45F2B;
             padding-left: 1rem;
             color: #3E2416;
-            display: inline-block;
-            width: auto;
         }
 
         .menu-card ul {
             list-style: none;
-            margin-top: 1.8rem;
+            margin-top: 1.5rem;
         }
 
         .menu-card li {
@@ -103,21 +163,15 @@
             border-bottom: 1px solid #F0DECA;
             display: flex;
             justify-content: space-between;
-            font-weight: 500;
-            color: #2C1A10;
-        }
-
-        .menu-card li span:first-child {
-            font-weight: 500;
+            flex-wrap: wrap;
         }
 
         .menu-card li span:last-child {
             color: #A6521E;
             font-weight: bold;
             background: #FFF2E6;
-            padding: 0.2rem 0.7rem;
+            padding: 0.2rem 0.8rem;
             border-radius: 40px;
-            font-size: 0.9rem;
         }
 
         .price-note {
@@ -129,33 +183,29 @@
             margin-top: 1.5rem;
             font-size: 0.85rem;
             font-weight: 600;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
-        /* ========== BOTÓN WHATSAPP MEJORADO ========== */
+        /* ========== BOTÓN WHATSAPP ========== */
         .whatsapp-btn {
             display: inline-block;
             background: linear-gradient(115deg, #25D366, #128C7E);
             color: white;
-            padding: 16px 40px;
-            font-size: 1.25rem;
+            padding: 15px 38px;
+            font-size: 1.2rem;
             font-weight: bold;
             border-radius: 60px;
             text-decoration: none;
-            margin: 2rem 0 1.5rem;
+            margin: 1.5rem 0;
             transition: all 0.3s;
-            box-shadow: 0 12px 22px -8px rgba(0,0,0,0.25);
-            border: none;
-            letter-spacing: 0.5px;
+            box-shadow: 0 10px 20px -6px rgba(0,0,0,0.25);
         }
 
         .whatsapp-btn:hover {
             background: linear-gradient(115deg, #128C7E, #0D6C5E);
             transform: scale(1.02);
-            box-shadow: 0 16px 28px -8px rgba(0,0,0,0.3);
         }
 
-        /* ========== SECCIONES INFORMATIVAS CON TONO CAFÉ ========== */
+        /* ========== SECCIONES INFORMATIVAS ========== */
         .info-section {
             background: #FFFBF5;
             border-radius: 28px;
@@ -163,42 +213,32 @@
             margin-bottom: 2rem;
             box-shadow: 0 12px 28px -10px rgba(60, 30, 15, 0.15);
             border-left: 6px solid #C47A44;
-            transition: all 0.2s;
         }
 
         .info-section h3 {
             font-size: 1.8rem;
             color: #8B4513;
             margin-bottom: 1rem;
-            font-weight: 700;
         }
 
         .info-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.2rem;
-            margin-top: 1.2rem;
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
         .info-item {
             flex: 1;
-            min-width: 180px;
+            min-width: 170px;
             background: #FEF3E9;
-            padding: 1rem 1.2rem;
+            padding: 1rem;
             border-radius: 20px;
             text-align: center;
             font-weight: 500;
-            color: #4B2A18;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            transition: 0.2s;
         }
 
-        .info-item:hover {
-            background: #F3E2D0;
-            transform: translateY(-2px);
-        }
-
-        /* ========== PIE DE PÁGINA ========== */
+        /* ========== PIE DE PÁGINA CON ESPACIO PARA REDES ========== */
         .footer {
             background: #2C1A10;
             color: #E7CFB5;
@@ -211,53 +251,74 @@
         .footer a {
             color: #FBC490;
             text-decoration: none;
-            font-weight: 500;
         }
 
         .footer a:hover {
             text-decoration: underline;
-            color: #FFDAB9;
         }
 
-        /* ========== RESPONSIVE (CELULAR Y TABLET) ========== */
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            background: rgba(255,255,255,0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .social-icons a:hover {
+            background: #B87C4F;
+            color: white;
+        }
+
+        /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
+            .top-bar {
+                padding: 0.6rem 1rem;
+                flex-direction: column;
+                text-align: center;
+            }
             .hero h1 {
                 font-size: 2.2rem;
             }
             .hero p {
                 font-size: 1rem;
-                padding: 0 1rem;
             }
             .container {
-                padding: 1.2rem;
+                padding: 1rem;
             }
             .menu-card h2 {
-                font-size: 1.7rem;
-            }
-            .info-section h3 {
                 font-size: 1.5rem;
             }
-            .whatsapp-btn {
-                padding: 12px 28px;
-                font-size: 1rem;
-            }
-        }
-
-        /* Ajustes extra para pantallas muy pequeñas */
-        @media (max-width: 480px) {
-            .menu-card li {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.3rem;
-            }
-            .menu-card li span:last-child {
-                align-self: flex-start;
+            .info-section h3 {
+                font-size: 1.4rem;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- Barra superior con logo -->
+    <div class="top-bar">
+        <div class="logo-area">
+            <img src="logo_1.png" alt="Logo Coffee & Asados">
+            <span>Coffee & Asados</span>
+        </div>
+        <!-- Espacio reservado para redes sociales (actívalas cuando quieras) -->
+        <div class="social-placeholder">
+            <a href="#">Instagram (próximamente)</a>
+            <a href="#">Facebook (próximamente)</a>
+        </div>
+    </div>
+
+    <!-- Encabezado hero -->
     <div class="hero">
         <div>
             <h1>☕ Coffee & Asados 🥩</h1>
@@ -266,9 +327,8 @@
     </div>
 
     <div class="container">
-        <!-- Menús principales -->
+        <!-- Menús -->
         <div class="menu-section">
-            <!-- Coffee -->
             <div class="menu-card">
                 <h2>☕ Coffee</h2>
                 <ul>
@@ -282,7 +342,6 @@
                 <div class="price-note">+ IVA si aplica</div>
             </div>
 
-            <!-- Asados -->
             <div class="menu-card">
                 <h2>🥩 Asados</h2>
                 <ul>
@@ -295,18 +354,18 @@
                     <li><span>Gaseosas / Agua (por persona)</span><span>$1.500</span></li>
                     <li><span>Postre casero (por persona)</span><span>$2.000</span></li>
                 </ul>
-                <div class="price-note">Precios por persona o por kilo según producto</div>
+                <div class="price-note">Precios por persona o por kilo</div>
             </div>
         </div>
 
-        <!-- Botón WhatsApp central -->
+        <!-- Botón WhatsApp -->
         <div style="text-align: center;">
-            <a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="whatsapp-btn" target="_blank">
                 💬 Pedir por WhatsApp
             </a>
         </div>
 
-        <!-- Sección: Cómo trabajamos -->
+        <!-- Sección cómo trabajamos -->
         <div class="info-section">
             <h3>📋 ¿Cómo trabajamos?</h3>
             <div class="info-grid">
@@ -318,7 +377,7 @@
             </div>
         </div>
 
-        <!-- Sección de contacto -->
+        <!-- Contacto -->
         <div class="info-section">
             <h3>📧 Contacto</h3>
             <p style="text-align: center; font-size: 1.2rem;">
@@ -328,9 +387,15 @@
         </div>
     </div>
 
+    <!-- Pie de página con espacio para redes sociales -->
     <div class="footer">
         <p>© 2025 Coffee & Asados - Servicios con pasión por el buen sabor ☕🥩</p>
         <p><a href="https://sites.google.com/view/coffeeasados">Visita también nuestra versión simple</a></p>
+        <div class="social-icons">
+            <a href="#">📷 Instagram (próximamente)</a>
+            <a href="#">📘 Facebook (próximamente)</a>
+        </div>
     </div>
+
 </body>
 </html>
