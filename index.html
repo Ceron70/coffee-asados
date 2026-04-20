@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Coffee & Asados - Servicios profesionales de café y asados</title>
     <!-- Favicon (ícono en la pestaña del navegador) -->
-    <link rel="icon" type="image/png" href="logo_1.png">
+    <link rel="icon" type="image/jpeg" href="logo_2.jpg">
     <style>
         /* ========== RESET Y ESTILOS BASE ========== */
         * {
@@ -43,8 +43,9 @@
             gap: 1rem;
         }
 
+        /* LOGO MÁS GRANDE - Cambiado de 50px a 80px */
         .logo-area img {
-            height: 50px;
+            height: 80px;
             width: auto;
             border-radius: 12px;
             transition: transform 0.2s;
@@ -55,13 +56,13 @@
         }
 
         .logo-area span {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: #F5D5B0;
             letter-spacing: 1px;
         }
 
-        /* Espacio reservado para redes sociales (oculto hasta que actives enlaces) */
+        /* Espacio reservado para redes sociales */
         .social-placeholder {
             display: flex;
             gap: 1rem;
@@ -81,9 +82,6 @@
             background: #B87C4F;
             color: white;
         }
-
-        /* Cuando tengas redes, cambia los # por tus enlaces reales */
-        /* Ejemplo: <a href="https://instagram.com/tuusuario">Instagram</a> */
 
         /* ========== ENCABEZADO HERO ========== */
         .hero {
@@ -238,7 +236,7 @@
             font-weight: 500;
         }
 
-        /* ========== PIE DE PÁGINA CON ESPACIO PARA REDES ========== */
+        /* ========== PIE DE PÁGINA ========== */
         .footer {
             background: #2C1A10;
             color: #E7CFB5;
@@ -285,8 +283,15 @@
                 flex-direction: column;
                 text-align: center;
             }
+            /* Logo más pequeño en celular pero aún visible */
+            .logo-area img {
+                height: 55px;
+            }
+            .logo-area span {
+                font-size: 1.2rem;
+            }
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
             .hero p {
                 font-size: 1rem;
@@ -308,10 +313,10 @@
     <!-- Barra superior con logo -->
     <div class="top-bar">
         <div class="logo-area">
-            <img src="logo_1.png" alt="Logo Coffee & Asados">
+            <img src="imagenes\logo_2.jpg" alt="Logo Coffee & Asados">
             <span>Coffee & Asados</span>
         </div>
-        <!-- Espacio reservado para redes sociales (actívalas cuando quieras) -->
+        <!-- Espacio reservado para redes sociales -->
         <div class="social-placeholder">
             <a href="#">Instagram (próximamente)</a>
             <a href="#">Facebook (próximamente)</a>
@@ -387,7 +392,7 @@
         </div>
     </div>
 
-    <!-- Pie de página con espacio para redes sociales -->
+    <!-- Pie de página -->
     <div class="footer">
         <p>© 2025 Coffee & Asados - Servicios con pasión por el buen sabor ☕🥩</p>
         <p><a href="https://sites.google.com/view/coffeeasados">Visita también nuestra versión simple</a></p>
