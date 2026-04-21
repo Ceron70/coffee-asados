@@ -144,7 +144,7 @@
 
         .calc-card {
             flex: 1;
-            min-width: 250px;
+            min-width: 280px;
             background: white;
             border-radius: 24px;
             padding: 1.5rem;
@@ -156,6 +156,7 @@
             margin-bottom: 1rem;
             border-left: 4px solid #B45F2B;
             padding-left: 0.8rem;
+            font-size: 1.6rem;
         }
 
         .calc-item {
@@ -275,67 +276,8 @@
 
     <div class="calculator-section">
         <h2>Selecciona lo que necesitas</h2>
-        <div class="calculator-grid">
-            
-            <div class="calc-card">
-                <h3>Coffee</h3>
-                <div class="calc-item">
-                    <label>Cafe americano ($1.500)</label>
-                    <input type="number" id="cafe" min="0" value="0" step="1">
-                </div>
-                <div class="calc-item">
-                    <label>Cafe con leche ($1.800)</label>
-                    <input type="number" id="cafeLeche" min="0" value="0" step="1">
-                </div>
-                <div class="calc-item">
-                    <label>Capuchino ($2.000)</label>
-                    <input type="number" id="capuchino" min="0" value="0" step="1">
-                </div>
-                <div class="calc-item">
-                    <label>Te variado ($1.200)</label>
-                    <input type="number" id="te" min="0" value="0" step="1">
-                </div>
-                <div class="calc-item">
-                    <label>Medialunas (2 unid) ($1.500)</label>
-                    <input type="number" id="medialunas" min="0" value="0" step="1">
-                </div>
-            </div>
-
-            <div class="calc-card">
-                <h3>Asados</h3>
-                <div class="calc-item">
-                    <label>Choripan ($2.500)</label>
-                    <input type="number" id="choripan" min="0" value="0" step="1">
-                </div>
-                <div class="calc-item">
-                    <label>Morcilla ($2.000)</label>
-                    <input type="number" id="morcilla" min="0" value="0" step="1">
-                </div>
-                <div class="calc-item">
-                    <label>Vacio (kg) ($18.000)</label>
-                    <input type="number" id="vacio" min="0" value="0" step="1">
-                </div>
-                <div class="calc-item">
-                    <label>Pechito (kg) ($15.000)</label>
-                    <input type="number" id="pechito" min="0" value="0" step="1">
-                </div>
-                <div class="calc-item">
-                    <label>Ensalada (persona) ($1.500)</label>
-                    <input type="number" id="ensalada" min="0" value="0" step="1">
-                </div>
-                <div class="calc-item">
-                    <label>Pan asado (persona) ($1.000)</label>
-                    <input type="number" id="pan" min="0" value="0" step="1">
-                </div>
-                <div class="calc-item">
-                    <label>Gaseosa/Agua (persona) ($1.500)</label>
-                    <input type="number" id="bebida" min="0" value="0" step="1">
-                </div>
-                <div class="calc-item">
-                    <label>Postre (persona) ($2.000)</label>
-                    <input type="number" id="postre" min="0" value="0" step="1">
-                </div>
-            </div>
+        <div id="calculadora-dinamica" class="calculator-grid">
+            <p style="text-align:center; width:100%;">Cargando productos desde la base de datos...</p>
         </div>
 
         <div class="total-box">
@@ -355,93 +297,119 @@
 </div>
 
 <script>
-    // Precios
-    const precios = {
-        cafe: 1500, cafeLeche: 1800, capuchino: 2000, te: 1200, medialunas: 1500,
-        choripan: 2500, morcilla: 2000, vacio: 18000, pechito: 15000,
-        ensalada: 1500, pan: 1000, bebida: 1500, postre: 2000
-    };
+    // URL de la API de Google Apps Script
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyPQu4bcsLkqxHrEG8Ps4gGEAUjLPu2FceGqGGZeUNvDLVKt7LXvAjNnS0qHtQDYzglYQ/exec';
+    
+    // Variables globales
+    let productosGlobal = [];
+    let preciosGlobal = {};
 
+    // Cargar productos desde la API
+    async function cargarProductos() {
+        try {
+            const response = await fetch(API_URL);
+            const data = await response.json();
+            productosGlobal = data.productos;
+            
+            // Crear objeto de precios para acceso rapido
+            productosGlobal.forEach(p => {
+                preciosGlobal[p.producto] = p.precio;
+            });
+            
+            // Generar la interfaz de la calculadora
+            generarInterfazCalculadora();
+            
+            // Asignar eventos a los inputs
+            asignarEventosInputs();
+            
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('calculadora-dinamica').innerHTML = '<p style="text-align:center; width:100%; color:red;">Error al cargar productos. Recarga la pagina.</p>';
+        }
+    }
+    
+    // Generar la interfaz de la calculadora dinamicamente
+    function generarInterfazCalculadora() {
+        const coffeeItems = productosGlobal.filter(p => p.categoria === 'coffee');
+        const asadosItems = productosGlobal.filter(p => p.categoria === 'asados');
+        
+        let coffeeHTML = `
+            <div class="calc-card">
+                <h3>Coffee</h3>
+        `;
+        
+        coffeeItems.forEach(item => {
+            const id = item.producto.replace(/\s+/g, '_').replace(/\(/g, '').replace(/\)/g, '').replace(/kg/g, '').trim();
+            coffeeHTML += `
+                <div class="calc-item">
+                    <label>${item.producto} ($${item.precio.toLocaleString('es-CL')})</label>
+                    <input type="number" id="${id}" data-precio="${item.precio}" data-producto="${item.producto}" min="0" value="0" step="1">
+                </div>
+            `;
+        });
+        coffeeHTML += `</div>`;
+        
+        let asadosHTML = `
+            <div class="calc-card">
+                <h3>Asados</h3>
+        `;
+        
+        asadosItems.forEach(item => {
+            const id = item.producto.replace(/\s+/g, '_').replace(/\(/g, '').replace(/\)/g, '').replace(/kg/g, '').trim();
+            asadosHTML += `
+                <div class="calc-item">
+                    <label>${item.producto} ($${item.precio.toLocaleString('es-CL')})</label>
+                    <input type="number" id="${id}" data-precio="${item.precio}" data-producto="${item.producto}" min="0" value="0" step="1">
+                </div>
+            `;
+        });
+        asadosHTML += `</div>`;
+        
+        document.getElementById('calculadora-dinamica').innerHTML = coffeeHTML + asadosHTML;
+    }
+    
+    // Asignar eventos a todos los inputs numericos
+    function asignarEventosInputs() {
+        const inputs = document.querySelectorAll('.calc-item input');
+        inputs.forEach(input => {
+            input.addEventListener('input', actualizarTotal);
+        });
+        actualizarTotal();
+    }
+    
+    // Actualizar el total
     function actualizarTotal() {
         let total = 0;
-        total += (document.getElementById('cafe').value || 0) * precios.cafe;
-        total += (document.getElementById('cafeLeche').value || 0) * precios.cafeLeche;
-        total += (document.getElementById('capuchino').value || 0) * precios.capuchino;
-        total += (document.getElementById('te').value || 0) * precios.te;
-        total += (document.getElementById('medialunas').value || 0) * precios.medialunas;
-        total += (document.getElementById('choripan').value || 0) * precios.choripan;
-        total += (document.getElementById('morcilla').value || 0) * precios.morcilla;
-        total += (document.getElementById('vacio').value || 0) * precios.vacio;
-        total += (document.getElementById('pechito').value || 0) * precios.pechito;
-        total += (document.getElementById('ensalada').value || 0) * precios.ensalada;
-        total += (document.getElementById('pan').value || 0) * precios.pan;
-        total += (document.getElementById('bebida').value || 0) * precios.bebida;
-        total += (document.getElementById('postre').value || 0) * precios.postre;
-
+        const inputs = document.querySelectorAll('.calc-item input');
+        
+        inputs.forEach(input => {
+            const cantidad = parseInt(input.value) || 0;
+            const precio = parseFloat(input.getAttribute('data-precio')) || 0;
+            total += cantidad * precio;
+        });
+        
         document.getElementById('total').innerText = '$' + total.toLocaleString('es-CL');
         return total;
     }
-
+    
+    // Generar resumen del pedido
     function generarResumen() {
         let resumen = "";
-        if (document.getElementById('cafe').value > 0) resumen += "- Cafe americano: " + document.getElementById('cafe').value + "\n";
-        if (document.getElementById('cafeLeche').value > 0) resumen += "- Cafe con leche: " + document.getElementById('cafeLeche').value + "\n";
-        if (document.getElementById('capuchino').value > 0) resumen += "- Capuchino: " + document.getElementById('capuchino').value + "\n";
-        if (document.getElementById('te').value > 0) resumen += "- Te variado: " + document.getElementById('te').value + "\n";
-        if (document.getElementById('medialunas').value > 0) resumen += "- Medialunas: " + document.getElementById('medialunas').value + "\n";
-        if (document.getElementById('choripan').value > 0) resumen += "- Choripan: " + document.getElementById('choripan').value + "\n";
-        if (document.getElementById('morcilla').value > 0) resumen += "- Morcilla: " + document.getElementById('morcilla').value + "\n";
-        if (document.getElementById('vacio').value > 0) resumen += "- Vacio: " + document.getElementById('vacio').value + " kg\n";
-        if (document.getElementById('pechito').value > 0) resumen += "- Pechito: " + document.getElementById('pechito').value + " kg\n";
-        if (document.getElementById('ensalada').value > 0) resumen += "- Ensalada: " + document.getElementById('ensalada').value + " personas\n";
-        if (document.getElementById('pan').value > 0) resumen += "- Pan asado: " + document.getElementById('pan').value + " personas\n";
-        if (document.getElementById('bebida').value > 0) resumen += "- Gaseosa/Agua: " + document.getElementById('bebida').value + " personas\n";
-        if (document.getElementById('postre').value > 0) resumen += "- Postre: " + document.getElementById('postre').value + " personas\n";
+        const inputs = document.querySelectorAll('.calc-item input');
+        
+        inputs.forEach(input => {
+            const cantidad = parseInt(input.value) || 0;
+            if (cantidad > 0) {
+                const producto = input.getAttribute('data-producto');
+                resumen += `- ${producto}: ${cantidad}\n`;
+            }
+        });
         
         if (resumen === "") resumen = "Sin productos seleccionados";
         return resumen;
     }
-
-    function enviarAFormulario(nombre, telefono, fecha, direccion, resumen, total) {
-        const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdklL0F6jSPPEsckP3ZVaWXhRnJ3LjhWn4R1hEwBgQN6Nt-xw/formResponse';
-        
-        const iframe = document.createElement('iframe');
-        iframe.name = 'hiddenFrame';
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-        
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = formUrl;
-        form.target = 'hiddenFrame';
-        form.style.display = 'none';
-        
-        const campos = [
-            { name: 'entry.2101080692', value: nombre },
-            { name: 'entry.650288774', value: telefono },
-            { name: 'entry.502590243', value: fecha },
-            { name: 'entry.423466680', value: direccion },
-            { name: 'entry.1043238486', value: resumen },
-            { name: 'entry.1381165737', value: total }
-        ];
-        
-        campos.forEach(campo => {
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.name = campo.name;
-            input.value = campo.value;
-            form.appendChild(input);
-        });
-        
-        document.body.appendChild(form);
-        form.submit();
-        
-        setTimeout(() => {
-            document.body.removeChild(form);
-            document.body.removeChild(iframe);
-        }, 1000);
-    }
-
+    
+    // Enviar pedido
     function enviarPedido() {
         const nombre = document.getElementById('nombreCliente').value.trim();
         const telefono = document.getElementById('telefonoCliente').value.trim();
@@ -461,8 +429,7 @@
         
         const resumen = generarResumen();
         
-        enviarAFormulario(nombre, telefono, fecha, direccion, resumen, '$' + total.toLocaleString('es-CL'));
-        
+        // Generar mensaje para WhatsApp
         let mensajeWhatsApp = "NUEVO PEDIDO - COFFEE & ASADOS\n\n";
         mensajeWhatsApp += "Cliente: " + nombre + "\n";
         mensajeWhatsApp += "Telefono: " + telefono + "\n";
@@ -477,17 +444,14 @@
         const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
         window.open(urlWhatsApp, '_blank');
         
-        alert("Pedido enviado. Se abrira WhatsApp para confirmar. Tambien recibiras una copia por correo.");
+        alert("Pedido enviado. Se abrira WhatsApp para confirmar.");
     }
     
-    window.onload = function() {
-        const inputs = document.querySelectorAll('input[type="number"]');
-        inputs.forEach(input => {
-            input.addEventListener('input', actualizarTotal);
-        });
-        document.getElementById('btnEnviarPedido').addEventListener('click', enviarPedido);
-        actualizarTotal();
-    };
+    // Inicializar cuando la pagina carga
+    document.addEventListener('DOMContentLoaded', cargarProductos);
+    
+    // Delegar eventos para inputs que se cargan dinamicamente
+    document.getElementById('btnEnviarPedido').addEventListener('click', enviarPedido);
 </script>
 </body>
 </html>
