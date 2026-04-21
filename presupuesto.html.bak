@@ -87,7 +87,6 @@
             padding: 2rem;
         }
 
-        /* Formulario de datos del cliente (ahora visible) */
         .cliente-form {
             background: #FFFBF5;
             border-radius: 28px;
@@ -121,11 +120,6 @@
             border-radius: 16px;
             font-size: 1rem;
             background: white;
-        }
-
-        .form-row input:focus {
-            outline: none;
-            border-color: #8B4513;
         }
 
         .calculator-section {
@@ -252,22 +246,21 @@
 
 <div class="hero">
     <div>
-        <h1>☕ Calcula tu presupuesto 🥩</h1>
+        <h1>Calcula tu presupuesto</h1>
         <p>Elige cantidades y completa tus datos</p>
     </div>
 </div>
 
 <div class="container">
 
-    <!-- DATOS DEL CLIENTE -->
     <div class="cliente-form">
-        <h3>📋 Tus datos</h3>
+        <h3>Tus datos</h3>
         <div class="form-row">
             <label>Nombre completo *</label>
-            <input type="text" id="nombreCliente" placeholder="Ej: Juan Pérez">
+            <input type="text" id="nombreCliente" placeholder="Ej: Juan Perez">
         </div>
         <div class="form-row">
-            <label>Teléfono (WhatsApp) *</label>
+            <label>Telefono (WhatsApp) *</label>
             <input type="tel" id="telefonoCliente" placeholder="Ej: 56988160607">
         </div>
         <div class="form-row">
@@ -275,24 +268,23 @@
             <input type="date" id="fechaEvento">
         </div>
         <div class="form-row">
-            <label>Dirección del evento *</label>
-            <input type="text" id="direccionEvento" placeholder="Calle, número, comuna">
+            <label>Direccion del evento *</label>
+            <input type="text" id="direccionEvento" placeholder="Calle, numero, comuna">
         </div>
     </div>
 
-    <!-- CALCULADORA -->
     <div class="calculator-section">
-        <h2>📊 Selecciona lo que necesitas</h2>
+        <h2>Selecciona lo que necesitas</h2>
         <div class="calculator-grid">
             
             <div class="calc-card">
-                <h3>☕ Coffee</h3>
+                <h3>Coffee</h3>
                 <div class="calc-item">
-                    <label>Café americano ($1.500)</label>
+                    <label>Cafe americano ($1.500)</label>
                     <input type="number" id="cafe" min="0" value="0" step="1">
                 </div>
                 <div class="calc-item">
-                    <label>Café con leche ($1.800)</label>
+                    <label>Cafe con leche ($1.800)</label>
                     <input type="number" id="cafeLeche" min="0" value="0" step="1">
                 </div>
                 <div class="calc-item">
@@ -300,7 +292,7 @@
                     <input type="number" id="capuchino" min="0" value="0" step="1">
                 </div>
                 <div class="calc-item">
-                    <label>Té variado ($1.200)</label>
+                    <label>Te variado ($1.200)</label>
                     <input type="number" id="te" min="0" value="0" step="1">
                 </div>
                 <div class="calc-item">
@@ -310,9 +302,9 @@
             </div>
 
             <div class="calc-card">
-                <h3>🥩 Asados</h3>
+                <h3>Asados</h3>
                 <div class="calc-item">
-                    <label>Choripán ($2.500)</label>
+                    <label>Choripan ($2.500)</label>
                     <input type="number" id="choripan" min="0" value="0" step="1">
                 </div>
                 <div class="calc-item">
@@ -320,7 +312,7 @@
                     <input type="number" id="morcilla" min="0" value="0" step="1">
                 </div>
                 <div class="calc-item">
-                    <label>Vacío (kg) ($18.000)</label>
+                    <label>Vacio (kg) ($18.000)</label>
                     <input type="number" id="vacio" min="0" value="0" step="1">
                 </div>
                 <div class="calc-item">
@@ -347,19 +339,19 @@
         </div>
 
         <div class="total-box">
-            <h3>💰 TOTAL ESTIMADO</h3>
+            <h3>TOTAL ESTIMADO</h3>
             <span id="total">$0</span>
             <br><br>
             <button class="btn-enviar" id="btnEnviarPedido">
-                📤 Enviar pedido por WhatsApp
+                Enviar pedido por WhatsApp
             </button>
-            <p style="font-size: 0.8rem; margin-top: 0.5rem;">Se abrirá WhatsApp y recibirás copia por correo</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem;">Se abrira WhatsApp y recibiras copia por correo</p>
         </div>
     </div>
 </div>
 
 <div class="footer">
-    <p>© 2025 Coffee & Asados - Calcula tu presupuesto en línea ☕🥩</p>
+    <p>© 2025 Coffee & Asados - Calcula tu presupuesto en linea</p>
 </div>
 
 <script>
@@ -370,7 +362,6 @@
         ensalada: 1500, pan: 1000, bebida: 1500, postre: 2000
     };
 
-    // Actualizar total
     function actualizarTotal() {
         let total = 0;
         total += (document.getElementById('cafe').value || 0) * precios.cafe;
@@ -391,32 +382,29 @@
         return total;
     }
 
-    // Generar resumen del pedido (texto)
     function generarResumen() {
         let resumen = "";
-        if (document.getElementById('cafe').value > 0) resumen += "✅ Café americano: " + document.getElementById('cafe').value + "\n";
-        if (document.getElementById('cafeLeche').value > 0) resumen += "✅ Café con leche: " + document.getElementById('cafeLeche').value + "\n";
-        if (document.getElementById('capuchino').value > 0) resumen += "✅ Capuchino: " + document.getElementById('capuchino').value + "\n";
-        if (document.getElementById('te').value > 0) resumen += "✅ Té variado: " + document.getElementById('te').value + "\n";
-        if (document.getElementById('medialunas').value > 0) resumen += "✅ Medialunas: " + document.getElementById('medialunas').value + "\n";
-        if (document.getElementById('choripan').value > 0) resumen += "✅ Choripán: " + document.getElementById('choripan').value + "\n";
-        if (document.getElementById('morcilla').value > 0) resumen += "✅ Morcilla: " + document.getElementById('morcilla').value + "\n";
-        if (document.getElementById('vacio').value > 0) resumen += "✅ Vacío: " + document.getElementById('vacio').value + " kg\n";
-        if (document.getElementById('pechito').value > 0) resumen += "✅ Pechito: " + document.getElementById('pechito').value + " kg\n";
-        if (document.getElementById('ensalada').value > 0) resumen += "✅ Ensalada: " + document.getElementById('ensalada').value + " pers.\n";
-        if (document.getElementById('pan').value > 0) resumen += "✅ Pan: " + document.getElementById('pan').value + " pers.\n";
-        if (document.getElementById('bebida').value > 0) resumen += "✅ Gaseosa/Agua: " + document.getElementById('bebida').value + " pers.\n";
-        if (document.getElementById('postre').value > 0) resumen += "✅ Postre: " + document.getElementById('postre').value + " pers.\n";
+        if (document.getElementById('cafe').value > 0) resumen += "- Cafe americano: " + document.getElementById('cafe').value + "\n";
+        if (document.getElementById('cafeLeche').value > 0) resumen += "- Cafe con leche: " + document.getElementById('cafeLeche').value + "\n";
+        if (document.getElementById('capuchino').value > 0) resumen += "- Capuchino: " + document.getElementById('capuchino').value + "\n";
+        if (document.getElementById('te').value > 0) resumen += "- Te variado: " + document.getElementById('te').value + "\n";
+        if (document.getElementById('medialunas').value > 0) resumen += "- Medialunas: " + document.getElementById('medialunas').value + "\n";
+        if (document.getElementById('choripan').value > 0) resumen += "- Choripan: " + document.getElementById('choripan').value + "\n";
+        if (document.getElementById('morcilla').value > 0) resumen += "- Morcilla: " + document.getElementById('morcilla').value + "\n";
+        if (document.getElementById('vacio').value > 0) resumen += "- Vacio: " + document.getElementById('vacio').value + " kg\n";
+        if (document.getElementById('pechito').value > 0) resumen += "- Pechito: " + document.getElementById('pechito').value + " kg\n";
+        if (document.getElementById('ensalada').value > 0) resumen += "- Ensalada: " + document.getElementById('ensalada').value + " personas\n";
+        if (document.getElementById('pan').value > 0) resumen += "- Pan asado: " + document.getElementById('pan').value + " personas\n";
+        if (document.getElementById('bebida').value > 0) resumen += "- Gaseosa/Agua: " + document.getElementById('bebida').value + " personas\n";
+        if (document.getElementById('postre').value > 0) resumen += "- Postre: " + document.getElementById('postre').value + " personas\n";
         
         if (resumen === "") resumen = "Sin productos seleccionados";
         return resumen;
     }
 
-    // Enviar datos al formulario de Google (oculto)
     function enviarAFormulario(nombre, telefono, fecha, direccion, resumen, total) {
         const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdklL0F6jSPPEsckP3ZVaWXhRnJ3LjhWn4R1hEwBgQN6Nt-xw/formResponse';
         
-        // Crear un iframe oculto para enviar sin recargar
         const iframe = document.createElement('iframe');
         iframe.name = 'hiddenFrame';
         iframe.style.display = 'none';
@@ -428,14 +416,13 @@
         form.target = 'hiddenFrame';
         form.style.display = 'none';
         
-        // Agregar campos del formulario (IDs del Google Form)
         const campos = [
-            { name: 'entry.2101080692', value: nombre },      // Nombre
-            { name: 'entry.650288774', value: telefono },      // Teléfono
-            { name: 'entry.502590243', value: fecha },         // Fecha
-            { name: 'entry.423466680', value: direccion },     // Dirección
-            { name: 'entry.1043238486', value: resumen },      // Resumen
-            { name: 'entry.1381165737', value: total }         // Total
+            { name: 'entry.2101080692', value: nombre },
+            { name: 'entry.650288774', value: telefono },
+            { name: 'entry.502590243', value: fecha },
+            { name: 'entry.423466680', value: direccion },
+            { name: 'entry.1043238486', value: resumen },
+            { name: 'entry.1381165737', value: total }
         ];
         
         campos.forEach(campo => {
@@ -449,57 +436,50 @@
         document.body.appendChild(form);
         form.submit();
         
-        // Limpiar después de 1 segundo
         setTimeout(() => {
             document.body.removeChild(form);
             document.body.removeChild(iframe);
         }, 1000);
     }
 
-    // Enviar pedido (WhatsApp + Formulario)
-    async function enviarPedido() {
-        // Validar datos del cliente
+    function enviarPedido() {
         const nombre = document.getElementById('nombreCliente').value.trim();
         const telefono = document.getElementById('telefonoCliente').value.trim();
         const fecha = document.getElementById('fechaEvento').value;
         const direccion = document.getElementById('direccionEvento').value.trim();
         
         if (!nombre || !telefono || !fecha || !direccion) {
-            alert('⚠️ Por favor, completa todos tus datos antes de enviar el pedido.');
+            alert('Por favor, completa todos tus datos antes de enviar el pedido.');
             return;
         }
         
         const total = actualizarTotal();
         if (total === 0) {
-            alert('⚠️ Agrega al menos un producto a tu pedido.');
+            alert('Agrega al menos un producto a tu pedido.');
             return;
         }
         
         const resumen = generarResumen();
         
-        // 1. Enviar a Google Form (para que llegue a tu correo y Sheets)
         enviarAFormulario(nombre, telefono, fecha, direccion, resumen, '$' + total.toLocaleString('es-CL'));
         
-        // 2. Generar mensaje para WhatsApp
-        let mensajeWhatsApp = `🍖☕ *NUEVO PEDIDO - COFFEE & ASADOS* ☕🍖%0A%0A`;
-        mensajeWhatsApp += `*Cliente:* ${nombre}%0A`;
-        mensajeWhatsApp += `*Teléfono:* ${telefono}%0A`;
-        mensajeWhatsApp += `*Fecha:* ${fecha}%0A`;
-        mensajeWhatsApp += `*Dirección:* ${direccion}%0A%0A`;
-        mensajeWhatsApp += `*Pedido:*%0A${resumen.replace(/\n/g, '%0A')}%0A%0A`;
-        mensajeWhatsApp += `*Total estimado:* $${total.toLocaleString('es-CL')}%0A%0A`;
-        mensajeWhatsApp += `Gracias, quedo atento a su cotización.`;
+        let mensajeWhatsApp = "NUEVO PEDIDO - COFFEE & ASADOS\n\n";
+        mensajeWhatsApp += "Cliente: " + nombre + "\n";
+        mensajeWhatsApp += "Telefono: " + telefono + "\n";
+        mensajeWhatsApp += "Fecha: " + fecha + "\n";
+        mensajeWhatsApp += "Direccion: " + direccion + "\n\n";
+        mensajeWhatsApp += "Pedido:\n" + resumen + "\n";
+        mensajeWhatsApp += "Total estimado: $" + total.toLocaleString('es-CL') + "\n\n";
+        mensajeWhatsApp += "Gracias, quedo atento a su cotizacion.";
         
-        // Abrir WhatsApp
+        const mensajeCodificado = encodeURIComponent(mensajeWhatsApp);
         const numeroWhatsApp = '56988160607';
-        const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
+        const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
         window.open(urlWhatsApp, '_blank');
         
-        // Mostrar mensaje de éxito
-        alert('✅ Pedido enviado. Se abrirá WhatsApp para confirmar. También recibirás un correo de respaldo.');
+        alert("Pedido enviado. Se abrira WhatsApp para confirmar. Tambien recibiras una copia por correo.");
     }
     
-    // Asignar eventos
     window.onload = function() {
         const inputs = document.querySelectorAll('input[type="number"]');
         inputs.forEach(input => {
