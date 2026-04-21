@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Coffee & Asados - Servicios profesionales de café y asados</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="Imagenes/logo_2.jpg">
+    <title>Coffee & Asados - Servicios de coffee y asados</title>
+    <link rel="icon" type="image/jpeg" href="imagenes/logo_2.jpg">
     <style>
-        /* ========== RESET Y ESTILOS BASE ========== */
         * {
             margin: 0;
             padding: 0;
@@ -22,7 +20,6 @@
             scroll-behavior: smooth;
         }
 
-        /* ========== BARRA SUPERIOR CON LOGO ========== */
         .top-bar {
             background: #2C1A10;
             padding: 0.8rem 2rem;
@@ -61,27 +58,6 @@
             letter-spacing: 1px;
         }
 
-        .social-placeholder {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-placeholder a {
-            color: #F5D5B0;
-            text-decoration: none;
-            font-size: 0.9rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 30px;
-            background: rgba(255,255,255,0.1);
-            transition: all 0.2s;
-        }
-
-        .social-placeholder a:hover {
-            background: #B87C4F;
-            color: white;
-        }
-
-        /* ========== ENCABEZADO HERO ========== */
         .hero {
             background: linear-gradient(115deg, rgba(44, 26, 16, 0.7), rgba(92, 51, 23, 0.8)), 
                         url('https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=1600');
@@ -110,14 +86,12 @@
             text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
         }
 
-        /* ========== CONTENEDOR PRINCIPAL ========== */
         .container {
             max-width: 1300px;
             margin: 0 auto;
             padding: 2rem 1.5rem;
         }
 
-        /* ========== TARJETAS DE MENÚ ========== */
         .menu-section {
             display: flex;
             flex-wrap: wrap;
@@ -181,21 +155,18 @@
             font-weight: 600;
         }
 
-        /* ========== BOTONES ========== */
         .buttons-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+            gap: 1.2rem;
+            margin: 2rem 0;
         }
 
-        .whatsapp-btn {
+        .btn-whatsapp, .btn-form, .btn-presupuesto {
             display: inline-block;
-            background: linear-gradient(115deg, #25D366, #128C7E);
-            color: white;
-            padding: 15px 38px;
-            font-size: 1.2rem;
+            padding: 14px 32px;
+            font-size: 1.1rem;
             font-weight: bold;
             border-radius: 60px;
             text-decoration: none;
@@ -203,30 +174,36 @@
             box-shadow: 0 10px 20px -6px rgba(0,0,0,0.25);
         }
 
-        .whatsapp-btn:hover {
+        .btn-whatsapp {
+            background: linear-gradient(115deg, #25D366, #128C7E);
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
             background: linear-gradient(115deg, #128C7E, #0D6C5E);
             transform: scale(1.02);
         }
 
-        .form-btn {
-            display: inline-block;
+        .btn-form {
             background: linear-gradient(115deg, #B45F2B, #8B4513);
             color: white;
-            padding: 15px 38px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 60px;
-            text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 10px 20px -6px rgba(0,0,0,0.25);
         }
 
-        .form-btn:hover {
+        .btn-form:hover {
             background: linear-gradient(115deg, #8B4513, #5C2E0E);
             transform: scale(1.02);
         }
 
-        /* ========== SECCIONES INFORMATIVAS ========== */
+        .btn-presupuesto {
+            background: linear-gradient(115deg, #D2691E, #A0522D);
+            color: white;
+        }
+
+        .btn-presupuesto:hover {
+            background: linear-gradient(115deg, #A0522D, #6B3E1F);
+            transform: scale(1.02);
+        }
+
         .info-section {
             background: #FFFBF5;
             border-radius: 28px;
@@ -259,7 +236,6 @@
             font-weight: 500;
         }
 
-        /* ========== PIE DE PÁGINA ========== */
         .footer {
             background: #2C1A10;
             color: #E7CFB5;
@@ -278,28 +254,6 @@
             text-decoration: underline;
         }
 
-        .social-icons {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .social-icons a {
-            background: rgba(255,255,255,0.1);
-            padding: 0.4rem 1rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-
-        .social-icons a:hover {
-            background: #B87C4F;
-            color: white;
-        }
-
-        /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
             .top-bar {
                 padding: 0.6rem 1rem;
@@ -327,108 +281,123 @@
             .info-section h3 {
                 font-size: 1.4rem;
             }
-            .whatsapp-btn, .form-btn {
-                padding: 12px 24px;
-                font-size: 1rem;
+            .btn-whatsapp, .btn-form, .btn-presupuesto {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Barra superior con logo -->
-    <div class="top-bar">
-        <div class="logo-area">
-            <img src="Imagenes/logo_2.jpg" alt="Logo Coffee & Asados">
-            <span>Coffee & Asados</span>
-        </div>
-        <div class="social-placeholder">
-            <a href="#">Instagram (próximamente)</a>
-            <a href="#">Facebook (próximamente)</a>
+<div class="top-bar">
+    <div class="logo-area">
+        <img src="imagenes/logo_2.jpg" alt="Logo Coffee & Asados">
+        <span>Coffee & Asados</span>
+    </div>
+</div>
+
+<div class="hero">
+    <div>
+        <h1>☕ Coffee & Asados 🥩</h1>
+        <p>Servicios de coffee y asados para empresas y particulares</p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Los menús se cargarán aquí dinámicamente -->
+    <div id="menu-container" class="menu-section">
+        <p style="text-align:center; width:100%;">Cargando menu desde la base de datos...</p>
+    </div>
+
+    <div class="buttons-container">
+        <a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="btn-whatsapp" target="_blank">💬 Pedir por WhatsApp</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0kK9ovZFME4UBhsYkvY15cmo5Sj1s2I8hBgXccXU6yhJMhg/viewform?usp=header" class="btn-form" target="_blank">📝 Pedir por formulario</a>
+        <a href="presupuesto.html" class="btn-presupuesto">💰 Calcular presupuesto</a>
+    </div>
+
+    <div class="info-section">
+        <h3>📋 ¿Cómo trabajamos?</h3>
+        <div class="info-grid">
+            <div class="info-item">✅ Servicio para empresas y particulares</div>
+            <div class="info-item">✅ Nos trasladamos a tu domicilio u oficina</div>
+            <div class="info-item">✅ Ingredientes frescos y de calidad</div>
+            <div class="info-item">✅ Opciones personalizadas según presupuesto</div>
+            <div class="info-item">✅ Cotización sin compromiso</div>
         </div>
     </div>
 
-    <!-- Encabezado hero -->
-    <div class="hero">
-        <div>
-            <h1>☕ Coffee & Asados 🥩</h1>
-            <p>Servicios de coffee y asados para empresas y particulares</p>
-        </div>
+    <div class="info-section">
+        <h3>📧 Contacto</h3>
+        <p style="text-align: center; font-size: 1.2rem;">
+            📱 WhatsApp: <a href="https://wa.me/56988160607">+56988160607</a><br>
+            📧 Correo: <a href="mailto:informatica.full@gmail.com">informatica.full@gmail.com</a>
+        </p>
     </div>
+</div>
 
-    <div class="container">
-        <!-- Menús -->
-        <div class="menu-section">
-            <div class="menu-card">
-                <h2>☕ Coffee</h2>
-                <ul>
-                    <li><span>Café americano</span><span>$1.500</span></li>
-                    <li><span>Café con leche</span><span>$1.800</span></li>
-                    <li><span>Capuchino</span><span>$2.000</span></li>
-                    <li><span>Té variado</span><span>$1.200</span></li>
-                    <li><span>Medialunas / Facturas (2 unid)</span><span>$1.500</span></li>
-                    <li><span>Agua o gaseosa</span><span>$1.500</span></li>
-                </ul>
-                <div class="price-note">+ IVA si aplica</div>
-            </div>
+<div class="footer">
+    <p>© 2025 Coffee & Asados - Servicios con pasión por el buen sabor ☕🥩</p>
+    <p><a href="https://sites.google.com/view/coffeeasados">Visita también nuestra versión simple</a></p>
+</div>
 
-            <div class="menu-card">
-                <h2>🥩 Asados</h2>
-                <ul>
-                    <li><span>Choripán (con chimichurri)</span><span>$2.500</span></li>
-                    <li><span>Morcilla</span><span>$2.000</span></li>
-                    <li><span>Vacío (por kilo)</span><span>$18.000</span></li>
-                    <li><span>Pechito de cerdo (por kilo)</span><span>$15.000</span></li>
-                    <li><span>Ensalada mixta (por persona)</span><span>$1.500</span></li>
-                    <li><span>Pan para asado (por persona)</span><span>$1.000</span></li>
-                    <li><span>Gaseosas / Agua (por persona)</span><span>$1.500</span></li>
-                    <li><span>Postre casero (por persona)</span><span>$2.000</span></li>
-                </ul>
-                <div class="price-note">Precios por persona o por kilo</div>
-            </div>
-        </div>
+<script>
+    // Tu URL de la API de Google Apps Script
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyPQu4bcsLkqxHrEG8Ps4gGEAUjLPu2FceGqGGZeUNvDLVKt7LXvAjNnS0qHtQDYzglYQ/exec';
 
-        <!-- Botones: WhatsApp y Formulario -->
-        <div class="buttons-container">
-            <a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="whatsapp-btn" target="_blank">
-                💬 Pedir por WhatsApp
-            </a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0kK9ovZFME4UBhsYkvY15cmo5Sj1s2I8hBgXccXU6yhJMhg/viewform?usp=header" class="form-btn" target="_blank">
-                📝 Pedir por formulario
-            </a>
-        </div>
-
-        <!-- Sección cómo trabajamos -->
-        <div class="info-section">
-            <h3>📋 ¿Cómo trabajamos?</h3>
-            <div class="info-grid">
-                <div class="info-item">✅ Servicio para empresas y particulares</div>
-                <div class="info-item">✅ Nos trasladamos a tu domicilio u oficina</div>
-                <div class="info-item">✅ Ingredientes frescos y de calidad</div>
-                <div class="info-item">✅ Opciones personalizadas según presupuesto</div>
-                <div class="info-item">✅ Cotización sin compromiso</div>
-            </div>
-        </div>
-
-        <!-- Contacto -->
-        <div class="info-section">
-            <h3>📧 Contacto</h3>
-            <p style="text-align: center; font-size: 1.2rem;">
-                📱 WhatsApp: <a href="https://wa.me/56988160607">+56988160607</a><br>
-                📧 Correo: <a href="mailto:informatica.full@gmail.com">informatica.full@gmail.com</a>
-            </p>
-        </div>
-    </div>
-
-    <!-- Pie de página -->
-    <div class="footer">
-        <p>© 2025 Coffee & Asados - Servicios con pasión por el buen sabor ☕🥩</p>
-        <p><a href="https://sites.google.com/view/coffeeasados">Visita también nuestra versión simple</a></p>
-        <div class="social-icons">
-            <a href="#">📷 Instagram (próximamente)</a>
-            <a href="#">📘 Facebook (próximamente)</a>
-        </div>
-    </div>
-
+    async function cargarMenu() {
+        try {
+            console.log('Cargando menu desde:', API_URL);
+            const response = await fetch(API_URL);
+            const data = await response.json();
+            console.log('Datos recibidos:', data);
+            
+            const productos = data.productos;
+            
+            // Filtrar productos por categoria
+            const coffeeItems = productos.filter(p => p.categoria === 'coffee');
+            const asadosItems = productos.filter(p => p.categoria === 'asados');
+            
+            console.log('Coffee items:', coffeeItems.length);
+            console.log('Asados items:', asadosItems.length);
+            
+            // Generar HTML
+            let coffeeHTML = '';
+            for (let item of coffeeItems) {
+                coffeeHTML += `<li><span>${item.producto}</span><span>$${item.precio.toLocaleString('es-CL')}</span></li>`;
+            }
+            
+            let asadosHTML = '';
+            for (let item of asadosItems) {
+                asadosHTML += `<li><span>${item.producto}</span><span>$${item.precio.toLocaleString('es-CL')}</span></li>`;
+            }
+            
+            const menuHTML = `
+                <div class="menu-card">
+                    <h2>☕ Coffee</h2>
+                    <ul>
+                        ${coffeeHTML}
+                    </ul>
+                    <div class="price-note">+ IVA si aplica</div>
+                </div>
+                <div class="menu-card">
+                    <h2>🥩 Asados</h2>
+                    <ul>
+                        ${asadosHTML}
+                    </ul>
+                    <div class="price-note">Precios por persona o por kilo</div>
+                </div>
+            `;
+            
+            document.getElementById('menu-container').innerHTML = menuHTML;
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('menu-container').innerHTML = '<p style="text-align:center; width:100%; color:red;">Error al cargar el menu. Por favor, recarga la pagina.</p>';
+        }
+    }
+    
+    // Cargar el menu cuando la pagina este lista
+    document.addEventListener('DOMContentLoaded', cargarMenu);
+</script>
 </body>
 </html>

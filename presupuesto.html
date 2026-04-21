@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Coffee & Asados - Calculadora de presupuesto</title>
+    <link rel="icon" type="image/jpeg" href="imagenes/logo_2.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #F8E8D8 0%, #E6C8A8 100%);
+            color: #2C1A10;
+            line-height: 1.5;
+        }
+
+        .top-bar {
+            background: #2C1A10;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-area img {
+            height: 80px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .logo-area span {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #F5D5B0;
+        }
+
+        .btn-volver {
+            background: #B87C4F;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-volver:hover {
+            background: #8B4513;
+        }
+
+        .hero {
+            background: linear-gradient(115deg, rgba(44, 26, 16, 0.7), rgba(92, 51, 23, 0.8)), 
+                        url('https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-size: cover;
+            background-position: center 30%;
+            height: 40vh;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .cliente-form {
+            background: #FFFBF5;
+            border-radius: 28px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-left: 6px solid #C47A44;
+        }
+
+        .cliente-form h3 {
+            color: #8B4513;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+        }
+
+        .form-row {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-row label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.4rem;
+            color: #3E2416;
+        }
+
+        .form-row input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #D4A373;
+            border-radius: 16px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .calculator-section {
+            background: #FFFBF5;
+            border-radius: 32px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .calculator-section h2 {
+            color: #8B4513;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .calculator-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .calc-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .calc-card h3 {
+            color: #B45F2B;
+            margin-bottom: 1rem;
+            border-left: 4px solid #B45F2B;
+            padding-left: 0.8rem;
+        }
+
+        .calc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #F0DECA;
+        }
+
+        .calc-item label {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .calc-item input {
+            width: 80px;
+            padding: 0.4rem;
+            border: 1px solid #D4A373;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .total-box {
+            background: linear-gradient(135deg, #B45F2B, #8B4513);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 28px;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .total-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .total-box span {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .btn-enviar {
+            background: #25D366;
+            color: white;
+            padding: 14px 32px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 60px;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: 0.3s;
+        }
+
+        .btn-enviar:hover {
+            background: #128C7E;
+            transform: scale(1.02);
+        }
+
+        .footer {
+            background: #2C1A10;
+            color: #E7CFB5;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .logo-area img { height: 55px; }
+            .hero h1 { font-size: 1.5rem; }
+            .container { padding: 1rem; }
+            .calc-item { flex-wrap: wrap; gap: 0.5rem; }
+            .calc-item input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="logo-area">
+        <img src="imagenes/logo_2.jpg" alt="Logo Coffee & Asados">
+        <span>Coffee & Asados</span>
+    </div>
+    <a href="index.html" class="btn-volver">← Volver al inicio</a>
+</div>
+
+<div class="hero">
+    <div>
+        <h1>Calcula tu presupuesto</h1>
+        <p>Elige cantidades y completa tus datos</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="cliente-form">
+        <h3>Tus datos</h3>
+        <div class="form-row">
+            <label>Nombre completo *</label>
+            <input type="text" id="nombreCliente" placeholder="Ej: Juan Perez">
+        </div>
+        <div class="form-row">
+            <label>Telefono (WhatsApp) *</label>
+            <input type="tel" id="telefonoCliente" placeholder="Ej: 56988160607">
+        </div>
+        <div class="form-row">
+            <label>Fecha del evento *</label>
+            <input type="date" id="fechaEvento">
+        </div>
+        <div class="form-row">
+            <label>Direccion del evento *</label>
+            <input type="text" id="direccionEvento" placeholder="Calle, numero, comuna">
+        </div>
+    </div>
+
+    <div class="calculator-section">
+        <h2>Selecciona lo que necesitas</h2>
+        <div class="calculator-grid">
+            
+            <div class="calc-card">
+                <h3>Coffee</h3>
+                <div class="calc-item">
+                    <label>Cafe americano ($1.500)</label>
+                    <input type="number" id="cafe" min="0" value="0" step="1">
+                </div>
+                <div class="calc-item">
+                    <label>Cafe con leche ($1.800)</label>
+                    <input type="number" id="cafeLeche" min="0" value="0" step="1">
+                </div>
+                <div class="calc-item">
+                    <label>Capuchino ($2.000)</label>
+                    <input type="number" id="capuchino" min="0" value="0" step="1">
+                </div>
+                <div class="calc-item">
+                    <label>Te variado ($1.200)</label>
+                    <input type="number" id="te" min="0" value="0" step="1">
+                </div>
+                <div class="calc-item">
+                    <label>Medialunas (2 unid) ($1.500)</label>
+                    <input type="number" id="medialunas" min="0" value="0" step="1">
+                </div>
+            </div>
+
+            <div class="calc-card">
+                <h3>Asados</h3>
+                <div class="calc-item">
+                    <label>Choripan ($2.500)</label>
+                    <input type="number" id="choripan" min="0" value="0" step="1">
+                </div>
+                <div class="calc-item">
+                    <label>Morcilla ($2.000)</label>
+                    <input type="number" id="morcilla" min="0" value="0" step="1">
+                </div>
+                <div class="calc-item">
+                    <label>Vacio (kg) ($18.000)</label>
+                    <input type="number" id="vacio" min="0" value="0" step="1">
+                </div>
+                <div class="calc-item">
+                    <label>Pechito (kg) ($15.000)</label>
+                    <input type="number" id="pechito" min="0" value="0" step="1">
+                </div>
+                <div class="calc-item">
+                    <label>Ensalada (persona) ($1.500)</label>
+                    <input type="number" id="ensalada" min="0" value="0" step="1">
+                </div>
+                <div class="calc-item">
+                    <label>Pan asado (persona) ($1.000)</label>
+                    <input type="number" id="pan" min="0" value="0" step="1">
+                </div>
+                <div class="calc-item">
+                    <label>Gaseosa/Agua (persona) ($1.500)</label>
+                    <input type="number" id="bebida" min="0" value="0" step="1">
+                </div>
+                <div class="calc-item">
+                    <label>Postre (persona) ($2.000)</label>
+                    <input type="number" id="postre" min="0" value="0" step="1">
+                </div>
+            </div>
+        </div>
+
+        <div class="total-box">
+            <h3>TOTAL ESTIMADO</h3>
+            <span id="total">$0</span>
+            <br><br>
+            <button class="btn-enviar" id="btnEnviarPedido">
+                Enviar pedido por WhatsApp
+            </button>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem;">Se abrira WhatsApp y recibiras copia por correo</p>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2025 Coffee & Asados - Calcula tu presupuesto en linea</p>
+</div>
+
+<script>
+    // Precios
+    const precios = {
+        cafe: 1500, cafeLeche: 1800, capuchino: 2000, te: 1200, medialunas: 1500,
+        choripan: 2500, morcilla: 2000, vacio: 18000, pechito: 15000,
+        ensalada: 1500, pan: 1000, bebida: 1500, postre: 2000
+    };
+
+    function actualizarTotal() {
+        let total = 0;
+        total += (document.getElementById('cafe').value || 0) * precios.cafe;
+        total += (document.getElementById('cafeLeche').value || 0) * precios.cafeLeche;
+        total += (document.getElementById('capuchino').value || 0) * precios.capuchino;
+        total += (document.getElementById('te').value || 0) * precios.te;
+        total += (document.getElementById('medialunas').value || 0) * precios.medialunas;
+        total += (document.getElementById('choripan').value || 0) * precios.choripan;
+        total += (document.getElementById('morcilla').value || 0) * precios.morcilla;
+        total += (document.getElementById('vacio').value || 0) * precios.vacio;
+        total += (document.getElementById('pechito').value || 0) * precios.pechito;
+        total += (document.getElementById('ensalada').value || 0) * precios.ensalada;
+        total += (document.getElementById('pan').value || 0) * precios.pan;
+        total += (document.getElementById('bebida').value || 0) * precios.bebida;
+        total += (document.getElementById('postre').value || 0) * precios.postre;
+
+        document.getElementById('total').innerText = '$' + total.toLocaleString('es-CL');
+        return total;
+    }
+
+    function generarResumen() {
+        let resumen = "";
+        if (document.getElementById('cafe').value > 0) resumen += "- Cafe americano: " + document.getElementById('cafe').value + "\n";
+        if (document.getElementById('cafeLeche').value > 0) resumen += "- Cafe con leche: " + document.getElementById('cafeLeche').value + "\n";
+        if (document.getElementById('capuchino').value > 0) resumen += "- Capuchino: " + document.getElementById('capuchino').value + "\n";
+        if (document.getElementById('te').value > 0) resumen += "- Te variado: " + document.getElementById('te').value + "\n";
+        if (document.getElementById('medialunas').value > 0) resumen += "- Medialunas: " + document.getElementById('medialunas').value + "\n";
+        if (document.getElementById('choripan').value > 0) resumen += "- Choripan: " + document.getElementById('choripan').value + "\n";
+        if (document.getElementById('morcilla').value > 0) resumen += "- Morcilla: " + document.getElementById('morcilla').value + "\n";
+        if (document.getElementById('vacio').value > 0) resumen += "- Vacio: " + document.getElementById('vacio').value + " kg\n";
+        if (document.getElementById('pechito').value > 0) resumen += "- Pechito: " + document.getElementById('pechito').value + " kg\n";
+        if (document.getElementById('ensalada').value > 0) resumen += "- Ensalada: " + document.getElementById('ensalada').value + " personas\n";
+        if (document.getElementById('pan').value > 0) resumen += "- Pan asado: " + document.getElementById('pan').value + " personas\n";
+        if (document.getElementById('bebida').value > 0) resumen += "- Gaseosa/Agua: " + document.getElementById('bebida').value + " personas\n";
+        if (document.getElementById('postre').value > 0) resumen += "- Postre: " + document.getElementById('postre').value + " personas\n";
+        
+        if (resumen === "") resumen = "Sin productos seleccionados";
+        return resumen;
+    }
+
+    function enviarAFormulario(nombre, telefono, fecha, direccion, resumen, total) {
+        const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdklL0F6jSPPEsckP3ZVaWXhRnJ3LjhWn4R1hEwBgQN6Nt-xw/formResponse';
+        
+        const iframe = document.createElement('iframe');
+        iframe.name = 'hiddenFrame';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = formUrl;
+        form.target = 'hiddenFrame';
+        form.style.display = 'none';
+        
+        const campos = [
+            { name: 'entry.2101080692', value: nombre },
+            { name: 'entry.650288774', value: telefono },
+            { name: 'entry.502590243', value: fecha },
+            { name: 'entry.423466680', value: direccion },
+            { name: 'entry.1043238486', value: resumen },
+            { name: 'entry.1381165737', value: total }
+        ];
+        
+        campos.forEach(campo => {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = campo.name;
+            input.value = campo.value;
+            form.appendChild(input);
+        });
+        
+        document.body.appendChild(form);
+        form.submit();
+        
+        setTimeout(() => {
+            document.body.removeChild(form);
+            document.body.removeChild(iframe);
+        }, 1000);
+    }
+
+    function enviarPedido() {
+        const nombre = document.getElementById('nombreCliente').value.trim();
+        const telefono = document.getElementById('telefonoCliente').value.trim();
+        const fecha = document.getElementById('fechaEvento').value;
+        const direccion = document.getElementById('direccionEvento').value.trim();
+        
+        if (!nombre || !telefono || !fecha || !direccion) {
+            alert('Por favor, completa todos tus datos antes de enviar el pedido.');
+            return;
+        }
+        
+        const total = actualizarTotal();
+        if (total === 0) {
+            alert('Agrega al menos un producto a tu pedido.');
+            return;
+        }
+        
+        const resumen = generarResumen();
+        
+        enviarAFormulario(nombre, telefono, fecha, direccion, resumen, '$' + total.toLocaleString('es-CL'));
+        
+        let mensajeWhatsApp = "NUEVO PEDIDO - COFFEE & ASADOS\n\n";
+        mensajeWhatsApp += "Cliente: " + nombre + "\n";
+        mensajeWhatsApp += "Telefono: " + telefono + "\n";
+        mensajeWhatsApp += "Fecha: " + fecha + "\n";
+        mensajeWhatsApp += "Direccion: " + direccion + "\n\n";
+        mensajeWhatsApp += "Pedido:\n" + resumen + "\n";
+        mensajeWhatsApp += "Total estimado: $" + total.toLocaleString('es-CL') + "\n\n";
+        mensajeWhatsApp += "Gracias, quedo atento a su cotizacion.";
+        
+        const mensajeCodificado = encodeURIComponent(mensajeWhatsApp);
+        const numeroWhatsApp = '56988160607';
+        const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
+        window.open(urlWhatsApp, '_blank');
+        
+        alert("Pedido enviado. Se abrira WhatsApp para confirmar. Tambien recibiras una copia por correo.");
+    }
+    
+    window.onload = function() {
+        const inputs = document.querySelectorAll('input[type="number"]');
+        inputs.forEach(input => {
+            input.addEventListener('input', actualizarTotal);
+        });
+        document.getElementById('btnEnviarPedido').addEventListener('click', enviarPedido);
+        actualizarTotal();
+    };
+</script>
+</body>
+</html>
