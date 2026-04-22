@@ -181,14 +181,19 @@
             font-size: 1rem;
         }
 
-        .total-box {
-            background: linear-gradient(135deg, #B45F2B, #8B4513);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 28px;
-            text-align: center;
-            margin-top: 1.5rem;
-        }
+
+.total-box {
+    background: linear-gradient(145deg, #5C2E0E, #3E2723, #2C1A10, #1A0D07, #0d0d0d);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 28px;
+    text-align: center;
+    margin-top: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    border: 1px solid rgba(210, 150, 90, 0.2);
+}
+
+
 
         .total-box h3 {
             font-size: 1.8rem;
@@ -233,6 +238,48 @@
             .calc-item { flex-wrap: wrap; gap: 0.5rem; }
             .calc-item input { width: 100%; }
         }
+		
+		
+		
+		
+		/* Botón flotante de WhatsApp */
+.btn-whatsapp-flotante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(115deg, #25D366, #128C7E);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: all 0.3s;
+}
+
+.btn-whatsapp-flotante:hover {
+    transform: scale(1.1);
+    background: linear-gradient(115deg, #128C7E, #0D6C5E);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+/* Responsive para móvil */
+@media (max-width: 768px) {
+    .btn-whatsapp-flotante {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+
     </style>
 </head>
 <body>
@@ -453,5 +500,12 @@
     // Delegar eventos para inputs que se cargan dinamicamente
     document.getElementById('btnEnviarPedido').addEventListener('click', enviarPedido);
 </script>
+
+
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="btn-whatsapp-flotante" target="_blank">
+    💬
+</a>
+
 </body>
 </html>

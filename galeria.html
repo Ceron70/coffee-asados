@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Coffee & Asados - Galería de eventos</title>
+    <link rel="icon" type="image/jpeg" href="imagenes/logo_2.jpg">
+    <style>
+        /* ========== ESTILOS COMPLETOS PARA GALERÍA ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #F8E8D8 0%, #E6C8A8 100%);
+            color: #2C1A10;
+            line-height: 1.5;
+        }
+
+        /* Barra superior */
+        .top-bar {
+            background: #2C1A10;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-area img {
+            height: 80px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .logo-area span {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #F5D5B0;
+        }
+
+        /* Contenedor */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Encabezado de galería */
+        .galeria-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .galeria-header h1 {
+            font-size: 2.5rem;
+            color: #8B4513;
+            margin-bottom: 0.5rem;
+        }
+
+        .galeria-header p {
+            font-size: 1.2rem;
+            color: #2C1A10;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Botón volver */
+        .btn-volver {
+            display: inline-block;
+            background: #B87C4F;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-volver:hover {
+            background: #8B4513;
+            transform: scale(1.02);
+        }
+
+        /* Grid de galería */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .galeria-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .galeria-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .galeria-item p {
+            text-align: center;
+            padding: 1rem;
+            font-weight: 500;
+            color: #8B4513;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2C1A10;
+            color: #E7CFB5;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-top: 4px solid #B87C4F;
+        }
+
+        .footer a {
+            color: #FBC490;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo-area img {
+                height: 55px;
+            }
+            .logo-area span {
+                font-size: 1.2rem;
+            }
+            .galeria-header h1 {
+                font-size: 1.8rem;
+            }
+            .galeria-header p {
+                font-size: 1rem;
+            }
+            .galeria-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            .galeria-item img {
+                height: 160px;
+            }
+        }
+		
+		
+		
+		.galeria-header h1 {
+    font-size: 2.5rem;
+    color: #8B4513;
+    margin-bottom: 0.5rem;
+    animation: slideCenterLeft 3s ease-out infinite;
+}
+
+.galeria-header p {
+    font-size: 1.2rem;
+    color: #2C1A10;
+    margin-bottom: 1.5rem;
+    animation: slideCenterLeft 3s ease-out infinite;
+    animation-delay: 0.3s;
+}
+
+@keyframes slideCenterLeft {
+    0% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    10% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    20% {
+        transform: translateX(0);
+    }
+    30% {
+        transform: translateX(-20px);
+        opacity: 1;
+    }
+    70% {
+        transform: translateX(-20px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-20px);
+        opacity: 1;
+    }
+}
+
+
+/* Botón flotante de WhatsApp */
+.btn-whatsapp-flotante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(115deg, #25D366, #128C7E);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: all 0.3s;
+}
+
+.btn-whatsapp-flotante:hover {
+    transform: scale(1.1);
+    background: linear-gradient(115deg, #128C7E, #0D6C5E);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+/* Responsive para móvil */
+@media (max-width: 768px) {
+    .btn-whatsapp-flotante {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="logo-area">
+        <img src="imagenes/logo_2.jpg" alt="Logo Coffee & Asados">
+        <span>Coffee & Asados</span>
+    </div>
+</div>
+
+<div class="container">
+    <div class="galeria-header">
+        <h1>📸 Galería de eventos</h1>
+        <p>Mira algunos de nuestros trabajos recientes</p>
+        <a href="index.html" class="btn-volver">← Volver al inicio</a>
+    </div>
+
+    <div class="galeria-grid">
+        <div class="galeria-item">
+            <img src="galeria_eventos/foto1.jpg" alt="Evento Coffee & Asados">
+            <p>Evento empresarial - Coffee</p>
+        </div>
+        <div class="galeria-item">
+            <img src="galeria_eventos/foto2.jpg" alt="Evento Coffee & Asados">
+            <p>Asado para 30 personas</p>
+        </div>
+        <div class="galeria-item">
+            <img src="galeria_eventos/foto3.jpg" alt="Evento Coffee & Asados">
+            <p>Coffee break - Oficina</p>
+        </div>
+        <div class="galeria-item">
+            <img src="galeria_eventos/foto4.jpg" alt="Evento Coffee & Asados">
+            <p>Asado con choripanes</p>
+        </div>
+        <div class="galeria-item">
+            <img src="galeria_eventos/foto5.jpg" alt="Evento Coffee & Asados">
+            <p>Cumpleaños familiar</p>
+        </div>
+		
+    
+	</div>
+</div>
+
+<div class="footer">
+    <p>© 2025 Coffee & Asados - Servicios con pasión por el buen sabor ☕🥩</p>
+    <p><a href="index.html">Volver al inicio</a></p>
+</div>
+
+
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="btn-whatsapp-flotante" target="_blank">
+    💬
+</a>
+
+
+</body>
+</html>
