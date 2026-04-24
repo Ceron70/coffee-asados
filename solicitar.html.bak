@@ -480,6 +480,7 @@
         <small>Ingresa el número de invitados</small>
     </div>
 
+    <!-- OPCIONES COFFEE -->
     <div class="opciones-section">
         <div class="opciones-header">
             <h2><span class="granos-cafe">☕✨</span> Opciones de Coffee</h2>
@@ -488,6 +489,7 @@
         <div id="opciones-coffee" class="opciones-grid"><p>Cargando opciones de coffee...</p></div>
     </div>
 
+    <!-- OPCIONES ASADOS -->
     <div class="opciones-section">
         <div class="opciones-header">
             <h2><span class="parrilla">🥩🔥<span class="fuego"><span class="fuego-1">🔥</span><span class="fuego-2">🔥</span><span class="fuego-3">🔥</span></span><span class="brasas"><span class="brasa-1">•</span><span class="brasa-2">•</span><span class="brasa-3">•</span></span></span> Opciones de Asados</h2>
@@ -502,12 +504,14 @@
 </div>
 
 <script>
+    // URL de la API de productos (coffee y asados)
     const API_URL_PRODUCTOS = 'https://script.google.com/macros/s/AKfycbxYZY89WjAdRXXwS1UFoGotccdP1QKlYYWqvY6__3BTm0xKEYjD87Pn_8u4LqiaIuCD/exec';
+    
+    // URL para guardar solicitudes en Google Sheets
+  const API_URL_GUARDAR = 'https://script.google.com/macros/s/AKfycbzTQ4E8UJfd_VdDE-jMPSmD_hQxy554nR48xxYO4BqpdOgk3bltJQGST2n7YyCVf0YrYQ/exec';
   
-  const API_URL_GUARDAR = 'https://script.google.com/macros/s/AKfycbygxcKswkMSVh9-Lysq3ZbbLm2gqp7EXB4eQB6Ka_WcqxIS_Tf_XcYDY6z8R5_9vFyj-w/exec';
   
-  
-  
+    
     let opcionesCoffee = [];
     let opcionesAsados = [];
     let opcionSeleccionada = null;
@@ -545,20 +549,45 @@
         tipoSeleccionado = null;
     }
 
-    async function guardarEnSheet(datos) {
-        try {
-            const response = await fetch(API_URL_GUARDAR, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(datos)
-            });
-            console.log('Datos enviados a Google Sheets');
-        } catch (error) {
-            console.error('Error al guardar:', error);
-        }
-    }
+    function guardarEnSheet(datos) {
+    // Crear un iframe oculto para enviar los datos
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.name = 'hiddenFrame';
+    document.body.appendChild(iframe);
+    
+    // Crear un formulario y enviarlo al iframe
+    const form = document.createElement('form');
+    form.method = 'GET';
+    form.action = API_URL_GUARDAR;
+    form.target = 'hiddenFrame';
+    form.style.display = 'none';
+    
+    // Agregar los datos como campos ocultos
+    Object.keys(datos).forEach(key => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = datos[key];
+        form.appendChild(input);
+    });
+    
+    document.body.appendChild(form);
+    form.submit();
+    
+    // Limpiar después de 1 segundo
+    setTimeout(() => {
+        document.body.removeChild(form);
+        document.body.removeChild(iframe);
+    }, 1000);
+    
+    console.log('Datos enviados a Google Sheets (GET):', datos);
+}
 
+
+	
+	
+	
     async function cargarOpciones() {
         try {
             const response = await fetch(API_URL_PRODUCTOS);
@@ -656,7 +685,7 @@
         return { total, listaItems };
     }
 
-    async function enviarCotizacion(tipoForzado, opcionForzada) {
+    function enviarCotizacion(tipoForzado, opcionForzada) {
         const datos = validarDatos();
         if (!datos) return;
         
@@ -682,7 +711,7 @@
             opcion: opcion,
             personas: datos.personas
         };
-        await guardarEnSheet(datosSheet);
+        guardarEnSheet(datosSheet);
         
         // 2. Enviar por WhatsApp
         let mensajeWhatsApp = "SOLICITUD DE COTIZACION - COFFEE & ASADOS\n\n";
