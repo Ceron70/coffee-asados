@@ -89,3 +89,71 @@
     background: linear-gradient(115deg, #4A2810, #2C1A10);
     transform: scale(1.02);
 }
+
+/* Taza de café animada */
+.taza-cafe {
+    display: inline-block;
+    position: relative;
+    margin-right: 12px;
+    font-size: 2rem;
+    animation: vibrarTaza 0.3s ease-in-out infinite;
+}
+
+@keyframes vibrarTaza {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-2px); }
+    100% { transform: translateY(0px); }
+}
+
+.vapor {
+    position: absolute;
+    top: -20px;
+    left: 5px;
+    display: flex;
+    gap: 5px;
+    pointer-events: none;
+}
+
+.vapor span {
+    font-size: 1rem;
+    opacity: 0;
+    animation: subirVapor 2s ease-in-out infinite;
+}
+
+.vapor-1 { animation-delay: 0s; }
+.vapor-2 { animation-delay: 0.7s; }
+.vapor-3 { animation-delay: 1.4s; }
+
+@keyframes subirVapor {
+    0% {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+    20% {
+        opacity: 0.8;
+    }
+    80% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+}
+
+/* Efecto hover en secciones de opciones */
+.opciones-section {
+    transition: all 0.4s ease;
+}
+
+.opciones-section:hover {
+    background: rgba(210, 105, 30, 0.08);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    transform: translateY(-3px);
+}
+
+/* Efecto específico para Asados (color carne más cálido) */
+.opciones-section:last-child:hover {
+    background: rgba(205, 133, 63, 0.1);
+    border-left: 4px solid #D2691E;
+}
