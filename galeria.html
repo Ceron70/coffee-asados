@@ -6,7 +6,6 @@
     <title>Coffee & Asados - Galería de eventos</title>
     <link rel="icon" type="image/jpeg" href="imagenes/logo_2.jpg">
     <style>
-        /* ========== ESTILOS COMPLETOS PARA GALERÍA ========== */
         * {
             margin: 0;
             padding: 0;
@@ -20,7 +19,6 @@
             line-height: 1.5;
         }
 
-        /* Barra superior */
         .top-bar {
             background: #2C1A10;
             padding: 0.8rem 2rem;
@@ -51,16 +49,23 @@
             font-size: 1.6rem;
             font-weight: bold;
             color: #F5D5B0;
+            animation: cambiarColorCafe 4s infinite;
         }
 
-        /* Contenedor */
+        @keyframes cambiarColorCafe {
+            0% { color: #F5D5B0; }
+            25% { color: #D2691E; }
+            50% { color: #CD853F; }
+            75% { color: #F5D5B0; }
+            100% { color: #F5D5B0; }
+        }
+
         .container {
             max-width: 1300px;
             margin: 0 auto;
             padding: 2rem 1.5rem;
         }
 
-        /* Encabezado de galería */
         .galeria-header {
             text-align: center;
             margin-bottom: 2rem;
@@ -70,24 +75,37 @@
             font-size: 2.5rem;
             color: #8B4513;
             margin-bottom: 0.5rem;
+            animation: slideCenterLeft 1.5s ease-out, glowText 4s ease-in-out infinite;
         }
 
         .galeria-header p {
             font-size: 1.2rem;
             color: #2C1A10;
             margin-bottom: 1.5rem;
+            animation: slideCenterLeft 1.5s ease-out, glowText 4s ease-in-out infinite;
+            animation-delay: 0.3s;
         }
 
-        /* Botón volver */
+        @keyframes slideCenterLeft {
+            0% { transform: translateX(100px); opacity: 0; }
+            40% { transform: translateX(0); opacity: 1; }
+            70% { transform: translateX(0); }
+            100% { transform: translateX(-20px); opacity: 1; }
+        }
+
+        @keyframes glowText {
+            0%, 85%, 100% { text-shadow: 0 0 0px rgba(255,215,0,0); color: white; }
+            92% { text-shadow: 0 0 12px rgba(255,215,0,0.8); color: #FFF5E0; }
+        }
+
         .btn-volver {
-            display: inline-block;
             background: #B87C4F;
             color: white;
-            padding: 10px 24px;
-            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
             transition: 0.3s;
+            display: inline-block;
         }
 
         .btn-volver:hover {
@@ -95,41 +113,195 @@
             transform: scale(1.02);
         }
 
-        /* Grid de galería */
-        .galeria-grid {
+        .eventos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
             margin: 2rem 0;
         }
 
-        .galeria-item {
+        .evento-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(210, 150, 90, 0.2);
+            cursor: pointer;
         }
 
-        .galeria-item:hover {
+        .evento-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
         }
 
-        .galeria-item img {
+        .evento-portada {
             width: 100%;
             height: 220px;
             object-fit: cover;
-            display: block;
+            transition: all 0.3s;
         }
 
-        .galeria-item p {
-            text-align: center;
-            padding: 1rem;
-            font-weight: 500;
+        .evento-card:hover .evento-portada {
+            transform: scale(1.02);
+        }
+
+        .evento-info {
+            padding: 1.5rem;
+        }
+
+        .evento-info h3 {
             color: #8B4513;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        /* Footer */
+        .evento-tipo {
+            display: inline-block;
+            background: linear-gradient(115deg, #D2691E, #A0522D);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-weight: normal;
+        }
+
+        .evento-info p {
+            color: #5A3A28;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .evento-detalles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #F0DECA;
+        }
+
+        .evento-detalles span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #8B4513;
+            font-size: 0.85rem;
+            background: #FEF3E9;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-contenedor {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            background: #1A0D07;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        .modal-imagen {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
+            background: #0d0d0d;
+        }
+
+        .modal-btn-cerrar {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            z-index: 10;
+        }
+
+        .modal-btn-cerrar:hover {
+            background: #D2691E;
+            transform: scale(1.05);
+        }
+
+        .modal-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .modal-btn:hover {
+            background: #D2691E;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .modal-btn-prev {
+            left: 20px;
+        }
+
+        .modal-btn-next {
+            right: 20px;
+        }
+
+        .modal-contador {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            background: rgba(0,0,0,0.6);
+            padding: 8px;
+            font-size: 0.9rem;
+        }
+
         .footer {
             background: #2C1A10;
             color: #E7CFB5;
@@ -148,115 +320,48 @@
             text-decoration: underline;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                text-align: center;
-            }
-            .logo-area img {
-                height: 55px;
-            }
-            .logo-area span {
-                font-size: 1.2rem;
-            }
-            .galeria-header h1 {
-                font-size: 1.8rem;
-            }
-            .galeria-header p {
-                font-size: 1rem;
-            }
-            .galeria-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1rem;
-            }
-            .galeria-item img {
-                height: 160px;
+            .logo-area img { height: 55px; }
+            .galeria-header h1 { font-size: 1.8rem; }
+            .galeria-header p { font-size: 1rem; }
+            .container { padding: 1rem; }
+            .eventos-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .evento-portada { height: 180px; }
+            .evento-info h3 { font-size: 1.2rem; }
+            .modal-btn { width: 35px; height: 35px; font-size: 1.2rem; }
+            .modal-btn-cerrar { width: 35px; height: 35px; font-size: 1.5rem; }
+        }
+
+        .btn-whatsapp-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(115deg, #25D366, #128C7E);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .btn-whatsapp-flotante:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .btn-whatsapp-flotante {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
         }
-		
-		
-		
-		.galeria-header h1 {
-    font-size: 2.5rem;
-    color: #8B4513;
-    margin-bottom: 0.5rem;
-    animation: slideCenterLeft 3s ease-out infinite;
-}
-
-.galeria-header p {
-    font-size: 1.2rem;
-    color: #2C1A10;
-    margin-bottom: 1.5rem;
-    animation: slideCenterLeft 3s ease-out infinite;
-    animation-delay: 0.3s;
-}
-
-@keyframes slideCenterLeft {
-    0% {
-        transform: translateX(100px);
-        opacity: 0;
-    }
-    10% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-    20% {
-        transform: translateX(0);
-    }
-    30% {
-        transform: translateX(-20px);
-        opacity: 1;
-    }
-    70% {
-        transform: translateX(-20px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(-20px);
-        opacity: 1;
-    }
-}
-
-
-/* Botón flotante de WhatsApp */
-.btn-whatsapp-flotante {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: linear-gradient(115deg, #25D366, #128C7E);
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    z-index: 1000;
-    transition: all 0.3s;
-}
-
-.btn-whatsapp-flotante:hover {
-    transform: scale(1.1);
-    background: linear-gradient(115deg, #128C7E, #0D6C5E);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-}
-
-/* Responsive para móvil */
-@media (max-width: 768px) {
-    .btn-whatsapp-flotante {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-        bottom: 15px;
-        right: 15px;
-    }
-}
-
-
     </style>
 </head>
 <body>
@@ -271,34 +376,13 @@
 <div class="container">
     <div class="galeria-header">
         <h1>📸 Galería de eventos</h1>
-        <p>Mira algunos de nuestros trabajos recientes</p>
+        <p>Haz clic en cualquier tarjeta para ver las fotos</p>
         <a href="index.html" class="btn-volver">← Volver al inicio</a>
     </div>
 
-    <div class="galeria-grid">
-        <div class="galeria-item">
-            <img src="galeria_eventos/foto1.jpg" alt="Evento Coffee & Asados">
-            <p>Evento empresarial - Coffee</p>
-        </div>
-        <div class="galeria-item">
-            <img src="galeria_eventos/foto2.jpg" alt="Evento Coffee & Asados">
-            <p>Asado para 30 personas</p>
-        </div>
-        <div class="galeria-item">
-            <img src="galeria_eventos/foto3.jpg" alt="Evento Coffee & Asados">
-            <p>Coffee break - Oficina</p>
-        </div>
-        <div class="galeria-item">
-            <img src="galeria_eventos/foto4.jpg" alt="Evento Coffee & Asados">
-            <p>Asado con choripanes</p>
-        </div>
-        <div class="galeria-item">
-            <img src="galeria_eventos/foto5.jpg" alt="Evento Coffee & Asados">
-            <p>Cumpleaños familiar</p>
-        </div>
-		
-    
-	</div>
+    <div class="eventos-grid" id="eventos-grid">
+        <p style="text-align:center; width:100%;">Cargando eventos...</p>
+    </div>
 </div>
 
 <div class="footer">
@@ -306,12 +390,221 @@
     <p><a href="index.html">Volver al inicio</a></p>
 </div>
 
+<!-- Modal -->
+<div id="modal" class="modal">
+    <div class="modal-contenedor">
+        <button class="modal-btn-cerrar" id="modalCerrar">✕</button>
+        <button class="modal-btn modal-btn-prev" id="modalPrev">◀</button>
+        <img id="modalImagen" class="modal-imagen" src="" alt="Foto del evento">
+        <button class="modal-btn modal-btn-next" id="modalNext">▶</button>
+        <div id="modalContador" class="modal-contador"></div>
+    </div>
+</div>
 
-<!-- Botón flotante de WhatsApp -->
-<a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="btn-whatsapp-flotante" target="_blank">
-    💬
-</a>
+<script>
+    // ========== CONFIGURACIÓN DE EVENTOS ==========
+    // SOLO DEFINES LA CARPETA Y EL CÓDIGO DETECTA LAS FOTOS AUTOMÁTICAMENTE
+    // Las fotos deben llamarse: foto1.jpg, foto2.jpg, foto3.jpg...
+    const eventos = [
+        {
+            id: 1,
+            titulo: "Asado Empresarial - TechCorp",
+            tipo: "Asado",
+            descripcion: "Evento para 50 personas en la oficina central. Incluyó vacío, choripán, morcilla y ensaladas.",
+            fecha: "15 Marzo 2025",
+            lugar: "Oficinas TechCorp, Santiago",
+            carpeta: "galeria_1"   // Solo pones la carpeta, el código busca las fotos automáticamente
+        },
+        {
+            id: 2,
+            titulo: "Coffee Break - Agencia Creativa",
+            tipo: "Coffee",
+            descripcion: "Desayuno laboral para 30 personas. Café, medialunas, facturas y jugos naturales.",
+            fecha: "22 Marzo 2025",
+            lugar: "Agencia Creativa, Providencia",
+            carpeta: "galeria_2"
+        },
+        {
+            id: 3,
+            titulo: "Cumpleaños de Sofía",
+            tipo: "Asado",
+            descripcion: "Celebración familiar para 25 personas. Asado con choripán, morcilla y ensaladas.",
+            fecha: "5 Abril 2025",
+            lugar: "Casa particular, Las Condes",
+            carpeta: "galeria_3"
+        },
+        {
+            id: 4,
+            titulo: "Lanzamiento de Producto",
+            tipo: "Coffee",
+            descripcion: "Evento corporativo para 80 personas. Coffee premium con tortas, queques y capuchinos.",
+            fecha: "12 Abril 2025",
+            lugar: "Hotel Sheraton, Santiago",
+            carpeta: "galeria_4"
+        }
+    ];
 
+    // Variables para el modal
+    let fotosActuales = [];
+    let indiceActual = 0;
+
+    // Función para obtener el ícono según el tipo
+    function getIcono(tipo) {
+        if (tipo === 'Coffee') return '☕';
+        if (tipo === 'Asado') return '🥩';
+        return '🍽️';
+    }
+
+    // Función para obtener el color según el tipo
+    function getColor(tipo) {
+        if (tipo === 'Coffee') return '#D2691E';
+        if (tipo === 'Asado') return '#8B4513';
+        return '#A0522D';
+    }
+
+    // DETECTAR AUTOMÁTICAMENTE LAS FOTOS DE UNA CARPETA
+    // Intenta cargar hasta 50 fotos (foto1.jpg a foto50.jpg)
+    async function detectarFotos(carpeta, maxFotos = 50) {
+        const fotos = [];
+        for (let i = 1; i <= maxFotos; i++) {
+            const url = `galeria_eventos/${carpeta}/foto${i}.jpg`;
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                if (response.ok) {
+                    fotos.push(url);
+                } else {
+                    break; // Si una foto no existe, asumimos que no hay más
+                }
+            } catch (error) {
+                break;
+            }
+        }
+        return fotos;
+    }
+
+    // Cargar todas las fotos de todos los eventos
+    async function cargarEventos() {
+        const grid = document.getElementById('eventos-grid');
+        
+        if (eventos.length === 0) {
+            grid.innerHTML = '<p style="text-align:center; width:100%;">No hay eventos cargados aún.</p>';
+            return;
+        }
+
+        // Mostrar loading
+        grid.innerHTML = '<p style="text-align:center; width:100%;">Detectando fotos de los eventos...</p>';
+        
+        let html = '';
+        
+        for (let i = 0; i < eventos.length; i++) {
+            const evento = eventos[i];
+            const fotos = await detectarFotos(evento.carpeta);
+            const portada = fotos.length > 0 ? fotos[0] : 'https://placehold.co/400x300?text=Sin+Fotos';
+            
+            html += `
+                <div class="evento-card" data-id="${evento.id}" data-fotos='${JSON.stringify(fotos)}'>
+                    <img class="evento-portada" src="${portada}" alt="${evento.titulo}" onerror="this.src='https://placehold.co/400x300?text=Portada'">
+                    <div class="evento-info">
+                        <h3>
+                            ${getIcono(evento.tipo)} ${evento.titulo}
+                            <span class="evento-tipo" style="background: linear-gradient(115deg, ${getColor(evento.tipo)}, ${getColor(evento.tipo)}dd);">
+                                ${evento.tipo}
+                            </span>
+                        </h3>
+                        <p>${evento.descripcion}</p>
+                        <div class="evento-detalles">
+                            <span>📅 ${evento.fecha}</span>
+                            <span>📍 ${evento.lugar}</span>
+                            <span>📸 ${fotos.length} fotos</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        grid.innerHTML = html;
+        
+        // Agregar eventos de clic a las tarjetas
+        const cards = document.querySelectorAll('.evento-card');
+        for (let i = 0; i < cards.length; i++) {
+            cards[i].addEventListener('click', function() {
+                const fotos = JSON.parse(this.getAttribute('data-fotos'));
+                if (fotos.length > 0) {
+                    abrirModal(fotos, 0);
+                } else {
+                    alert('Este evento no tiene fotos aún.');
+                }
+            });
+        }
+    }
+
+    // Abrir el modal con las fotos de un evento
+    function abrirModal(fotos, indice) {
+        fotosActuales = fotos;
+        indiceActual = indice;
+        const modal = document.getElementById('modal');
+        const modalImagen = document.getElementById('modalImagen');
+        const modalContador = document.getElementById('modalContador');
+        
+        modalImagen.src = fotosActuales[indiceActual];
+        modalContador.textContent = `${indiceActual + 1} / ${fotosActuales.length}`;
+        modal.classList.add('active');
+        
+        // Prevenir scroll del body
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Cerrar el modal
+    function cerrarModal() {
+        const modal = document.getElementById('modal');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Siguiente foto
+    function nextFoto() {
+        if (indiceActual + 1 < fotosActuales.length) {
+            indiceActual++;
+            document.getElementById('modalImagen').src = fotosActuales[indiceActual];
+            document.getElementById('modalContador').textContent = `${indiceActual + 1} / ${fotosActuales.length}`;
+        }
+    }
+
+    // Foto anterior
+    function prevFoto() {
+        if (indiceActual - 1 >= 0) {
+            indiceActual--;
+            document.getElementById('modalImagen').src = fotosActuales[indiceActual];
+            document.getElementById('modalContador').textContent = `${indiceActual + 1} / ${fotosActuales.length}`;
+        }
+    }
+
+    // Inicializar
+    document.addEventListener('DOMContentLoaded', function() {
+        cargarEventos();
+        
+        document.getElementById('modalCerrar').addEventListener('click', cerrarModal);
+        document.getElementById('modalPrev').addEventListener('click', prevFoto);
+        document.getElementById('modalNext').addEventListener('click', nextFoto);
+        
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('modal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'ArrowRight') nextFoto();
+                else if (e.key === 'ArrowLeft') prevFoto();
+                else if (e.key === 'Escape') cerrarModal();
+            }
+        });
+    });
+</script>
+
+<a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="btn-whatsapp-flotante" target="_blank">💬</a>
 
 </body>
 </html>
