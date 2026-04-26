@@ -52,6 +52,7 @@
         .articulo-fecha { color: #A6521E; margin: 0.5rem 0 1rem; display: flex; align-items: center; gap: 0.5rem; }
         .articulo-contenido { font-size: 1.05rem; color: #3E2416; line-height: 1.7; }
         .articulo-contenido p { margin-bottom: 1rem; }
+        .articulo-contenido ul, .articulo-contenido ol { margin: 1rem 0 1rem 2rem; }
         .loading { text-align: center; padding: 3rem; color: #8B4513; }
         .footer {
             background: linear-gradient(145deg, #1A0D07, #2C1A10);
@@ -93,7 +94,8 @@
 </div>
 
 <script>
-    const API_URL_BLOG = 'https://script.google.com/macros/s/ID_DE_TU_SCRIPT/exec/blog';
+    // ⚠️ LA MISMA URL DE LA API DEL BLOG
+    const API_URL_BLOG = 'https://script.google.com/macros/s/AKfycbwkajX80dtc1d9UNzGmTqqxVqy__0ZjeOyr5h896jBmXdPTrup8Jnh_j-mRIW8D8yqEMQ/exec';
     
     async function cargarArticulo() {
         const articuloId = localStorage.getItem('articuloId');
@@ -106,7 +108,7 @@
             const response = await fetch(API_URL_BLOG);
             const data = await response.json();
             
-            if (data.success && data.articulos.length > 0) {
+            if (data.success && data.articulos && data.articulos.length > 0) {
                 const articulo = data.articulos.find(a => a.id == articuloId);
                 if (articulo) {
                     mostrarArticulo(articulo);
