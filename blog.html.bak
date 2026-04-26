@@ -304,8 +304,7 @@
 <script>
     // ⚠️ TU URL DE LA API DEL BLOG
 	
-	const API_URL_BLOG = 'https://script.google.com/macros/s/AKfycbwkajX80dtc1d9UNzGmTqqxVqy__0ZjeOyr5h896jBmXdPTrup8Jnh_j-mRIW8D8yqEMQ/exec';
-	
+const API_URL_BLOG = 'https://script.google.com/macros/s/AKfycbwJsP99Dm66Ze9we6TQxdEfdazPIsAJBWBiF5mp4qPlmLZbskIFN1qwexWzDbaDmH0sVQ/exec';
     
     let articulosOriginales = [];
     let categoriaActual = 'todos';
