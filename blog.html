@@ -173,9 +173,9 @@
 </div>
 
 <script>
-    const API_URL_BLOG = 'https://script.google.com/macros/s/AKfycbwJsP99Dm66Ze9we6TQxdEfdazPIsAJBWBiF5mp4qPlmLZbskIFN1qwexWzDbaDmH0sVQ/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwJsP99Dm66Ze9we6TQxdEfdazPIsAJBWBiF5mp4qPlmLZbskIFN1qwexWzDbaDmH0sVQ/exec';
     
-    let articulosOriginales = [];
+    let articulos = [];
     let categoriaActual = 'todos';
 
     async function cargarArticulos() {
@@ -183,47 +183,47 @@
         grid.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-pulse"></i> Cargando artículos...</div>';
         
         try {
-            const response = await fetch(API_URL_BLOG);
+            const response = await fetch(API_URL);
             const data = await response.json();
-            console.log('Datos completos:', data);
+            console.log('Datos:', data);
             
-            // La API devuelve los artículos en la propiedad "datos"
+            // Los artículos están en data.datos
             if (data.success && data.datos && data.datos.length > 0) {
-                articulosOriginales = data.datos;
+                articulos = data.datos;
                 mostrarArticulos();
             } else {
-                grid.innerHTML = '<div class="loading">No hay artículos disponibles. Total: ' + (data.total || 0) + '</div>';
+                grid.innerHTML = '<div class="loading">No hay artículos disponibles.</div>';
             }
         } catch (error) {
             console.error('Error:', error);
-            grid.innerHTML = '<div class="loading">Error al cargar los artículos: ' + error.message + '</div>';
+            grid.innerHTML = '<div class="loading">Error al cargar los artículos.</div>';
         }
     }
 
     function mostrarArticulos() {
         const grid = document.getElementById('blog-grid');
         
-        let articulosFiltrados = articulosOriginales;
+        let filtrados = articulos;
         if (categoriaActual !== 'todos') {
-            articulosFiltrados = articulosOriginales.filter(a => a.categoria === categoriaActual);
+            filtrados = articulos.filter(a => a.categoria === categoriaActual);
         }
         
-        if (articulosFiltrados.length === 0) {
+        if (filtrados.length === 0) {
             grid.innerHTML = '<div class="loading">No hay artículos en esta categoría.</div>';
             return;
         }
         
         let html = '';
-        for (let i = 0; i < articulosFiltrados.length; i++) {
-            const articulo = articulosFiltrados[i];
+        for (let i = 0; i < filtrados.length; i++) {
+            const a = filtrados[i];
             html += `
-                <div class="articulo-card" onclick="verArticulo(${articulo.id})">
-                    <img class="articulo-imagen" src="${articulo.imagen}" alt="${articulo.titulo}" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=Imagen'">
+                <div class="articulo-card" onclick="verArticulo(${a.id})">
+                    <img class="articulo-imagen" src="${a.imagen}" alt="${a.titulo}" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=Imagen'">
                     <div class="articulo-info">
-                        <span class="articulo-categoria">${articulo.categoria}</span>
-                        <h3>${articulo.titulo}</h3>
-                        <p>${articulo.resumen}</p>
-                        <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${articulo.fecha}</div>
+                        <span class="articulo-categoria">${a.categoria}</span>
+                        <h3>${a.titulo}</h3>
+                        <p>${a.resumen}</p>
+                        <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${a.fecha}</div>
                     </div>
                 </div>
             `;
