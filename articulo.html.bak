@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Aroma & Carbón - Artículo</title>
+    <link rel="icon" type="image/jpeg" href="imagenes/logo_2.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #FDF8F0 0%, #F5EDE0 100%);
+            color: #2C2418;
+            line-height: 1.6;
+        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .top-bar {
+            background: #1A0D07;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(26, 13, 7, 0.95);
+        }
+        .logo-area { display: flex; align-items: center; gap: 1rem; }
+        .logo-area img { height: 55px; width: auto; border-radius: 12px; }
+        .logo-area span { font-size: 1.4rem; font-weight: 700; color: #F5D5B0; font-family: 'Playfair Display', serif; }
+        .btn-volver { background: rgba(210, 105, 30, 0.2); color: #F5D5B0; padding: 0.5rem 1.2rem; border-radius: 30px; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(210, 105, 30, 0.5); }
+        .btn-volver i { margin-right: 0.5rem; }
+        .btn-volver:hover { background: #8B4513; }
+        .hero {
+            background: linear-gradient(115deg, rgba(26, 13, 7, 0.85), rgba(44, 26, 16, 0.9)), 
+                        url('https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-size: cover;
+            background-position: center 35%;
+            padding: 3rem 2rem;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        .articulo-imagen { width: 100%; max-height: 400px; object-fit: cover; border-radius: 24px; margin-bottom: 1.5rem; }
+        .articulo-categoria { display: inline-block; background: linear-gradient(115deg, #D2691E, #A0522D); color: white; font-size: 0.8rem; padding: 0.3rem 1rem; border-radius: 50px; margin-bottom: 1rem; }
+        .articulo-fecha { color: #A6521E; margin: 0.5rem 0 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .articulo-contenido { font-size: 1.05rem; color: #3E2416; line-height: 1.7; }
+        .articulo-contenido p { margin-bottom: 1rem; }
+        .loading { text-align: center; padding: 3rem; color: #8B4513; }
+        .footer {
+            background: linear-gradient(145deg, #1A0D07, #2C1A10);
+            color: #E7CFB5;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-top: 4px solid #B87C4F;
+        }
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 1.5rem; }
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="logo-area">
+        <img src="imagenes/logo_2.jpg" alt="Logo Aroma & Carbón">
+        <span>Aroma & Carbón</span>
+    </div>
+    <a href="blog.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver al blog</a>
+</div>
+
+<div class="hero">
+    <div>
+        <h1 id="articulo-titulo">Cargando artículo...</h1>
+    </div>
+</div>
+
+<div class="container" id="articulo-container">
+    <div class="loading"><i class="fas fa-spinner fa-pulse"></i> Cargando contenido...</div>
+</div>
+
+<div class="footer">
+    <p>© 2025 Aroma & Carbón - Aroma a café, sabor a carbón ☕🔥</p>
+</div>
+
+<script>
+    const API_URL_BLOG = 'https://script.google.com/macros/s/ID_DE_TU_SCRIPT/exec/blog';
+    
+    async function cargarArticulo() {
+        const articuloId = localStorage.getItem('articuloId');
+        if (!articuloId) {
+            window.location.href = 'blog.html';
+            return;
+        }
+        
+        try {
+            const response = await fetch(API_URL_BLOG);
+            const data = await response.json();
+            
+            if (data.success && data.articulos.length > 0) {
+                const articulo = data.articulos.find(a => a.id == articuloId);
+                if (articulo) {
+                    mostrarArticulo(articulo);
+                } else {
+                    document.getElementById('articulo-container').innerHTML = '<div class="loading">Artículo no encontrado</div>';
+                }
+            } else {
+                document.getElementById('articulo-container').innerHTML = '<div class="loading">Error al cargar el artículo</div>';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('articulo-container').innerHTML = '<div class="loading">Error al cargar el artículo</div>';
+        }
+    }
+
+    function mostrarArticulo(articulo) {
+        document.getElementById('articulo-titulo').innerText = articulo.titulo;
+        
+        const container = document.getElementById('articulo-container');
+        container.innerHTML = `
+            <img class="articulo-imagen" src="${articulo.imagen}" alt="${articulo.titulo}" onerror="this.src='https://placehold.co/800x400?text=Imagen'">
+            <span class="articulo-categoria">${articulo.categoria}</span>
+            <h1 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${articulo.titulo}</h1>
+            <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${articulo.fecha}</div>
+            <div class="articulo-contenido">${articulo.contenido}</div>
+        `;
+    }
+
+    document.addEventListener('DOMContentLoaded', cargarArticulo);
+</script>
+
+</body>
+</html>

@@ -5,17 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Coffee & Asados - Solicitar cotización</title>
     <link rel="icon" type="image/jpeg" href="imagenes/logo_2.jpg">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(145deg, #F8E8D8 0%, #E6C8A8 100%);
-            color: #2C1A10;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #FDF8F0 0%, #F5EDE0 100%);
+            color: #2C2418;
             line-height: 1.5;
         }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ========== BARRA SUPERIOR ========== */
         .top-bar {
-            background: #2C1A10;
-            padding: 0.8rem 2rem;
+            background: #1A0D07;
+            padding: 1rem 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -24,173 +39,180 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(26, 13, 7, 0.95);
         }
-        .logo-area { display: flex; align-items: center; gap: 1rem; }
-        .logo-area img { height: 80px; width: auto; border-radius: 12px; }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-area img {
+            height: 55px;
+            width: auto;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .logo-area img:hover {
+            transform: scale(1.02);
+        }
+
         .logo-area span {
-            font-size: 1.6rem;
-            font-weight: bold;
+            font-size: 1.4rem;
+            font-weight: 700;
             color: #F5D5B0;
-            animation: cambiarColorCafe 4s infinite;
+            letter-spacing: 1px;
+            font-family: 'Playfair Display', serif;
         }
-        @keyframes cambiarColorCafe {
-            0% { color: #F5D5B0; }
-            25% { color: #D2691E; }
-            50% { color: #CD853F; }
-            75% { color: #F5D5B0; }
-            100% { color: #F5D5B0; }
-        }
+
         .btn-volver {
-            background: #B87C4F;
-            color: white;
+            background: rgba(210, 105, 30, 0.2);
+            color: #F5D5B0;
             padding: 0.5rem 1.2rem;
             border-radius: 30px;
             text-decoration: none;
             transition: 0.3s;
+            font-size: 0.9rem;
+            border: 1px solid rgba(210, 105, 30, 0.5);
         }
-        .btn-volver:hover { background: #8B4513; }
+
+        .btn-volver i {
+            margin-right: 0.5rem;
+        }
+
+        .btn-volver:hover {
+            background: #8B4513;
+            border-color: #8B4513;
+        }
+
+        /* ========== HERO ========== */
         .hero {
-            background: linear-gradient(115deg, rgba(44, 26, 16, 0.7), rgba(92, 51, 23, 0.8)), 
+            background: linear-gradient(115deg, rgba(26, 13, 7, 0.85), rgba(44, 26, 16, 0.9)), 
                         url('https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=1600');
             background-size: cover;
-            background-position: center 30%;
-            height: 40vh;
-            min-height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-position: center 35%;
+            padding: 4rem 2rem;
             text-align: center;
             color: white;
         }
-        .hero h1 { font-size: 2.5rem; animation: slideCenterLeft 1.5s ease-out, glowText 4s ease-in-out infinite; }
-        .hero p { font-size: 1.2rem; animation: slideCenterLeft 1.5s ease-out, glowText 4s ease-in-out infinite; animation-delay: 0.3s; }
-        @keyframes slideCenterLeft {
-            0% { transform: translateX(100px); opacity: 0; }
-            40% { transform: translateX(0); opacity: 1; }
-            70% { transform: translateX(0); }
-            100% { transform: translateX(-20px); opacity: 1; }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
         }
-        @keyframes glowText {
-            0%, 85%, 100% { text-shadow: 0 0 0px rgba(255,215,0,0); color: white; }
-            92% { text-shadow: 0 0 12px rgba(255,215,0,0.8); color: #FFF5E0; }
+
+        .hero h1 i {
+            margin-right: 0.5rem;
         }
-        .container { max-width: 1300px; margin: 0 auto; padding: 2rem; }
-        .notificacion {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 2000;
-            display: none;
-            animation: slideDown 0.3s ease-out;
+
+        .hero p {
             font-size: 1rem;
-            white-space: nowrap;
+            opacity: 0.9;
         }
-        @keyframes slideDown {
-            0% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
-            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ========== CONTENEDOR ========== */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
         }
-        .cliente-form {
-            background: #FFFBF5;
+
+        /* ========== FORMULARIO DE DATOS ========== */
+        .form-card {
+            background: white;
             border-radius: 28px;
             padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border-left: 6px solid #C47A44;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border: 1px solid rgba(210, 150, 90, 0.15);
         }
-        .cliente-form h3 {
+
+        .form-card h3 {
+            font-size: 1.5rem;
             color: #8B4513;
             margin-bottom: 1.5rem;
-            font-size: 1.6rem;
             display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
-        .taza-cafe {
-            display: inline-block;
-            position: relative;
-            margin-right: 12px;
-            font-size: 2rem;
-            animation: vibrarTaza 0.3s ease-in-out infinite;
+
+        .form-card h3 i {
+            color: #D2691E;
         }
-        @keyframes vibrarTaza {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-2px); }
-            100% { transform: translateY(0px); }
+
+        .form-row {
+            margin-bottom: 1.2rem;
         }
-        .vapor {
-            position: absolute;
-            top: -20px;
-            left: 5px;
-            display: flex;
-            gap: 5px;
-            pointer-events: none;
+
+        .form-row label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #3E2416;
+            font-size: 0.9rem;
         }
-        .vapor span {
-            font-size: 1rem;
-            opacity: 0;
-            animation: subirVapor 2s ease-in-out infinite;
+
+        .form-row label i {
+            margin-right: 0.3rem;
+            color: #D2691E;
         }
-        .vapor-1 { animation-delay: 0s; }
-        .vapor-2 { animation-delay: 0.7s; }
-        .vapor-3 { animation-delay: 1.4s; }
-        @keyframes subirVapor {
-            0% { opacity: 0; transform: translateY(0px); }
-            20% { opacity: 0.8; }
-            80% { opacity: 0.5; }
-            100% { opacity: 0; transform: translateY(-25px); }
-        }
-        .form-row { margin-bottom: 1.2rem; }
-        .form-row label { display: block; font-weight: bold; margin-bottom: 0.4rem; color: #3E2416; }
+
         .form-row input, .form-row textarea {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #D4A373;
+            padding: 0.8rem 1rem;
+            border: 1px solid #E0C8A8;
             border-radius: 16px;
             font-size: 1rem;
             background: white;
-            font-family: inherit;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
         }
-        .form-row textarea { resize: vertical; }
-        .personas-destacado {
-            background: linear-gradient(145deg, #FFF8F0, #FFFBF5);
+
+        .form-row input:focus, .form-row textarea:focus {
+            outline: none;
+            border-color: #D2691E;
+            box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.1);
+        }
+
+        .form-row textarea {
+            resize: vertical;
+        }
+
+        /* ========== CANTIDAD DE PERSONAS ========== */
+        .personas-card {
+            background: linear-gradient(145deg, #FFF8F0, #F5EDE0);
             border-radius: 28px;
             padding: 1.5rem;
             margin-bottom: 2rem;
             text-align: center;
             border: 2px solid #D2691E;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            animation: borderPulse 2s ease-in-out infinite;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
-        @keyframes borderPulse {
-            0% { border-color: #D2691E; box-shadow: 0 5px 15px rgba(210, 105, 30, 0.1); }
-            50% { border-color: #E8A357; box-shadow: 0 5px 20px rgba(210, 105, 30, 0.3); }
-            100% { border-color: #D2691E; box-shadow: 0 5px 15px rgba(210, 105, 30, 0.1); }
-        }
-        .personas-destacado label {
-            font-size: 1.5rem;
-            font-weight: bold;
+
+        .personas-card label {
+            font-size: 1.3rem;
+            font-weight: 700;
             color: #8B4513;
             display: block;
             margin-bottom: 0.8rem;
         }
-        .personas-destacado label .icono-animado {
-            display: inline-block;
+
+        .personas-card label i {
+            margin-right: 0.5rem;
             animation: iconoMovimiento 1.5s ease-in-out infinite;
+            display: inline-block;
         }
+
         @keyframes iconoMovimiento {
-            0% { transform: scale(1) rotate(0deg); }
+            0%, 100% { transform: scale(1) rotate(0deg); }
             25% { transform: scale(1.1) rotate(5deg); }
-            50% { transform: scale(1) rotate(0deg); }
             75% { transform: scale(1.1) rotate(-5deg); }
-            100% { transform: scale(1) rotate(0deg); }
         }
-        .personas-destacado input {
+
+        .personas-card input {
             width: 200px;
             padding: 1rem;
             font-size: 2rem;
@@ -200,32 +222,49 @@
             background: white;
             color: #2C1A10;
             font-weight: bold;
+            transition: all 0.2s;
         }
-        .personas-destacado input:focus {
+
+        .personas-card input:focus {
             outline: none;
             border-color: #E8A357;
-            box-shadow: 0 0 15px rgba(210, 105, 30, 0.4);
+            box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.2);
             transform: scale(1.02);
         }
-        .numero-cambiando { animation: numeroRebote 0.3s ease-out; }
+
+        .numero-cambiando {
+            animation: numeroRebote 0.3s ease-out;
+        }
+
         @keyframes numeroRebote {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); color: #D2691E; }
             100% { transform: scale(1); }
         }
+
+        .personas-card small {
+            display: block;
+            margin-top: 0.5rem;
+            color: #A6521E;
+            font-size: 0.8rem;
+        }
+
+        /* ========== OPCIONES ========== */
         .opciones-section {
-            background: #FFFBF5;
-            border-radius: 32px;
+            background: white;
+            border-radius: 28px;
             padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.4s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border: 1px solid rgba(210, 150, 90, 0.15);
+            transition: all 0.3s;
         }
+
         .opciones-section:hover {
-            background: rgba(210, 105, 30, 0.08);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
             transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
         }
+
         .opciones-header {
             display: flex;
             justify-content: space-between;
@@ -234,210 +273,180 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
+
         .opciones-section h2 {
             color: #8B4513;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin: 0;
             display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
-        .granos-cafe {
-            display: inline-block;
-            margin-right: 12px;
-            font-size: 1.8rem;
-            animation: flotarGranos 2s ease-in-out infinite;
+
+        .opciones-section h2 i {
+            color: #D2691E;
         }
-        @keyframes flotarGranos {
-            0% { transform: rotate(0deg) translateY(0px); }
-            25% { transform: rotate(10deg) translateY(-3px); }
-            50% { transform: rotate(0deg) translateY(0px); }
-            75% { transform: rotate(-10deg) translateY(-3px); }
-            100% { transform: rotate(0deg) translateY(0px); }
-        }
-        .parrilla {
-            display: inline-block;
-            margin-right: 12px;
-            font-size: 1.8rem;
-            position: relative;
-            animation: vibrarParrilla 0.2s ease-in-out infinite;
-        }
-        @keyframes vibrarParrilla {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-1px); }
-            100% { transform: translateY(0px); }
-        }
-        .fuego {
-            position: absolute;
-            top: -15px;
-            left: 0;
-            right: 0;
-            text-align: center;
+
+        .btn-cotizar-seccion {
+            background: linear-gradient(115deg, #D2691E, #A0522D);
+            color: white;
+            padding: 10px 24px;
             font-size: 0.9rem;
-            pointer-events: none;
-            display: flex;
-            justify-content: center;
-            gap: 3px;
+            font-weight: 600;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .fuego span { animation: arder 0.5s ease-in-out infinite alternate; }
-        .fuego-1 { animation-delay: 0s; }
-        .fuego-2 { animation-delay: 0.2s; }
-        .fuego-3 { animation-delay: 0.4s; }
-        @keyframes arder {
-            0% { opacity: 0.4; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1.2); text-shadow: 0 0 5px #ff6600; }
+
+        .btn-cotizar-seccion:hover {
+            transform: scale(1.02);
+            background: linear-gradient(115deg, #E07A2E, #B85D1F);
+            box-shadow: 0 5px 15px rgba(210, 105, 30, 0.3);
         }
-        .brasas {
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 0.7rem;
-            pointer-events: none;
-            display: flex;
-            justify-content: center;
-            gap: 2px;
-        }
-        .brasas span { animation: brillarBrasa 0.8s ease-in-out infinite alternate; }
-        .brasa-1 { animation-delay: 0s; }
-        .brasa-2 { animation-delay: 0.3s; }
-        .brasa-3 { animation-delay: 0.6s; }
-        @keyframes brillarBrasa {
-            0% { opacity: 0.3; color: #ff3300; }
-            100% { opacity: 1; color: #ff6600; text-shadow: 0 0 3px #ff3300; }
-        }
+
         .opciones-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 1.5rem;
         }
+
         .opcion-card {
             flex: 1;
-            min-width: 280px;
-            background: white;
-            border-radius: 24px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            min-width: 260px;
+            background: #FFFEF7;
+            border-radius: 20px;
+            padding: 1.2rem;
             cursor: pointer;
             transition: all 0.3s;
             border: 2px solid transparent;
         }
+
         .opcion-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
+
         .opcion-card.seleccionada {
-            border: 2px solid #B45F2B;
+            border: 2px solid #D2691E;
             background: #FFF8F0;
         }
+
         .opcion-card h3 {
             color: #B45F2B;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
         }
+
         .opcion-card ul {
             list-style: none;
-            margin-top: 0.5rem;
         }
+
         .opcion-card li {
-            padding: 0.3rem 0;
-            font-size: 0.9rem;
+            padding: 0.25rem 0;
+            font-size: 0.85rem;
             color: #3E2416;
         }
+
         .radio-indicador {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             border: 2px solid #B45F2B;
-            margin-right: 10px;
+            margin-right: 8px;
             vertical-align: middle;
         }
+
         .opcion-card.seleccionada .radio-indicador {
             background: #B45F2B;
-            box-shadow: inset 0 0 0 4px white;
+            box-shadow: inset 0 0 0 3px white;
         }
-        .btn-cotizar-seccion {
-            background: linear-gradient(115deg, #D2691E, #A0522D);
+
+        /* ========== NOTIFICACIÓN ========== */
+        .notificacion {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
-            padding: 12px 28px;
-            font-size: 0.95rem;
-            font-weight: bold;
+            padding: 12px 24px;
             border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            animation: pulseSuave 2s ease-in-out infinite;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 2000;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+            font-size: 0.9rem;
+            white-space: nowrap;
         }
-        @keyframes pulseSuave {
-            0% { transform: scale(1); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-            50% { transform: scale(1.02); box-shadow: 0 6px 18px rgba(210, 105, 30, 0.4); }
-            100% { transform: scale(1); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
-        .btn-cotizar-seccion::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn-cotizar-seccion:hover::before { left: 100%; }
-        .btn-cotizar-seccion:hover {
-            transform: scale(1.05) translateY(-2px);
-            background: linear-gradient(115deg, #E07A2E, #B85D1F);
-            box-shadow: 0 8px 22px rgba(210, 105, 30, 0.5);
-        }
-        .btn-cotizar-seccion:active { transform: scale(0.98); }
+
+        /* ========== FOOTER ========== */
         .footer {
-            background: #2C1A10;
+            background: linear-gradient(145deg, #1A0D07, #2C1A10);
             color: #E7CFB5;
             text-align: center;
             padding: 2rem;
             margin-top: 2rem;
+            border-top: 4px solid #B87C4F;
         }
-        .footer a { color: #FBC490; text-decoration: none; }
+
+        .footer a {
+            color: #FBC490;
+            text-decoration: none;
+        }
+
+        /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
-            .logo-area img { height: 55px; }
-            .hero h1 { font-size: 1.5rem; }
-            .container { padding: 1rem; }
-            .opcion-card h3 { font-size: 1.2rem; }
-            .opciones-header { flex-direction: column; text-align: center; }
-            .personas-destacado input { width: 150px; font-size: 1.5rem; padding: 0.8rem; }
-            .personas-destacado label { font-size: 1.2rem; }
-            .notificacion { font-size: 0.8rem; white-space: normal; text-align: center; width: 90%; }
-            .cliente-form h3 { font-size: 1.3rem; }
-            .taza-cafe { font-size: 1.5rem; }
-            .granos-cafe { font-size: 1.3rem; }
-            .parrilla { font-size: 1.3rem; }
-            .btn-cotizar-seccion { padding: 8px 20px; font-size: 0.85rem; }
+            .top-bar { flex-direction: column; text-align: center; }
+            .logo-area img { height: 45px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero { padding: 3rem 1rem; }
+            .container { padding: 1.5rem; }
+            .form-card, .opciones-section { padding: 1.5rem; }
+            .opciones-section h2 { font-size: 1.3rem; }
+            .personas-card input { width: 130px; font-size: 1.5rem; padding: 0.8rem; }
+            .personas-card label { font-size: 1.1rem; }
+            .notificacion { font-size: 0.8rem; white-space: normal; width: 90%; text-align: center; }
+            .btn-cotizar-seccion { padding: 8px 16px; font-size: 0.8rem; }
         }
+
+        /* Botón flotante */
         .btn-whatsapp-flotante {
             position: fixed;
             bottom: 20px;
             right: 20px;
             background: linear-gradient(115deg, #25D366, #128C7E);
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             text-decoration: none;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             z-index: 1000;
             transition: all 0.3s;
         }
-        .btn-whatsapp-flotante:hover { transform: scale(1.1); }
+
+        .btn-whatsapp-flotante:hover {
+            transform: scale(1.1);
+        }
+
         @media (max-width: 768px) {
-            .btn-whatsapp-flotante { width: 50px; height: 50px; font-size: 1.5rem; }
+            .btn-whatsapp-flotante { width: 45px; height: 45px; font-size: 1.3rem; }
         }
     </style>
 </head>
@@ -448,34 +457,51 @@
         <img src="imagenes/logo_2.jpg" alt="Logo Coffee & Asados">
         <span>Coffee & Asados</span>
     </div>
-    <a href="index.html" class="btn-volver">← Volver al inicio</a>
+    <a href="index.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
 </div>
 
 <div class="hero">
     <div>
-        <h1>📋 Solicita tu cotización</h1>
-        <p>Elige una opción y te enviaremos el precio personalizado</p>
+        <h1><i class="fas fa-file-invoice-dollar"></i> Solicita tu cotización</h1>
+        <p>Completa tus datos y elige la opción que más te guste</p>
     </div>
 </div>
 
 <div class="container">
     <div id="notificacion" class="notificacion"></div>
 
-    <div class="cliente-form">
-        <h3>
-            <span class="taza-cafe">☕<span class="vapor"><span class="vapor-1">💨</span><span class="vapor-2">💨</span><span class="vapor-3">💨</span></span></span>
-            Tus datos
-        </h3>
-        <div class="form-row"><label>Nombre completo *</label><input type="text" id="nombreCliente" placeholder="Ej: Juan Perez"></div>
-        <div class="form-row"><label>Teléfono (WhatsApp) *</label><input type="tel" id="telefonoCliente" placeholder="Ej: 56988160607"></div>
-        <div class="form-row"><label>Correo electrónico *</label><input type="email" id="emailCliente" placeholder="Ej: juan@ejemplo.com"></div>
-        <div class="form-row"><label>Fecha del evento *</label><input type="date" id="fechaEvento"></div>
-        <div class="form-row"><label>Dirección del evento *</label><input type="text" id="direccionEvento" placeholder="Calle, numero, comuna"></div>
-        <div class="form-row"><label>📝 Observaciones (opcional)</label><textarea id="observaciones" rows="3" placeholder="Ej: Alergias, preferencias, requisitos especiales..."></textarea></div>
+    <!-- DATOS DEL CLIENTE -->
+    <div class="form-card">
+        <h3><i class="fas fa-user-circle"></i> Tus datos</h3>
+        <div class="form-row">
+            <label><i class="fas fa-user"></i> Nombre completo *</label>
+            <input type="text" id="nombreCliente" placeholder="Ej: Juan Perez">
+        </div>
+        <div class="form-row">
+            <label><i class="fab fa-whatsapp"></i> Teléfono (WhatsApp) *</label>
+            <input type="tel" id="telefonoCliente" placeholder="Ej: 56988160607">
+        </div>
+        <div class="form-row">
+            <label><i class="fas fa-envelope"></i> Correo electrónico *</label>
+            <input type="email" id="emailCliente" placeholder="Ej: juan@ejemplo.com">
+        </div>
+        <div class="form-row">
+            <label><i class="fas fa-calendar-alt"></i> Fecha del evento *</label>
+            <input type="date" id="fechaEvento">
+        </div>
+        <div class="form-row">
+            <label><i class="fas fa-map-marker-alt"></i> Dirección del evento *</label>
+            <input type="text" id="direccionEvento" placeholder="Calle, numero, comuna">
+        </div>
+        <div class="form-row">
+            <label><i class="fas fa-sticky-note"></i> Observaciones (opcional)</label>
+            <textarea id="observaciones" rows="2" placeholder="Ej: Alergias, preferencias, requisitos especiales..."></textarea>
+        </div>
     </div>
 
-    <div class="personas-destacado">
-        <label><span class="icono-animado">👥</span> ¿Para cuántas personas?</label>
+    <!-- CANTIDAD DE PERSONAS -->
+    <div class="personas-card">
+        <label><i class="fas fa-users"></i> ¿Para cuántas personas?</label>
         <input type="number" id="cantidadPersonas" min="1" value="1" step="1">
         <small>Ingresa el número de invitados</small>
     </div>
@@ -483,34 +509,40 @@
     <!-- OPCIONES COFFEE -->
     <div class="opciones-section">
         <div class="opciones-header">
-            <h2><span class="granos-cafe">☕✨</span> Opciones de Coffee</h2>
-            <button class="btn-cotizar-seccion" id="btnCotizarCoffee">📋 Solicitar cotización (Coffee)</button>
+            <h2><i class="fas fa-mug-hot"></i> Opciones de Coffee</h2>
+            <button class="btn-cotizar-seccion" id="btnCotizarCoffee">
+                <i class="fas fa-paper-plane"></i> ¡Cotiza sin compromiso! (Coffee)
+            </button>
         </div>
-        <div id="opciones-coffee" class="opciones-grid"><p>Cargando opciones de coffee...</p></div>
+        <div id="opciones-coffee" class="opciones-grid">
+            <p>Cargando opciones de coffee...</p>
+        </div>
     </div>
 
     <!-- OPCIONES ASADOS -->
     <div class="opciones-section">
         <div class="opciones-header">
-            <h2><span class="parrilla">🥩🔥<span class="fuego"><span class="fuego-1">🔥</span><span class="fuego-2">🔥</span><span class="fuego-3">🔥</span></span><span class="brasas"><span class="brasa-1">•</span><span class="brasa-2">•</span><span class="brasa-3">•</span></span></span> Opciones de Asados</h2>
-            <button class="btn-cotizar-seccion" id="btnCotizarAsados">📋 Solicitar cotización (Asados)</button>
+            <h2><i class="fas fa-utensils"></i> Opciones de Asados</h2>
+            <button class="btn-cotizar-seccion" id="btnCotizarAsados">
+                <i class="fas fa-paper-plane"></i> ¡Cotiza sin compromiso! (Asados)
+            </button>
         </div>
-        <div id="opciones-asados" class="opciones-grid"><p>Cargando opciones de asados...</p></div>
+        <div id="opciones-asados" class="opciones-grid">
+            <p>Cargando opciones de asados...</p>
+        </div>
     </div>
 </div>
 
 <div class="footer">
-    <p>© 2025 Coffee & Asados - Solicita tu cotización sin compromiso ☕🥩</p>
+    <p>© 2025 Coffee & Asados - Ingredientes frescos, servicio impecable ☕🥩</p>
 </div>
 
 <script>
-    // URL de la API de productos (coffee y asados)
+    // URL de la API de productos
     const API_URL_PRODUCTOS = 'https://script.google.com/macros/s/AKfycbxYZY89WjAdRXXwS1UFoGotccdP1QKlYYWqvY6__3BTm0xKEYjD87Pn_8u4LqiaIuCD/exec';
     
-    // URL para guardar solicitudes en Google Sheets
-  const API_URL_GUARDAR = 'https://script.google.com/macros/s/AKfycbzTQ4E8UJfd_VdDE-jMPSmD_hQxy554nR48xxYO4BqpdOgk3bltJQGST2n7YyCVf0YrYQ/exec';
-  
-  
+    // URL para guardar solicitudes
+    const API_URL_GUARDAR = 'https://script.google.com/macros/s/AKfycbyauKAS5WeOS8Q-Gw6KlfwNGSQfFlUAcvD3eq6FSlUtqQNIb8nK3e22LphWce7bGtYUJg/exec';
     
     let opcionesCoffee = [];
     let opcionesAsados = [];
@@ -550,56 +582,23 @@
     }
 
     function guardarEnSheet(datos) {
-    // Crear un iframe oculto para enviar los datos
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.name = 'hiddenFrame';
-    document.body.appendChild(iframe);
-    
-    // Crear un formulario y enviarlo al iframe
-    const form = document.createElement('form');
-    form.method = 'GET';
-    form.action = API_URL_GUARDAR;
-    form.target = 'hiddenFrame';
-    form.style.display = 'none';
-    
-    // Agregar los datos como campos ocultos
-    Object.keys(datos).forEach(key => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = datos[key];
-        form.appendChild(input);
-    });
-    
-    document.body.appendChild(form);
-    form.submit();
-    
-    // Limpiar después de 1 segundo
-    setTimeout(() => {
-        document.body.removeChild(form);
-        document.body.removeChild(iframe);
-    }, 1000);
-    
-    console.log('Datos enviados a Google Sheets (GET):', datos);
-}
+        const params = new URLSearchParams();
+        for (const [clave, valor] of Object.entries(datos)) {
+            params.append(clave, valor);
+        }
+        const url = API_URL_GUARDAR + '?' + params.toString();
+        fetch(url, { method: 'GET', mode: 'no-cors' }).catch(error => console.error('Error al guardar:', error));
+        console.log('📤 Datos enviados a Google Sheets');
+    }
 
-
-	
-	
-	
     async function cargarOpciones() {
         try {
             const response = await fetch(API_URL_PRODUCTOS);
             const data = await response.json();
-            console.log('Datos recibidos:', data);
-            
             opcionesCoffee = data.coffee || [];
             opcionesAsados = data.asados || [];
-            
             mostrarOpciones();
         } catch (error) {
-            console.error('Error:', error);
             document.getElementById('opciones-coffee').innerHTML = '<p>Error al cargar opciones</p>';
             document.getElementById('opciones-asados').innerHTML = '<p>Error al cargar opciones</p>';
             mostrarNotificacion('Error al cargar las opciones', true);
@@ -613,7 +612,7 @@
             let itemsHTML = '';
             for (let j = 0; j < opcion.items.length; j++) {
                 const item = opcion.items[j];
-                itemsHTML += `<li>• ${item.cantidad} ${item.unidad} de ${item.item}</li>`;
+                itemsHTML += `<li><i class="fas fa-check-circle" style="color:#D2691E; font-size:0.7rem; margin-right:0.5rem;"></i> ${item.cantidad} ${item.unidad} de ${item.item}</li>`;
             }
             coffeeHTML += `<div class="opcion-card" data-tipo="coffee" data-opcion="${opcion.nombre}"><div><span class="radio-indicador"></span><strong>${opcion.nombre}</strong></div><ul>${itemsHTML}</ul></div>`;
         }
@@ -625,7 +624,7 @@
             let itemsHTML = '';
             for (let j = 0; j < opcion.items.length; j++) {
                 const item = opcion.items[j];
-                itemsHTML += `<li>• ${item.cantidad} ${item.unidad} de ${item.item}</li>`;
+                itemsHTML += `<li><i class="fas fa-check-circle" style="color:#D2691E; font-size:0.7rem; margin-right:0.5rem;"></i> ${item.cantidad} ${item.unidad} de ${item.item}</li>`;
             }
             asadosHTML += `<div class="opcion-card" data-tipo="asados" data-opcion="${opcion.nombre}"><div><span class="radio-indicador"></span><strong>${opcion.nombre}</strong></div><ul>${itemsHTML}</ul></div>`;
         }
@@ -657,6 +656,10 @@
             mostrarNotificacion('⚠️ Ingresa un número válido de personas', true);
             return false;
         }
+        if (!opcionSeleccionada || !tipoSeleccionado) {
+            mostrarNotificacion('⚠️ Selecciona una opción de Coffee o Asados', true);
+            return false;
+        }
         return { nombre, telefono, email, fecha, direccion, personas };
     }
 
@@ -685,22 +688,14 @@
         return { total, listaItems };
     }
 
-    function enviarCotizacion(tipoForzado, opcionForzada) {
+    function enviarCotizacion() {
         const datos = validarDatos();
         if (!datos) return;
         
-        const tipo = tipoForzado || tipoSeleccionado;
-        const opcion = opcionForzada || opcionSeleccionada;
         const observaciones = document.getElementById('observaciones').value.trim();
+        const resultado = calcularTotal(opcionSeleccionada, tipoSeleccionado, datos.personas);
         
-        if (!opcion || !tipo) {
-            mostrarNotificacion('⚠️ Selecciona una opción de Coffee o Asados', true);
-            return;
-        }
-        
-        const resultado = calcularTotal(opcion, tipo, datos.personas);
-        
-        // 1. Guardar en Google Sheets
+        // Guardar en Google Sheets
         const datosSheet = {
             nombre: datos.nombre,
             telefono: datos.telefono,
@@ -708,12 +703,12 @@
             fechaEvento: datos.fecha,
             direccion: datos.direccion,
             observaciones: observaciones,
-            opcion: opcion,
+            opcion: opcionSeleccionada,
             personas: datos.personas
         };
         guardarEnSheet(datosSheet);
         
-        // 2. Enviar por WhatsApp
+        // Enviar WhatsApp
         let mensajeWhatsApp = "SOLICITUD DE COTIZACION - COFFEE & ASADOS\n\n";
         mensajeWhatsApp += `DATOS DEL CLIENTE:\n`;
         mensajeWhatsApp += `Nombre: ${datos.nombre}\n`;
@@ -722,7 +717,7 @@
         mensajeWhatsApp += `Fecha del evento: ${datos.fecha}\n`;
         mensajeWhatsApp += `Dirección: ${datos.direccion}\n`;
         if (observaciones) mensajeWhatsApp += `Observaciones: ${observaciones}\n`;
-        mensajeWhatsApp += `\nOPCION SELECCIONADA: ${opcion}\n`;
+        mensajeWhatsApp += `\nOPCION SELECCIONADA: ${opcionSeleccionada}\n`;
         mensajeWhatsApp += `Personas: ${datos.personas}\n\n`;
         mensajeWhatsApp += "DETALLE:\n";
         resultado.listaItems.forEach(item => { mensajeWhatsApp += `- ${item}\n`; });
@@ -734,19 +729,23 @@
         window.open(urlWhatsApp, '_blank');
         mostrarNotificacion('✅ ¡Solicitud enviada con éxito!', false);
         
-        setTimeout(() => limpiarFormulario(), 500);
+        limpiarFormulario();
     }
     
     function enviarCotizacionCoffee() {
         const selected = document.querySelector('#opciones-coffee .opcion-card.seleccionada');
         if (!selected) { mostrarNotificacion('⚠️ Selecciona una opción de Coffee', true); return; }
-        enviarCotizacion('coffee', selected.getAttribute('data-opcion'));
+        opcionSeleccionada = selected.getAttribute('data-opcion');
+        tipoSeleccionado = selected.getAttribute('data-tipo');
+        enviarCotizacion();
     }
     
     function enviarCotizacionAsados() {
         const selected = document.querySelector('#opciones-asados .opcion-card.seleccionada');
         if (!selected) { mostrarNotificacion('⚠️ Selecciona una opción de Asados', true); return; }
-        enviarCotizacion('asados', selected.getAttribute('data-opcion'));
+        opcionSeleccionada = selected.getAttribute('data-opcion');
+        tipoSeleccionado = selected.getAttribute('data-tipo');
+        enviarCotizacion();
     }
     
     document.addEventListener('DOMContentLoaded', cargarOpciones);
@@ -754,6 +753,10 @@
     document.getElementById('btnCotizarAsados').addEventListener('click', enviarCotizacionAsados);
 </script>
 
-<a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="btn-whatsapp-flotante" target="_blank">💬</a>
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="btn-whatsapp-flotante" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
 </body>
 </html>

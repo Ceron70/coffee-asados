@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Coffee & Asados - Galería de eventos</title>
     <link rel="icon" type="image/jpeg" href="imagenes/logo_2.jpg">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* ========== ESTILOS COMPLETOS PARA GALERÍA ========== */
         * {
             margin: 0;
             padding: 0;
@@ -14,16 +17,20 @@
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(145deg, #F8E8D8 0%, #E6C8A8 100%);
-            color: #2C1A10;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #FDF8F0 0%, #F5EDE0 100%);
+            color: #2C2418;
             line-height: 1.5;
         }
 
-        /* Barra superior */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ========== BARRA SUPERIOR ========== */
         .top-bar {
-            background: #2C1A10;
-            padding: 0.8rem 2rem;
+            background: #1A0D07;
+            padding: 1rem 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -32,7 +39,8 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            background: rgba(26, 13, 7, 0.95);
         }
 
         .logo-area {
@@ -42,96 +50,316 @@
         }
 
         .logo-area img {
-            height: 80px;
+            height: 55px;
             width: auto;
             border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .logo-area img:hover {
+            transform: scale(1.02);
         }
 
         .logo-area span {
-            font-size: 1.6rem;
-            font-weight: bold;
+            font-size: 1.4rem;
+            font-weight: 700;
             color: #F5D5B0;
+            letter-spacing: 1px;
+            font-family: 'Playfair Display', serif;
         }
 
-        /* Contenedor */
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-
-        /* Encabezado de galería */
-        .galeria-header {
+        /* ========== HERO ========== */
+        .hero {
+            background: linear-gradient(115deg, rgba(26, 13, 7, 0.85), rgba(44, 26, 16, 0.9)), 
+                        url('https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-size: cover;
+            background-position: center 35%;
+            padding: 4rem 2rem;
             text-align: center;
-            margin-bottom: 2rem;
+            color: white;
         }
 
-        .galeria-header h1 {
+        .hero h1 {
             font-size: 2.5rem;
-            color: #8B4513;
             margin-bottom: 0.5rem;
         }
 
-        .galeria-header p {
-            font-size: 1.2rem;
-            color: #2C1A10;
-            margin-bottom: 1.5rem;
+        .hero h1 i {
+            margin-right: 0.5rem;
         }
 
-        /* Botón volver */
+        .hero p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
         .btn-volver {
             display: inline-block;
-            background: #B87C4F;
-            color: white;
-            padding: 10px 24px;
-            border-radius: 40px;
+            background: rgba(210, 105, 30, 0.2);
+            color: #F5D5B0;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
             transition: 0.3s;
+            font-size: 0.9rem;
+            border: 1px solid rgba(210, 105, 30, 0.5);
+            margin-top: 1.5rem;
+        }
+
+        .btn-volver i {
+            margin-right: 0.5rem;
         }
 
         .btn-volver:hover {
             background: #8B4513;
+            border-color: #8B4513;
+        }
+
+        /* ========== CONTENEDOR ========== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* ========== TARJETAS DE EVENTOS ========== */
+        .eventos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .evento-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(210, 150, 90, 0.15);
+            cursor: pointer;
+        }
+
+        .evento-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.12);
+        }
+
+        /* Galería interna de la tarjeta */
+        .evento-galeria {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            background: #1A0D07;
+            cursor: pointer;
+        }
+
+        .evento-galeria::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .evento-galeria::-webkit-scrollbar-track {
+            background: #E6C8A8;
+        }
+
+        .evento-galeria::-webkit-scrollbar-thumb {
+            background: #D2691E;
+            border-radius: 10px;
+        }
+
+        .evento-galeria img {
+            width: 100%;
+            min-width: 300px;
+            height: 220px;
+            object-fit: cover;
+            scroll-snap-align: start;
+            transition: all 0.3s;
+        }
+
+        .evento-galeria img:hover {
             transform: scale(1.02);
         }
 
-        /* Grid de galería */
-        .galeria-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
+        /* Contenido de la tarjeta */
+        .evento-info {
+            padding: 1.5rem;
         }
 
-        .galeria-item {
-            background: white;
+        .evento-info h3 {
+            color: #8B4513;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .evento-info h3 i {
+            color: #D2691E;
+        }
+
+        .evento-tipo {
+            display: inline-block;
+            background: linear-gradient(115deg, #D2691E, #A0522D);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-weight: normal;
+        }
+
+        .evento-info p {
+            color: #5A3A28;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        .evento-detalles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #F0DECA;
+        }
+
+        .evento-detalles span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #8B4513;
+            font-size: 0.8rem;
+            background: #FEF3E9;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+        }
+
+        .indicador-fotos {
+            text-align: center;
+            margin-top: 0.8rem;
+            font-size: 0.7rem;
+            color: #A6521E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .indicador-fotos i {
+            font-size: 0.6rem;
+        }
+
+        /* ========== MODAL ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-contenedor {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            background: #1A0D07;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
         }
 
-        .galeria-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .galeria-item img {
+        .modal-imagen {
             width: 100%;
-            height: 220px;
-            object-fit: cover;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
             display: block;
+            background: #0d0d0d;
         }
 
-        .galeria-item p {
+        .modal-btn-cerrar {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            z-index: 10;
+        }
+
+        .modal-btn-cerrar:hover {
+            background: #D2691E;
+            transform: scale(1.05);
+        }
+
+        .modal-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .modal-btn:hover {
+            background: #D2691E;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .modal-btn-prev {
+            left: 20px;
+        }
+
+        .modal-btn-next {
+            right: 20px;
+        }
+
+        .modal-contador {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
             text-align: center;
-            padding: 1rem;
-            font-weight: 500;
-            color: #8B4513;
+            color: white;
+            background: rgba(0,0,0,0.6);
+            padding: 6px;
+            font-size: 0.8rem;
         }
 
-        /* Footer */
+        /* ========== FOOTER ========== */
         .footer {
-            background: #2C1A10;
+            background: linear-gradient(145deg, #1A0D07, #2C1A10);
             color: #E7CFB5;
             text-align: center;
             padding: 2rem;
@@ -144,82 +372,47 @@
             text-decoration: none;
         }
 
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive */
+        /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                text-align: center;
-            }
-            .logo-area img {
-                height: 55px;
-            }
-            .logo-area span {
-                font-size: 1.2rem;
-            }
-            .galeria-header h1 {
-                font-size: 1.8rem;
-            }
-            .galeria-header p {
-                font-size: 1rem;
-            }
-            .galeria-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1rem;
-            }
-            .galeria-item img {
-                height: 160px;
-            }
+            .top-bar { flex-direction: column; text-align: center; }
+            .logo-area img { height: 45px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero { padding: 3rem 1rem; }
+            .container { padding: 2rem 1rem; }
+            .eventos-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .evento-galeria img { min-width: 250px; height: 180px; }
+            .evento-info h3 { font-size: 1.2rem; }
+            .modal-btn { width: 35px; height: 35px; font-size: 1rem; }
+            .modal-btn-cerrar { width: 35px; height: 35px; font-size: 1.2rem; }
         }
-		
-		
-		
-		.galeria-header h1 {
-    font-size: 2.5rem;
-    color: #8B4513;
-    margin-bottom: 0.5rem;
-    animation: slideCenterLeft 3s ease-out infinite;
-}
 
-.galeria-header p {
-    font-size: 1.2rem;
-    color: #2C1A10;
-    margin-bottom: 1.5rem;
-    animation: slideCenterLeft 3s ease-out infinite;
-    animation-delay: 0.3s;
-}
+        /* Botón flotante */
+        .btn-whatsapp-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(115deg, #25D366, #128C7E);
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
 
-@keyframes slideCenterLeft {
-    0% {
-        transform: translateX(100px);
-        opacity: 0;
-    }
-    10% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-    20% {
-        transform: translateX(0);
-    }
-    30% {
-        transform: translateX(-20px);
-        opacity: 1;
-    }
-    70% {
-        transform: translateX(-20px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(-20px);
-        opacity: 1;
-    }
-}
+        .btn-whatsapp-flotante:hover {
+            transform: scale(1.1);
+        }
 
-
-
+        @media (max-width: 768px) {
+            .btn-whatsapp-flotante { width: 45px; height: 45px; font-size: 1.3rem; }
+        }
     </style>
 </head>
 <body>
@@ -231,43 +424,238 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="galeria-header">
-        <h1>📸 Galería de eventos</h1>
-        <p>Mira algunos de nuestros trabajos recientes</p>
-        <a href="index.html" class="btn-volver">← Volver al inicio</a>
+<div class="hero">
+    <div>
+        <h1><i class="fas fa-camera-retro"></i> Galería de eventos</h1>
+        <p>Conoce nuestros trabajos recientes</p>
+        <a href="index.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
     </div>
+</div>
 
-    <div class="galeria-grid">
-        <div class="galeria-item">
-            <img src="galeria_eventos/foto1.jpg" alt="Evento Coffee & Asados">
-            <p>Evento empresarial - Coffee</p>
-        </div>
-        <div class="galeria-item">
-            <img src="galeria_eventos/foto2.jpg" alt="Evento Coffee & Asados">
-            <p>Asado para 30 personas</p>
-        </div>
-        <div class="galeria-item">
-            <img src="galeria_eventos/foto3.jpg" alt="Evento Coffee & Asados">
-            <p>Coffee break - Oficina</p>
-        </div>
-        <div class="galeria-item">
-            <img src="galeria_eventos/foto4.jpg" alt="Evento Coffee & Asados">
-            <p>Asado con choripanes</p>
-        </div>
-        <div class="galeria-item">
-            <img src="galeria_eventos/foto5.jpg" alt="Evento Coffee & Asados">
-            <p>Cumpleaños familiar</p>
-        </div>
-		
-    
-	</div>
+<div class="container">
+    <div class="eventos-grid" id="eventos-grid">
+        <p style="text-align:center; width:100%;">Cargando eventos...</p>
+    </div>
 </div>
 
 <div class="footer">
     <p>© 2025 Coffee & Asados - Servicios con pasión por el buen sabor ☕🥩</p>
-    <p><a href="index.html">Volver al inicio</a></p>
 </div>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+    <div class="modal-contenedor">
+        <button class="modal-btn-cerrar" id="modalCerrar"><i class="fas fa-times"></i></button>
+        <button class="modal-btn modal-btn-prev" id="modalPrev"><i class="fas fa-chevron-left"></i></button>
+        <img id="modalImagen" class="modal-imagen" src="" alt="Foto del evento">
+        <button class="modal-btn modal-btn-next" id="modalNext"><i class="fas fa-chevron-right"></i></button>
+        <div id="modalContador" class="modal-contador"></div>
+    </div>
+</div>
+
+<script>
+    // ========== CONFIGURACIÓN DE EVENTOS ==========
+    // Cada evento tiene una carpeta, el código detecta las fotos automáticamente
+    const eventos = [
+        {
+            id: 1,
+            titulo: "Asado Empresarial - TechCorp",
+            tipo: "Asado",
+            descripcion: "Evento para 50 personas en la oficina central. Incluyó vacío, choripán, morcilla y ensaladas.",
+            fecha: "15 Marzo 2025",
+            lugar: "Oficinas TechCorp, Santiago",
+            carpeta: "galeria_1"
+        },
+        {
+            id: 2,
+            titulo: "Coffee Break - Agencia Creativa",
+            tipo: "Coffee",
+            descripcion: "Desayuno laboral para 30 personas. Café, medialunas, facturas y jugos naturales.",
+            fecha: "22 Marzo 2025",
+            lugar: "Agencia Creativa, Providencia",
+            carpeta: "galeria_2"
+        },
+        {
+            id: 3,
+            titulo: "Cumpleaños de Sofía",
+            tipo: "Asado",
+            descripcion: "Celebración familiar para 25 personas. Asado con choripán, morcilla y ensaladas.",
+            fecha: "5 Abril 2025",
+            lugar: "Casa particular, Las Condes",
+            carpeta: "galeria_3"
+        },
+        {
+            id: 4,
+            titulo: "Lanzamiento de Producto",
+            tipo: "Coffee",
+            descripcion: "Evento corporativo para 80 personas. Coffee premium con tortas, queques y capuchinos.",
+            fecha: "12 Abril 2025",
+            lugar: "Hotel Sheraton, Santiago",
+            carpeta: "galeria_4"
+        }
+    ];
+
+    // Variables para el modal
+    let fotosActuales = [];
+    let indiceActual = 0;
+
+    // Función para obtener el ícono según el tipo
+    function getIcono(tipo) {
+        if (tipo === 'Coffee') return '<i class="fas fa-mug-hot"></i>';
+        if (tipo === 'Asado') return '<i class="fas fa-utensils"></i>';
+        return '<i class="fas fa-concierge-bell"></i>';
+    }
+
+    // Función para obtener el color según el tipo
+    function getColor(tipo) {
+        if (tipo === 'Coffee') return '#D2691E';
+        if (tipo === 'Asado') return '#8B4513';
+        return '#A0522D';
+    }
+
+    // Detectar automáticamente las fotos de una carpeta
+    async function detectarFotos(carpeta, maxFotos = 30) {
+        const fotos = [];
+        for (let i = 1; i <= maxFotos; i++) {
+            const url = `galeria_eventos/${carpeta}/foto${i}.jpg`;
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                if (response.ok) {
+                    fotos.push(url);
+                } else {
+                    break;
+                }
+            } catch (error) {
+                break;
+            }
+        }
+        return fotos;
+    }
+
+    // Cargar todas las fotos de todos los eventos
+    async function cargarEventos() {
+        const grid = document.getElementById('eventos-grid');
+        
+        if (eventos.length === 0) {
+            grid.innerHTML = '<p style="text-align:center; width:100%;">No hay eventos cargados aún.</p>';
+            return;
+        }
+
+        grid.innerHTML = '<p style="text-align:center; width:100%;"><i class="fas fa-spinner fa-pulse"></i> Detectando fotos de los eventos...</p>';
+        
+        let html = '';
+        
+        for (let i = 0; i < eventos.length; i++) {
+            const evento = eventos[i];
+            const fotos = await detectarFotos(evento.carpeta);
+            const portada = fotos.length > 0 ? fotos[0] : 'https://placehold.co/400x300?text=Sin+Fotos';
+            
+            html += `
+                <div class="evento-card" data-id="${evento.id}" data-fotos='${JSON.stringify(fotos)}'>
+                    <div class="evento-galeria">
+                        ${fotos.map(foto => `<img src="${foto}" alt="${evento.titulo}" loading="lazy">`).join('')}
+                    </div>
+                    <div class="evento-info">
+                        <h3>
+                            ${getIcono(evento.tipo)} ${evento.titulo}
+                            <span class="evento-tipo" style="background: linear-gradient(115deg, ${getColor(evento.tipo)}, ${getColor(evento.tipo)}dd);">
+                                ${evento.tipo}
+                            </span>
+                        </h3>
+                        <p>${evento.descripcion}</p>
+                        <div class="evento-detalles">
+                            <span><i class="far fa-calendar-alt"></i> ${evento.fecha}</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ${evento.lugar}</span>
+                            <span><i class="fas fa-images"></i> ${fotos.length} fotos</span>
+                        </div>
+                        <div class="indicador-fotos">
+                            <i class="fas fa-arrow-left"></i> Desliza para ver más fotos <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        grid.innerHTML = html;
+        
+        // Agregar eventos de clic a las tarjetas
+        const cards = document.querySelectorAll('.evento-card');
+        for (let i = 0; i < cards.length; i++) {
+            cards[i].addEventListener('click', function() {
+                const fotos = JSON.parse(this.getAttribute('data-fotos'));
+                if (fotos.length > 0) {
+                    abrirModal(fotos, 0);
+                } else {
+                    alert('Este evento no tiene fotos aún.');
+                }
+            });
+        }
+    }
+
+    // Abrir el modal con las fotos de un evento
+    function abrirModal(fotos, indice) {
+        fotosActuales = fotos;
+        indiceActual = indice;
+        const modal = document.getElementById('modal');
+        const modalImagen = document.getElementById('modalImagen');
+        const modalContador = document.getElementById('modalContador');
+        
+        modalImagen.src = fotosActuales[indiceActual];
+        modalContador.textContent = `${indiceActual + 1} / ${fotosActuales.length}`;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarModal() {
+        const modal = document.getElementById('modal');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function nextFoto() {
+        if (indiceActual + 1 < fotosActuales.length) {
+            indiceActual++;
+            document.getElementById('modalImagen').src = fotosActuales[indiceActual];
+            document.getElementById('modalContador').textContent = `${indiceActual + 1} / ${fotosActuales.length}`;
+        }
+    }
+
+    function prevFoto() {
+        if (indiceActual - 1 >= 0) {
+            indiceActual--;
+            document.getElementById('modalImagen').src = fotosActuales[indiceActual];
+            document.getElementById('modalContador').textContent = `${indiceActual + 1} / ${fotosActuales.length}`;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        cargarEventos();
+        
+        document.getElementById('modalCerrar').addEventListener('click', cerrarModal);
+        document.getElementById('modalPrev').addEventListener('click', prevFoto);
+        document.getElementById('modalNext').addEventListener('click', nextFoto);
+        
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarModal();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('modal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'ArrowRight') nextFoto();
+                else if (e.key === 'ArrowLeft') prevFoto();
+                else if (e.key === 'Escape') cerrarModal();
+            }
+        });
+    });
+</script>
+
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Coffee%20%26%20Asados%20y%20quiero%20hacer%20un%20pedido." class="btn-whatsapp-flotante" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
 
 </body>
 </html>
