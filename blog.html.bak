@@ -302,8 +302,10 @@
 </div>
 
 <script>
-    // ⚠️ IMPORTANTE: Reemplaza esta URL con la de tu API de blog
-    const API_URL_BLOG = 'https://script.google.com/macros/s/ID_DE_TU_SCRIPT/exec/blog';
+    // ⚠️ TU URL DE LA API DEL BLOG
+	
+	const API_URL_BLOG = 'https://script.google.com/macros/s/AKfycbwkajX80dtc1d9UNzGmTqqxVqy__0ZjeOyr5h896jBmXdPTrup8Jnh_j-mRIW8D8yqEMQ/exec';
+	
     
     let articulosOriginales = [];
     let categoriaActual = 'todos';
@@ -315,8 +317,9 @@
         try {
             const response = await fetch(API_URL_BLOG);
             const data = await response.json();
+            console.log('Datos recibidos:', data);
             
-            if (data.success && data.articulos.length > 0) {
+            if (data.success && data.articulos && data.articulos.length > 0) {
                 articulosOriginales = data.articulos;
                 mostrarArticulos();
             } else {
@@ -360,7 +363,6 @@
     }
 
     function verArticulo(id) {
-        // Guardar el ID en localStorage y redirigir a la página del artículo
         localStorage.setItem('articuloId', id);
         window.location.href = 'articulo.html';
     }
