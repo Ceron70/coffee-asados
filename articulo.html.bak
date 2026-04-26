@@ -174,7 +174,7 @@
 
 <script>
   
-	const API_URL = 'https://script.google.com/macros/s/AKfycbz61lVVXGljqTfcxLTsUYVmNucDzfaMhQcIU8m05xyWAaeEOo0cNHyC_fsu9nMrFiHPgg/exec';
+	const API_URL = 'https://script.google.com/macros/s/AKfycbxokr6kp1YSlujtTtRcC7OiZsbxm3B-oM5GfUIB5kLo6TMYH-lsfRxRvZ6Kncn0bDLxmQ/exec';
     
     let articulosOriginales = [];
     let categoriaActual = 'todos';
