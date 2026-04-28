@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Panel de Administración - Coffee & Asados</title>
+    <link rel="icon" type="image/jpeg" href="imagenes/logo_2.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #F8E8D8 0%, #E6C8A8 100%);
+            color: #2C1A10;
+            line-height: 1.5;
+        }
+
+        .top-bar {
+            background: #2C1A10;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-area img {
+            height: 60px;
+            width: auto;
+            border-radius: 12px;
+        }
+
+        .logo-area span {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #F5D5B0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-header h1 {
+            color: #8B4513;
+            font-size: 1.8rem;
+        }
+
+        .admin-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-card h3 {
+            color: #8B4513;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .numero {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #D2691E;
+        }
+
+        .filtros {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filtros input {
+            flex: 2;
+            min-width: 200px;
+            padding: 0.7rem;
+            border: 1px solid #D4A373;
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+
+        .filtros select {
+            padding: 0.7rem;
+            border: 1px solid #D4A373;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .btn-actualizar, .btn-buscar {
+            background: #B45F2B;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-actualizar:hover, .btn-buscar:hover {
+            background: #8B4513;
+        }
+
+        .exportar {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .exportar:hover {
+            background: #128C7E;
+        }
+
+        .tabla-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 20px;
+            padding: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        th {
+            background: #2C1A10;
+            color: #F5D5B0;
+            padding: 12px 8px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #F0DECA;
+        }
+
+        tr:hover {
+            background: #FFF8F0;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: #8B4513;
+        }
+
+        .error {
+            text-align: center;
+            padding: 3rem;
+            color: red;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 28px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .login-container h2 {
+            color: #8B4513;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #D4A373;
+            border-radius: 16px;
+            font-size: 1rem;
+        }
+
+        .login-container button {
+            background: #B45F2B;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            width: 100%;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .footer {
+            background: #2C1A10;
+            color: #E7CFB5;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn-volver {
+            background: #B87C4F;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-volver:hover {
+            background: #8B4513;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            th, td { font-size: 0.7rem; padding: 6px 4px; }
+            .admin-header { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="logo-area">
+        <img src="imagenes/logo_2.jpg" alt="Logo Coffee & Asados">
+        <span>Panel Administrativo</span>
+    </div>
+    <a href="index.html" class="btn-volver">← Volver al sitio</a>
+</div>
+
+<div class="container" id="app">
+    <!-- Pantalla de login -->
+    <div id="loginPanel" class="login-container" style="display: none;">
+        <h2>🔐 Acceso Administrador</h2>
+        <input type="password" id="passwordInput" placeholder="Ingresa la contraseña">
+        <button onclick="verificarPassword()">Ingresar</button>
+    </div>
+
+    <!-- Panel principal (solo visible con contraseña) -->
+    <div id="adminPanel" style="display: none;">
+        <div class="admin-header">
+            <h1>🛡️ Panel de Administración - Solicitudes</h1>
+            <button class="exportar" onclick="exportarCSV()">📥 Exportar a Excel (CSV)</button>
+        </div>
+
+        <div class="admin-stats" id="stats">
+            <div class="stat-card"><h3>Total Solicitudes</h3><div class="numero" id="totalSolicitudes">0</div></div>
+            <div class="stat-card"><h3>Última actualización</h3><div class="numero" id="ultimaActualizacion">-</div></div>
+        </div>
+
+        <div class="filtros">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre, teléfono, email...">
+            <select id="filtroOpcion">
+                <option value="">Todas las opciones</option>
+                <option value="Opción 1">Opción 1</option>
+                <option value="Opción 2">Opción 2</option>
+                <option value="Opción 3">Opción 3</option>
+                <option value="Opción 4">Opción 4</option>
+            </select>
+            <button class="btn-buscar" onclick="aplicarFiltros()">🔍 Buscar</button>
+            <button class="btn-actualizar" onclick="cargarDatos()">🔄 Actualizar</button>
+        </div>
+
+        <div id="tablaContainer" class="tabla-container">
+            <div class="loading">Cargando datos...</div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2025 Coffee & Asados - Panel de Administración ☕🥩</p>
+</div>
+
+<script>
+    // ⚠️ IMPORTANTE: URL de la API de administración
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyauKAS5WeOS8Q-Gw6KlfwNGSQfFlUAcvD3eq6FSlUtqQNIb8nK3e22LphWce7bGtYUJg/exec';
+    
+    // Contraseña para acceder al panel (cámbiala por la que quieras)
+    const CONTRASENA_ADMIN = 'admin123';
+    
+    let datosOriginales = [];
+    let datosFiltrados = [];
+
+    function verificarPassword() {
+        const password = document.getElementById('passwordInput').value;
+        if (password === CONTRASENA_ADMIN) {
+            localStorage.setItem('adminLogged', 'true');
+            document.getElementById('loginPanel').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            cargarDatos();
+        } else {
+            alert('Contraseña incorrecta');
+        }
+    }
+
+    function checkLogin() {
+        if (localStorage.getItem('adminLogged') === 'true') {
+            document.getElementById('loginPanel').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            cargarDatos();
+        } else {
+            document.getElementById('loginPanel').style.display = 'block';
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+    }
+
+    async function cargarDatos() {
+        const tablaContainer = document.getElementById('tablaContainer');
+        tablaContainer.innerHTML = '<div class="loading">Cargando datos...</div>';
+        
+        try {
+            const response = await fetch(API_URL);
+            const data = await response.json();
+            
+            if (data.success) {
+                datosOriginales = data.datos;
+                datosFiltrados = [...datosOriginales];
+                document.getElementById('totalSolicitudes').innerText = data.total;
+                document.getElementById('ultimaActualizacion').innerText = new Date(data.ultimaActualizacion).toLocaleString('es-CL');
+                mostrarTabla();
+            } else {
+                tablaContainer.innerHTML = '<div class="error">Error al cargar los datos: ' + (data.error || 'Desconocido') + '</div>';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            tablaContainer.innerHTML = '<div class="error">Error de conexión. ¿La API está publicada? URL: ' + API_URL + '</div>';
+        }
+    }
+
+    function mostrarTabla() {
+        if (datosFiltrados.length === 0) {
+            document.getElementById('tablaContainer').innerHTML = '<div class="loading">No hay solicitudes para mostrar.</div>';
+            return;
+        }
+
+        let html = '<table><thead><tr>';
+        const columnas = Object.keys(datosFiltrados[0]);
+        for (let col of columnas) {
+            html += `<th>${col}</th>`;
+        }
+        html += '</tr></thead><tbody>';
+        
+        for (let row of datosFiltrados) {
+            html += '<tr>';
+            for (let col of columnas) {
+                let valor = row[col];
+                if (col === 'Fecha' && valor) {
+                    valor = new Date(valor).toLocaleString('es-CL');
+                }
+                html += `<td>${valor || '-'}</td>`;
+            }
+            html += '</tr>';
+        }
+        html += '</tbody></table>';
+        
+        document.getElementById('tablaContainer').innerHTML = html;
+    }
+
+    function aplicarFiltros() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+        const opcionFiltro = document.getElementById('filtroOpcion').value;
+        
+        console.log('🔍 Buscando:', searchTerm);
+        console.log('📋 Filtrando por opción:', opcionFiltro);
+        
+        if (!searchTerm && !opcionFiltro) {
+            datosFiltrados = [...datosOriginales];
+            mostrarTabla();
+            return;
+        }
+        
+        datosFiltrados = datosOriginales.filter(row => {
+            let matchesSearch = true;
+            
+            if (searchTerm) {
+                matchesSearch = false;
+                const camposBuscar = ['Nombre', 'Teléfono', 'Email', 'Dirección'];
+                for (let campo of camposBuscar) {
+                    const valor = row[campo];
+                    if (valor && valor.toString().toLowerCase().includes(searchTerm)) {
+                        matchesSearch = true;
+                        console.log('✅ Coincidencia en:', campo, 'valor:', valor);
+                        break;
+                    }
+                }
+            }
+            
+            let matchesOpcion = true;
+            if (opcionFiltro) {
+                matchesOpcion = row['Opción'] === opcionFiltro;
+            }
+            
+            return matchesSearch && matchesOpcion;
+        });
+        
+        console.log('📊 Resultados encontrados:', datosFiltrados.length);
+        mostrarTabla();
+    }
+
+    function exportarCSV() {
+        if (datosFiltrados.length === 0) {
+            alert('No hay datos para exportar');
+            return;
+        }
+        
+        const columnas = Object.keys(datosFiltrados[0]);
+        let csv = columnas.join(',') + '\n';
+        
+        for (let row of datosFiltrados) {
+            const fila = columnas.map(col => {
+                let valor = row[col] || '';
+                if (typeof valor === 'string') {
+                    valor = valor.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    if (valor.includes(',') || valor.includes('"')) {
+                        valor = '"' + valor.replace(/"/g, '""') + '"';
+                    }
+                }
+                return valor;
+            }).join(',');
+            csv += fila + '\n';
+        }
+        
+        const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.setAttribute('download', 'solicitudes_coffee_asados.csv');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    function actualizarFechaHora() {
+        const ahora = new Date();
+        const elementoFecha = document.getElementById('fechaHora');
+        if (elementoFecha) {
+            elementoFecha.innerText = ahora.toLocaleString('es-CL');
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        checkLogin();
+        actualizarFechaHora();
+        setInterval(actualizarFechaHora, 60000);
+    });
+</script>
+
+</body>
+</html>
