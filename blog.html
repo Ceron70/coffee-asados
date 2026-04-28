@@ -176,12 +176,95 @@
 <script>
     // Datos de los artículos (iguales a los de la hoja de cálculo)
     const articulosData = [
-        { id: 1, titulo: "Cómo elegir el mejor café para tu evento", categoria: "Coffee", resumen: "Aprende a seleccionar el café perfecto para tus reuniones empresariales y coffee breaks.", imagen: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?w=600", fecha: "15/04/2025" },
-        { id: 2, titulo: "Los secretos de un asado perfecto", categoria: "Asados", resumen: "Tips y trucos para un asado inolvidable con amigos y familiares.", imagen: "https://images.pexels.com/photos/2253643/pexels-photo-2253643.jpeg?w=600", fecha: "10/04/2025" },
-        { id: 3, titulo: "5 ideas para un coffee break exitoso", categoria: "Coffee", resumen: "Descubre cómo impresionar a tus invitados con un coffee break inolvidable.", imagen: "https://images.pexels.com/photos/3714958/pexels-photo-3714958.jpeg?w=600", fecha: "05/04/2025" },
-        { id: 4, titulo: "Cortes de carne para asar", categoria: "Asados", resumen: "Conoce los mejores cortes de carne para la parrilla y sus características.", imagen: "https://images.pexels.com/photos/1753665/pexels-photo-1753665.jpeg?w=600", fecha: "28/03/2025" },
-        { id: 5, titulo: "Cómo calcular la cantidad de comida por persona", categoria: "Tips", resumen: "Guía práctica para calcular cuánta comida necesitas en tu evento.", imagen: "https://images.pexels.com/photos/3987121/pexels-photo-3987121.jpeg?w=600", fecha: "20/03/2025" }
-    ];
+    {
+        id: 1,
+        titulo: "Cómo elegir el mejor café para tu evento",
+        categoria: "Coffee",
+        resumen: "Aprende a seleccionar el café perfecto para tus reuniones empresariales y coffee breaks.",
+        imagen: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?w=600",
+        fecha: "15/04/2025",
+        contenido: `El café es una de las bebidas más importantes en cualquier evento. Elegir el tipo adecuado puede marcar la diferencia.
+
+*Consejos para elegir el mejor café:*
+- Opta por granos recién tostados
+- Considera la intensidad que prefieras
+- Ofrece opciones descafeinadas
+- Prueba variedades de origen único
+
+En Aroma & Carbón usamos café de especialidad para garantizar la mejor experiencia en cada coffee break.`
+    },
+    {
+        id: 2,
+        titulo: "Los secretos de un asado perfecto",
+        categoria: "Asados",
+        resumen: "Tips y trucos para un asado inolvidable con amigos y familiares.",
+        imagen: "https://images.pexels.com/photos/2253643/pexels-photo-2253643.jpeg?w=600",
+        fecha: "10/04/2025",
+        contenido: `El asado es todo un arte. Con estos consejos lograrás un resultado espectacular.
+
+*Secretos del asado perfecto:*
+- La temperatura del carbón es clave
+- Los mejores cortes: vacío, chorizo, morcilla
+- El punto de la carne: jugosa por dentro, crocante por fuera
+- Deja reposar la carne antes de cortarla
+
+Déjanos el asado a nosotros y solo preocúpate de disfrutar.`
+    },
+    {
+        id: 3,
+        titulo: "5 ideas para un coffee break exitoso",
+        categoria: "Coffee",
+        resumen: "Descubre cómo impresionar a tus invitados con un coffee break inolvidable.",
+        imagen: "https://images.pexels.com/photos/3714958/pexels-photo-3714958.jpeg?w=600",
+        fecha: "05/04/2025",
+        contenido: `Un coffee break bien planificado puede marcar la diferencia en tus reuniones de trabajo.
+
+*Ideas para tu coffee break:*
+- Variedad de cafés (expreso, capuchino, latte)
+- Acompañamientos salados y dulces
+- Opción sin lactosa y vegana
+- Presentación cuidada y profesional
+
+Nosotros nos encargamos de todo para que tú solo te preocupes de tus invitados.`
+    },
+    {
+        id: 4,
+        titulo: "Cortes de carne para asar",
+        categoria: "Asados",
+        resumen: "Conoce los mejores cortes de carne para la parrilla y sus características.",
+        imagen: "https://images.pexels.com/photos/1753665/pexels-photo-1753665.jpeg?w=600",
+        fecha: "28/03/2025",
+        contenido: `Elegir el corte adecuado es fundamental para un buen asado.
+
+*Los mejores cortes para la parrilla:*
+- Vacío: Jugoso y lleno de sabor
+- Choripán: Clásico infaltable
+- Morcilla: Tradicional y sabrosa
+- Pechito de cerdo: Tierno y crocante
+
+En Aroma & Carbón seleccionamos los mejores cortes para tu evento.`
+    },
+    {
+        id: 5,
+        titulo: "Cómo calcular la cantidad de comida por persona",
+        categoria: "Tips",
+        resumen: "Guía práctica para calcular cuánta comida necesitas en tu evento.",
+        imagen: "https://images.pexels.com/photos/3987121/pexels-photo-3987121.jpeg?w=600",
+        fecha: "20/03/2025",
+        contenido: `Calcular la cantidad correcta de comida evita desperdicios y garantiza que nadie se quede con hambre.
+
+*Porciones sugeridas por persona:*
+- Carne: 400-500 gramos
+- Pan: 2-3 unidades
+- Ensalada: 150-200 gramos
+- Bebida: 1-2 latas/litro
+- Postre: 1 porción
+
+Contáctanos para ayudarte a planificar la cantidad perfecta.`
+    }
+];
+
+
 
     let categoriaActual = 'todos';
 
@@ -214,11 +297,11 @@
         }
         grid.innerHTML = html;
     }
-
-    function verArticulo(id) {
-        localStorage.setItem('articuloId', id);
-        window.location.href = 'articulo.html';
-    }
+function verArticulo(id) {
+    const articulo = articulosData.find(a => a.id === id);
+    localStorage.setItem('articuloData', JSON.stringify(articulo));
+    window.location.href = 'articulo.html';
+}
 
     document.querySelectorAll('.filtro-btn').forEach(btn => {
         btn.addEventListener('click', function() {

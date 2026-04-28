@@ -51,8 +51,6 @@
         .articulo-categoria { display: inline-block; background: linear-gradient(115deg, #D2691E, #A0522D); color: white; font-size: 0.8rem; padding: 0.3rem 1rem; border-radius: 50px; margin-bottom: 1rem; }
         .articulo-fecha { color: #A6521E; margin: 0.5rem 0 1rem; display: flex; align-items: center; gap: 0.5rem; }
         .articulo-contenido { font-size: 1.05rem; color: #3E2416; line-height: 1.7; }
-        .articulo-contenido p { margin-bottom: 1rem; }
-        .articulo-contenido ul, .articulo-contenido ol { margin: 1rem 0 1rem 2rem; }
         .loading { text-align: center; padding: 3rem; color: #8B4513; }
         .footer {
             background: linear-gradient(145deg, #1A0D07, #2C1A10);
@@ -94,70 +92,74 @@
 </div>
 
 <script>
-    // Datos de los artículos (mismos que en blog.html)
-    const articulos = {
-        1: {
-            id: 1,
-            titulo: "Cómo elegir el mejor café para tu evento",
-            categoria: "Coffee",
-            contenido: "<p>El café es una de las bebidas más importantes en cualquier evento. Elegir el tipo adecuado puede marcar la diferencia.</p><p><strong>Consejos para elegir el mejor café:</strong></p><ul><li>Opta por granos recién tostados</li><li>Considera la intensidad que prefieras</li><li>Ofrece opciones descafeinadas</li><li>Prueba variedades de origen único</li></ul><p>En Aroma & Carbón usamos café de especialidad para garantizar la mejor experiencia en cada coffee break.</p>",
-            imagen: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?w=600",
-            fecha: "15/04/2025"
-        },
-        2: {
-            id: 2,
-            titulo: "Los secretos de un asado perfecto",
-            categoria: "Asados",
-            contenido: "<p>El asado es todo un arte. Con estos consejos lograrás un resultado espectacular.</p><p><strong>Secretos del asado perfecto:</strong></p><ul><li>La temperatura del carbón es clave</li><li>Los mejores cortes: vacío, chorizo, morcilla</li><li>El punto de la carne: jugosa por dentro, crocante por fuera</li><li>Deja reposar la carne antes de cortarla</li></ul><p>Déjanos el asado a nosotros y solo preocúpate de disfrutar.</p>",
-            imagen: "https://images.pexels.com/photos/2253643/pexels-photo-2253643.jpeg?w=600",
-            fecha: "10/04/2025"
-        },
-        3: {
-            id: 3,
-            titulo: "5 ideas para un coffee break exitoso",
-            categoria: "Coffee",
-            contenido: "<p>Un coffee break bien planificado puede marcar la diferencia en tus reuniones de trabajo.</p><p><strong>Ideas para tu coffee break:</strong></p><ul><li>Variedad de cafés (expreso, capuchino, latte)</li><li>Acompañamientos salados y dulces</li><li>Opción sin lactosa y vegana</li><li>Presentación cuidada y profesional</li></ul><p>Nosotros nos encargamos de todo para que tú solo te preocupes de tus invitados.</p>",
-            imagen: "https://images.pexels.com/photos/3714958/pexels-photo-3714958.jpeg?w=600",
-            fecha: "05/04/2025"
-        },
-        4: {
-            id: 4,
-            titulo: "Cortes de carne para asar",
-            categoria: "Asados",
-            contenido: "<p>Elegir el corte adecuado es fundamental para un buen asado.</p><p><strong>Los mejores cortes para la parrilla:</strong></p><ul><li><strong>Vacío:</strong> Jugoso y lleno de sabor</li><li><strong>Choripán:</strong> Clásico infaltable</li><li><strong>Morcilla:</strong> Tradicional y sabrosa</li><li><strong>Pechito de cerdo:</strong> Tierno y crocante</li></ul><p>En Aroma & Carbón seleccionamos los mejores cortes para tu evento.</p>",
-            imagen: "https://images.pexels.com/photos/1753665/pexels-photo-1753665.jpeg?w=600",
-            fecha: "28/03/2025"
-        },
-        5: {
-            id: 5,
-            titulo: "Cómo calcular la cantidad de comida por persona",
-            categoria: "Tips",
-            contenido: "<p>Calcular la cantidad correcta de comida evita desperdicios y garantiza que nadie se quede con hambre.</p><p><strong>Porciones sugeridas por persona:</strong></p><ul><li>Carne: 400-500 gramos</li><li>Pan: 2-3 unidades</li><li>Ensalada: 150-200 gramos</li><li>Bebida: 1-2 latas/litro</li><li>Postre: 1 porción</li></ul><p>Contáctanos para ayudarte a planificar la cantidad perfecta.</p>",
-            imagen: "https://images.pexels.com/photos/3987121/pexels-photo-3987121.jpeg?w=600",
-            fecha: "20/03/2025"
+    // Función para convertir texto plano a HTML (negritas, listas, párrafos)
+    function formatearTextoPlano(texto) {
+        if (!texto) return '';
+        
+        // Escapar caracteres HTML
+        let html = texto.replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+        
+        // Convertir *texto* a <strong>texto</strong>
+        html = html.replace(/\*([^*\n]+)\*/g, '<strong>$1</strong>');
+        
+        // Convertir líneas que empiezan con "- " en listas
+        const lineas = html.split('\n');
+        let dentroLista = false;
+        let resultado = [];
+        
+        for (let i = 0; i < lineas.length; i++) {
+            let linea = lineas[i];
+            const esItemLista = linea.trim().startsWith('- ');
+            
+            if (esItemLista && !dentroLista) {
+                resultado.push('<ul>');
+                dentroLista = true;
+                resultado.push(`<li>${linea.trim().substring(2)}</li>`);
+            } else if (esItemLista && dentroLista) {
+                resultado.push(`<li>${linea.trim().substring(2)}</li>`);
+            } else if (!esItemLista && dentroLista) {
+                resultado.push('</ul>');
+                dentroLista = false;
+                if (linea.trim() !== '') resultado.push(linea);
+            } else {
+                if (linea.trim() === '') {
+                    resultado.push('<br>');
+                } else {
+                    resultado.push(linea);
+                }
+            }
         }
-    };
+        if (dentroLista) resultado.push('</ul>');
+        
+        let htmlFinal = resultado.join('\n');
+        
+        // Convertir doble salto de línea en párrafos
+        htmlFinal = htmlFinal.replace(/\n\n/g, '</p><p>');
+        if (!htmlFinal.startsWith('<ul>')) {
+            htmlFinal = '<p>' + htmlFinal + '</p>';
+        }
+        htmlFinal = htmlFinal.replace(/([^>])\n([^<])/g, '$1<br>$2');
+        
+        return htmlFinal;
+    }
 
     function cargarArticulo() {
-        const articuloId = localStorage.getItem('articuloId');
-        console.log('ID del artículo:', articuloId);
-        
-        if (!articuloId) {
+        // Obtener el artículo guardado en localStorage
+        const articuloData = localStorage.getItem('articuloData');
+        if (!articuloData) {
             window.location.href = 'blog.html';
             return;
         }
         
-        const articulo = articulos[articuloId];
+        const articulo = JSON.parse(articuloData);
         
-        if (articulo) {
-            mostrarArticulo(articulo);
-        } else {
-            document.getElementById('articulo-container').innerHTML = '<div class="loading">Artículo no encontrado</div>';
-        }
-    }
-
-    function mostrarArticulo(articulo) {
+        // Mostrar título
         document.getElementById('articulo-titulo').innerText = articulo.titulo;
+        
+        // Procesar contenido (texto plano)
+        const contenidoHTML = formatearTextoPlano(articulo.contenido);
         
         const container = document.getElementById('articulo-container');
         container.innerHTML = `
@@ -165,7 +167,7 @@
             <span class="articulo-categoria">${articulo.categoria}</span>
             <h1 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${articulo.titulo}</h1>
             <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${articulo.fecha}</div>
-            <div class="articulo-contenido">${articulo.contenido}</div>
+            <div class="articulo-contenido">${contenidoHTML}</div>
         `;
     }
 

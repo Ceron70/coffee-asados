@@ -94,8 +94,68 @@
 </div>
 
 <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxP_Rrk-oFJMG8msx4fGS6WGXpZyAKe03GRmr9Puew2EO9PgUR8PWSS3qkSpGx9rIMmAw/exec/blog';
-    
+    // Proxy CORS para evitar bloqueos
+    const PROXY_URL = 'https://api.allorigins.win/raw?url=';
+    const API_URL_BLOG = 'https://script.google.com/macros/s/AKfycbxP_Rrk-oFJMG8msx4fGS6WGXpZyAKe03GRmr9Puew2EO9PgUR8PWSS3qkSpGx9rIMmAw/exec/blog';
+
+    // Función para convertir texto plano a HTML con formato
+    function formatearTextoPlano(texto) {
+        if (!texto) return '';
+        
+        // 1. Escapar caracteres HTML peligrosos (por seguridad, aunque el texto plano no debería tenerlos)
+        let html = texto.replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+        
+        // 2. Convertir negritas con *texto* (no afecta a listas con * al inicio de línea)
+        html = html.replace(/\*([^*\n]+)\*/g, '<strong>$1</strong>');
+        
+        // 3. Convertir líneas que empiezan con "- " en items de lista
+        const lineas = html.split('\n');
+        let dentroLista = false;
+        let resultado = [];
+        
+        for (let i = 0; i < lineas.length; i++) {
+            let linea = lineas[i];
+            const esItemLista = linea.trim().startsWith('- ');
+            
+            if (esItemLista && !dentroLista) {
+                resultado.push('<ul>');
+                dentroLista = true;
+                resultado.push(`<li>${linea.trim().substring(2)}</li>`);
+            } else if (esItemLista && dentroLista) {
+                resultado.push(`<li>${linea.trim().substring(2)}</li>`);
+            } else if (!esItemLista && dentroLista) {
+                resultado.push('</ul>');
+                dentroLista = false;
+                if (linea.trim() !== '') {
+                    resultado.push(linea);
+                }
+            } else {
+                if (linea.trim() === '') {
+                    resultado.push('<br>');
+                } else {
+                    resultado.push(linea);
+                }
+            }
+        }
+        if (dentroLista) resultado.push('</ul>');
+        
+        // 4. Unir líneas y reemplazar saltos de línea dobles por párrafos
+        let htmlFinal = resultado.join('\n');
+        
+        // 5. Convertir saltos de línea dobles en separación de párrafos
+        htmlFinal = htmlFinal.replace(/\n\n/g, '</p><p>');
+        // 6. Envolver en <p> si no está ya dentro de listas
+        if (!htmlFinal.startsWith('<ul>')) {
+            htmlFinal = '<p>' + htmlFinal + '</p>';
+        }
+        // 7. Reemplazar saltos de línea simples por <br> (dentro de párrafos)
+        htmlFinal = htmlFinal.replace(/([^>])\n([^<])/g, '$1<br>$2');
+        
+        return htmlFinal;
+    }
+
     async function cargarArticulo() {
         const articuloId = localStorage.getItem('articuloId');
         if (!articuloId) {
@@ -104,9 +164,10 @@
         }
         
         try {
-            const response = await fetch(API_URL);
+            // Obtener todos los artículos (igual que blog.html)
+            const response = await fetch(PROXY_URL + encodeURIComponent(API_URL_BLOG));
             const data = await response.json();
-            console.log('Datos:', data);
+            console.log('Datos recibidos:', data);
             
             if (data.success && data.articulos && data.articulos.length > 0) {
                 const articulo = data.articulos.find(a => a.id == articuloId);
@@ -127,13 +188,16 @@
     function mostrarArticulo(articulo) {
         document.getElementById('articulo-titulo').innerText = articulo.titulo;
         
+        // Formatear el contenido (texto plano) a HTML
+        const contenidoHTML = formatearTextoPlano(articulo.contenido);
+        
         const container = document.getElementById('articulo-container');
         container.innerHTML = `
             <img class="articulo-imagen" src="${articulo.imagen}" alt="${articulo.titulo}" onerror="this.src='https://placehold.co/800x400?text=Imagen'">
             <span class="articulo-categoria">${articulo.categoria}</span>
             <h1 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${articulo.titulo}</h1>
-            <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${articulo.fecha ? new Date(articulo.fecha).toLocaleDateString('es-CL') : ''}</div>
-            <div class="articulo-contenido">${articulo.contenido}</div>
+            <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${new Date(articulo.fecha).toLocaleDateString('es-CL')}</div>
+            <div class="articulo-contenido">${contenidoHTML}</div>
         `;
     }
 
