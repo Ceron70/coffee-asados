@@ -94,33 +94,65 @@
 </div>
 
 <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxP_Rrk-oFJMG8msx4fGS6WGXpZyAKe03GRmr9Puew2EO9PgUR8PWSS3qkSpGx9rIMmAw/exec/blog';
-    
-    async function cargarArticulo() {
+    // Datos de los artículos (mismos que en blog.html)
+    const articulos = {
+        1: {
+            id: 1,
+            titulo: "Cómo elegir el mejor café para tu evento",
+            categoria: "Coffee",
+            contenido: "<p>El café es una de las bebidas más importantes en cualquier evento. Elegir el tipo adecuado puede marcar la diferencia.</p><p><strong>Consejos para elegir el mejor café:</strong></p><ul><li>Opta por granos recién tostados</li><li>Considera la intensidad que prefieras</li><li>Ofrece opciones descafeinadas</li><li>Prueba variedades de origen único</li></ul><p>En Aroma & Carbón usamos café de especialidad para garantizar la mejor experiencia en cada coffee break.</p>",
+            imagen: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?w=600",
+            fecha: "15/04/2025"
+        },
+        2: {
+            id: 2,
+            titulo: "Los secretos de un asado perfecto",
+            categoria: "Asados",
+            contenido: "<p>El asado es todo un arte. Con estos consejos lograrás un resultado espectacular.</p><p><strong>Secretos del asado perfecto:</strong></p><ul><li>La temperatura del carbón es clave</li><li>Los mejores cortes: vacío, chorizo, morcilla</li><li>El punto de la carne: jugosa por dentro, crocante por fuera</li><li>Deja reposar la carne antes de cortarla</li></ul><p>Déjanos el asado a nosotros y solo preocúpate de disfrutar.</p>",
+            imagen: "https://images.pexels.com/photos/2253643/pexels-photo-2253643.jpeg?w=600",
+            fecha: "10/04/2025"
+        },
+        3: {
+            id: 3,
+            titulo: "5 ideas para un coffee break exitoso",
+            categoria: "Coffee",
+            contenido: "<p>Un coffee break bien planificado puede marcar la diferencia en tus reuniones de trabajo.</p><p><strong>Ideas para tu coffee break:</strong></p><ul><li>Variedad de cafés (expreso, capuchino, latte)</li><li>Acompañamientos salados y dulces</li><li>Opción sin lactosa y vegana</li><li>Presentación cuidada y profesional</li></ul><p>Nosotros nos encargamos de todo para que tú solo te preocupes de tus invitados.</p>",
+            imagen: "https://images.pexels.com/photos/3714958/pexels-photo-3714958.jpeg?w=600",
+            fecha: "05/04/2025"
+        },
+        4: {
+            id: 4,
+            titulo: "Cortes de carne para asar",
+            categoria: "Asados",
+            contenido: "<p>Elegir el corte adecuado es fundamental para un buen asado.</p><p><strong>Los mejores cortes para la parrilla:</strong></p><ul><li><strong>Vacío:</strong> Jugoso y lleno de sabor</li><li><strong>Choripán:</strong> Clásico infaltable</li><li><strong>Morcilla:</strong> Tradicional y sabrosa</li><li><strong>Pechito de cerdo:</strong> Tierno y crocante</li></ul><p>En Aroma & Carbón seleccionamos los mejores cortes para tu evento.</p>",
+            imagen: "https://images.pexels.com/photos/1753665/pexels-photo-1753665.jpeg?w=600",
+            fecha: "28/03/2025"
+        },
+        5: {
+            id: 5,
+            titulo: "Cómo calcular la cantidad de comida por persona",
+            categoria: "Tips",
+            contenido: "<p>Calcular la cantidad correcta de comida evita desperdicios y garantiza que nadie se quede con hambre.</p><p><strong>Porciones sugeridas por persona:</strong></p><ul><li>Carne: 400-500 gramos</li><li>Pan: 2-3 unidades</li><li>Ensalada: 150-200 gramos</li><li>Bebida: 1-2 latas/litro</li><li>Postre: 1 porción</li></ul><p>Contáctanos para ayudarte a planificar la cantidad perfecta.</p>",
+            imagen: "https://images.pexels.com/photos/3987121/pexels-photo-3987121.jpeg?w=600",
+            fecha: "20/03/2025"
+        }
+    };
+
+    function cargarArticulo() {
         const articuloId = localStorage.getItem('articuloId');
+        console.log('ID del artículo:', articuloId);
+        
         if (!articuloId) {
             window.location.href = 'blog.html';
             return;
         }
         
-        try {
-            const response = await fetch(API_URL);
-            const data = await response.json();
-            console.log('Datos:', data);
-            
-            if (data.success && data.articulos && data.articulos.length > 0) {
-                const articulo = data.articulos.find(a => a.id == articuloId);
-                if (articulo) {
-                    mostrarArticulo(articulo);
-                } else {
-                    document.getElementById('articulo-container').innerHTML = '<div class="loading">Artículo no encontrado</div>';
-                }
-            } else {
-                document.getElementById('articulo-container').innerHTML = '<div class="loading">Error al cargar el artículo</div>';
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            document.getElementById('articulo-container').innerHTML = '<div class="loading">Error al cargar el artículo</div>';
+        const articulo = articulos[articuloId];
+        
+        if (articulo) {
+            mostrarArticulo(articulo);
+        } else {
+            document.getElementById('articulo-container').innerHTML = '<div class="loading">Artículo no encontrado</div>';
         }
     }
 
@@ -132,7 +164,7 @@
             <img class="articulo-imagen" src="${articulo.imagen}" alt="${articulo.titulo}" onerror="this.src='https://placehold.co/800x400?text=Imagen'">
             <span class="articulo-categoria">${articulo.categoria}</span>
             <h1 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${articulo.titulo}</h1>
-            <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${articulo.fecha ? new Date(articulo.fecha).toLocaleDateString('es-CL') : ''}</div>
+            <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${articulo.fecha}</div>
             <div class="articulo-contenido">${articulo.contenido}</div>
         `;
     }
