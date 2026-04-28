@@ -185,17 +185,18 @@
         try {
             const response = await fetch(API_URL);
             const data = await response.json();
-            console.log('Datos:', data);
+            console.log('Datos recibidos:', data);
             
             if (data.success && data.articulos && data.articulos.length > 0) {
                 articulos = data.articulos;
                 mostrarArticulos();
+                console.log('Artículos cargados:', articulos.length);
             } else {
-                grid.innerHTML = '<div class="loading">No hay artículos disponibles.</div>';
+                grid.innerHTML = '<div class="loading">No hay artículos disponibles. Total: ' + (data.total || 0) + '</div>';
             }
         } catch (error) {
-            console.error('Error:', error);
-            grid.innerHTML = '<div class="loading">Error al cargar los artículos.</div>';
+            console.error('Error detallado:', error);
+            grid.innerHTML = '<div class="loading">Error al cargar los artículos: ' + error.message + '</div>';
         }
     }
 
@@ -204,7 +205,8 @@
         
         let filtrados = articulos;
         if (categoriaActual !== 'todos') {
-            filtrados = articulos.filter(a => a.categoria === categoriaActual);
+            filtrados = articulos.filter(a => a.categoria.toLowerCase() === categoriaActual.toLowerCase());
+            console.log('Filtrados por categoría:', categoriaActual, 'resultados:', filtrados.length);
         }
         
         if (filtrados.length === 0) {
@@ -215,14 +217,18 @@
         let html = '';
         for (let i = 0; i < filtrados.length; i++) {
             const a = filtrados[i];
+            let fechaFormateada = a.fecha;
+            if (a.fecha && a.fecha.includes('T')) {
+                fechaFormateada = new Date(a.fecha).toLocaleDateString('es-CL');
+            }
             html += `
                 <div class="articulo-card" onclick="verArticulo(${a.id})">
                     <img class="articulo-imagen" src="${a.imagen}" alt="${a.titulo}" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=Imagen'">
                     <div class="articulo-info">
                         <span class="articulo-categoria">${a.categoria}</span>
                         <h3>${a.titulo}</h3>
-                        <p>${a.resumen}</p>
-                        <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${a.fecha ? new Date(a.fecha).toLocaleDateString('es-CL') : ''}</div>
+                        <p>${a.resumen.substring(0, 120)}${a.resumen.length > 120 ? '...' : ''}</p>
+                        <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${fechaFormateada}</div>
                     </div>
                 </div>
             `;
