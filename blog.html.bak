@@ -173,7 +173,7 @@
 </div>
 
 <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxUsDDMrPPMceLLyFIUirwCEAiiKAaAplmZ35XLf9jBQZYrJZwqYtUvLcpI9PlE57rD_g/exec/blog';
+  const API_URL = 'https://script.google.com/macros/s/AKfycbxUsDDMrPPMceLLyFIUirwCEAiiKAaAplmZ35XLf9jBQZYrJZwqYtUvLcpI9PlE57rD_g/exec/blog';
     
     let articulos = [];
     let categoriaActual = 'todos';
