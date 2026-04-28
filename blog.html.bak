@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Aroma & Carbón - Artículo</title>
+    <title>Aroma & Carbón - Blog de café y asados</title>
     <link rel="icon" type="image/jpeg" href="imagenes/logo_2.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -13,7 +13,7 @@
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #FDF8F0 0%, #F5EDE0 100%);
             color: #2C2418;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         h1, h2, h3 { font-family: 'Playfair Display', serif; }
         .top-bar {
@@ -41,31 +41,100 @@
                         url('https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg?auto=compress&cs=tinysrgb&w=1600');
             background-size: cover;
             background-position: center 35%;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
             text-align: center;
             color: white;
         }
-        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
-        .articulo-imagen { width: 100%; max-height: 400px; object-fit: cover; border-radius: 24px; margin-bottom: 1.5rem; }
-        .articulo-categoria { display: inline-block; background: linear-gradient(115deg, #D2691E, #A0522D); color: white; font-size: 0.8rem; padding: 0.3rem 1rem; border-radius: 50px; margin-bottom: 1rem; }
-        .articulo-fecha { color: #A6521E; margin: 0.5rem 0 1rem; display: flex; align-items: center; gap: 0.5rem; }
-        .articulo-contenido { font-size: 1.05rem; color: #3E2416; line-height: 1.7; }
-        .articulo-contenido p { margin-bottom: 1rem; }
-        .articulo-contenido ul, .articulo-contenido ol { margin: 1rem 0 1rem 2rem; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .hero p { font-size: 1rem; opacity: 0.9; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 3rem 2rem; }
+        .filtros-blog {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .filtro-btn {
+            background: #FEF3E9;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #8B4513;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .filtro-btn:hover, .filtro-btn.active { background: #D2691E; color: white; }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .articulo-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(210, 150, 90, 0.15);
+            cursor: pointer;
+        }
+        .articulo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.12);
+        }
+        .articulo-imagen { width: 100%; height: 200px; object-fit: cover; }
+        .articulo-info { padding: 1.5rem; }
+        .articulo-categoria {
+            display: inline-block;
+            background: linear-gradient(115deg, #D2691E, #A0522D);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            margin-bottom: 0.8rem;
+        }
+        .articulo-info h3 { color: #8B4513; font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .articulo-info p { color: #5A3A28; font-size: 0.9rem; margin-bottom: 1rem; }
+        .articulo-fecha { font-size: 0.8rem; color: #A6521E; display: flex; align-items: center; gap: 0.3rem; }
         .loading { text-align: center; padding: 3rem; color: #8B4513; }
         .footer {
             background: linear-gradient(145deg, #1A0D07, #2C1A10);
             color: #E7CFB5;
             text-align: center;
-            padding: 1.5rem;
+            padding: 2rem;
             margin-top: 2rem;
             border-top: 4px solid #B87C4F;
         }
         @media (max-width: 768px) {
             .top-bar { flex-direction: column; text-align: center; }
-            .hero h1 { font-size: 1.5rem; }
-            .container { padding: 1rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .container { padding: 1.5rem; }
+            .blog-grid { grid-template-columns: 1fr; }
+        }
+        .btn-whatsapp-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(115deg, #25D366, #128C7E);
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        .btn-whatsapp-flotante:hover { transform: scale(1.1); }
+        @media (max-width: 768px) {
+            .btn-whatsapp-flotante { width: 45px; height: 45px; font-size: 1.3rem; }
         }
     </style>
 </head>
@@ -76,17 +145,27 @@
         <img src="imagenes/logo_2.jpg" alt="Logo Aroma & Carbón">
         <span>Aroma & Carbón</span>
     </div>
-    <a href="blog.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver al blog</a>
+    <a href="index.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
 </div>
 
 <div class="hero">
     <div>
-        <h1 id="articulo-titulo">Cargando artículo...</h1>
+        <h1><i class="fas fa-newspaper"></i> Blog de café y asados</h1>
+        <p>Consejos, recetas y tendencias para tus eventos</p>
     </div>
 </div>
 
-<div class="container" id="articulo-container">
-    <div class="loading"><i class="fas fa-spinner fa-pulse"></i> Cargando contenido...</div>
+<div class="container">
+    <div class="filtros-blog">
+        <button class="filtro-btn active" data-categoria="todos">📰 Todos</button>
+        <button class="filtro-btn" data-categoria="Coffee">☕ Coffee</button>
+        <button class="filtro-btn" data-categoria="Asados">🥩 Asados</button>
+        <button class="filtro-btn" data-categoria="Tips">💡 Tips</button>
+    </div>
+
+    <div id="blog-grid" class="blog-grid">
+        <div class="loading"><i class="fas fa-spinner fa-pulse"></i> Cargando artículos...</div>
+    </div>
 </div>
 
 <div class="footer">
@@ -96,12 +175,12 @@
 <script>
     const API_URL = 'https://script.google.com/macros/s/AKfycbxUsDDMrPPMceLLyFIUirwCEAiiKAaAplmZ35XLf9jBQZYrJZwqYtUvLcpI9PlE57rD_g/exec/blog';
     
-    async function cargarArticulo() {
-        const articuloId = localStorage.getItem('articuloId');
-        if (!articuloId) {
-            window.location.href = 'blog.html';
-            return;
-        }
+    let articulos = [];
+    let categoriaActual = 'todos';
+
+    async function cargarArticulos() {
+        const grid = document.getElementById('blog-grid');
+        grid.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-pulse"></i> Cargando artículos...</div>';
         
         try {
             const response = await fetch(API_URL);
@@ -109,36 +188,68 @@
             console.log('Datos:', data);
             
             if (data.success && data.articulos && data.articulos.length > 0) {
-                const articulo = data.articulos.find(a => a.id == articuloId);
-                if (articulo) {
-                    mostrarArticulo(articulo);
-                } else {
-                    document.getElementById('articulo-container').innerHTML = '<div class="loading">Artículo no encontrado</div>';
-                }
+                articulos = data.articulos;
+                mostrarArticulos();
             } else {
-                document.getElementById('articulo-container').innerHTML = '<div class="loading">Error al cargar el artículo</div>';
+                grid.innerHTML = '<div class="loading">No hay artículos disponibles.</div>';
             }
         } catch (error) {
             console.error('Error:', error);
-            document.getElementById('articulo-container').innerHTML = '<div class="loading">Error al cargar el artículo</div>';
+            grid.innerHTML = '<div class="loading">Error al cargar los artículos.</div>';
         }
     }
 
-    function mostrarArticulo(articulo) {
-        document.getElementById('articulo-titulo').innerText = articulo.titulo;
+    function mostrarArticulos() {
+        const grid = document.getElementById('blog-grid');
         
-        const container = document.getElementById('articulo-container');
-        container.innerHTML = `
-            <img class="articulo-imagen" src="${articulo.imagen}" alt="${articulo.titulo}" onerror="this.src='https://placehold.co/800x400?text=Imagen'">
-            <span class="articulo-categoria">${articulo.categoria}</span>
-            <h1 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${articulo.titulo}</h1>
-            <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${articulo.fecha ? new Date(articulo.fecha).toLocaleDateString('es-CL') : ''}</div>
-            <div class="articulo-contenido">${articulo.contenido}</div>
-        `;
+        let filtrados = articulos;
+        if (categoriaActual !== 'todos') {
+            filtrados = articulos.filter(a => a.categoria === categoriaActual);
+        }
+        
+        if (filtrados.length === 0) {
+            grid.innerHTML = '<div class="loading">No hay artículos en esta categoría.</div>';
+            return;
+        }
+        
+        let html = '';
+        for (let i = 0; i < filtrados.length; i++) {
+            const a = filtrados[i];
+            html += `
+                <div class="articulo-card" onclick="verArticulo(${a.id})">
+                    <img class="articulo-imagen" src="${a.imagen}" alt="${a.titulo}" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=Imagen'">
+                    <div class="articulo-info">
+                        <span class="articulo-categoria">${a.categoria}</span>
+                        <h3>${a.titulo}</h3>
+                        <p>${a.resumen}</p>
+                        <div class="articulo-fecha"><i class="far fa-calendar-alt"></i> ${a.fecha ? new Date(a.fecha).toLocaleDateString('es-CL') : ''}</div>
+                    </div>
+                </div>
+            `;
+        }
+        grid.innerHTML = html;
     }
 
-    document.addEventListener('DOMContentLoaded', cargarArticulo);
+    function verArticulo(id) {
+        localStorage.setItem('articuloId', id);
+        window.location.href = 'articulo.html';
+    }
+
+    document.querySelectorAll('.filtro-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            categoriaActual = this.getAttribute('data-categoria');
+            mostrarArticulos();
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', cargarArticulos);
 </script>
+
+<a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Aroma%20%26%20Carbón%20y%20quiero%20hacer%20un%20pedido." class="btn-whatsapp-flotante" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
 
 </body>
 </html>
