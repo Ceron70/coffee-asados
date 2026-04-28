@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        /* (el mismo CSS que antes) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
@@ -173,46 +174,23 @@
 </div>
 
 <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxP_Rrk-oFJMG8msx4fGS6WGXpZyAKe03GRmr9Puew2EO9PgUR8PWSS3qkSpGx9rIMmAw/exec/blog';
-    
-    let articulos = [];
-    let categoriaActual = 'todos';
+    // Datos de los artículos (iguales a los de la hoja de cálculo)
+    const articulosData = [
+        { id: 1, titulo: "Cómo elegir el mejor café para tu evento", categoria: "Coffee", resumen: "Aprende a seleccionar el café perfecto para tus reuniones empresariales y coffee breaks.", imagen: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?w=600", fecha: "15/04/2025" },
+        { id: 2, titulo: "Los secretos de un asado perfecto", categoria: "Asados", resumen: "Tips y trucos para un asado inolvidable con amigos y familiares.", imagen: "https://images.pexels.com/photos/2253643/pexels-photo-2253643.jpeg?w=600", fecha: "10/04/2025" },
+        { id: 3, titulo: "5 ideas para un coffee break exitoso", categoria: "Coffee", resumen: "Descubre cómo impresionar a tus invitados con un coffee break inolvidable.", imagen: "https://images.pexels.com/photos/3714958/pexels-photo-3714958.jpeg?w=600", fecha: "05/04/2025" },
+        { id: 4, titulo: "Cortes de carne para asar", categoria: "Asados", resumen: "Conoce los mejores cortes de carne para la parrilla y sus características.", imagen: "https://images.pexels.com/photos/1753665/pexels-photo-1753665.jpeg?w=600", fecha: "28/03/2025" },
+        { id: 5, titulo: "Cómo calcular la cantidad de comida por persona", categoria: "Tips", resumen: "Guía práctica para calcular cuánta comida necesitas en tu evento.", imagen: "https://images.pexels.com/photos/3987121/pexels-photo-3987121.jpeg?w=600", fecha: "20/03/2025" }
+    ];
 
-    async function cargarArticulos() {
-        const grid = document.getElementById('blog-grid');
-        grid.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-pulse"></i> Cargando artículos...</div>';
-        
-        try {
-            // Usamos modo no-cors para evitar problemas de CORS
-            const response = await fetch(API_URL, { mode: 'no-cors' });
-            
-            // Con no-cors no podemos leer la respuesta directamente
-            // Por lo tanto, usamos datos de prueba locales
-            console.log('Usando modo no-cors, cargando datos de prueba...');
-            
-            // Datos de prueba (los mismos de tu hoja de cálculo)
-            articulos = [
-                {id: 1, titulo: "Cómo elegir el mejor café para tu evento", categoria: "Coffee", resumen: "Aprende a seleccionar el café perfecto para tus reuniones empresariales y coffee breaks.", imagen: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?w=600", fecha: "15/04/2025"},
-                {id: 2, titulo: "Los secretos de un asado perfecto", categoria: "Asados", resumen: "Tips y trucos para un asado inolvidable con amigos y familiares.", imagen: "https://images.pexels.com/photos/2253643/pexels-photo-2253643.jpeg?w=600", fecha: "10/04/2025"},
-                {id: 3, titulo: "5 ideas para un coffee break exitoso", categoria: "Coffee", resumen: "Descubre cómo impresionar a tus invitados con un coffee break inolvidable.", imagen: "https://images.pexels.com/photos/3714958/pexels-photo-3714958.jpeg?w=600", fecha: "05/04/2025"},
-                {id: 4, titulo: "Cortes de carne para asar", categoria: "Asados", resumen: "Conoce los mejores cortes de carne para la parrilla y sus características.", imagen: "https://images.pexels.com/photos/1753665/pexels-photo-1753665.jpeg?w=600", fecha: "28/03/2025"},
-                {id: 5, titulo: "Cómo calcular la cantidad de comida por persona", categoria: "Tips", resumen: "Guía práctica para calcular cuánta comida necesitas en tu evento.", imagen: "https://images.pexels.com/photos/3987121/pexels-photo-3987121.jpeg?w=600", fecha: "20/03/2025"}
-            ];
-            
-            mostrarArticulos();
-            
-        } catch (error) {
-            console.error('Error:', error);
-            grid.innerHTML = '<div class="loading">Error al cargar los artículos: ' + error.message + '</div>';
-        }
-    }
+    let categoriaActual = 'todos';
 
     function mostrarArticulos() {
         const grid = document.getElementById('blog-grid');
         
-        let filtrados = articulos;
+        let filtrados = articulosData;
         if (categoriaActual !== 'todos') {
-            filtrados = articulos.filter(a => a.categoria.toLowerCase() === categoriaActual.toLowerCase());
+            filtrados = articulosData.filter(a => a.categoria.toLowerCase() === categoriaActual.toLowerCase());
         }
         
         if (filtrados.length === 0) {
@@ -221,8 +199,7 @@
         }
         
         let html = '';
-        for (let i = 0; i < filtrados.length; i++) {
-            const a = filtrados[i];
+        for (let a of filtrados) {
             html += `
                 <div class="articulo-card" onclick="verArticulo(${a.id})">
                     <img class="articulo-imagen" src="${a.imagen}" alt="${a.titulo}" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=Imagen'">
@@ -252,7 +229,7 @@
         });
     });
 
-    document.addEventListener('DOMContentLoaded', cargarArticulos);
+    document.addEventListener('DOMContentLoaded', mostrarArticulos);
 </script>
 
 <a href="https://wa.me/56988160607?text=Hola%2C%20vi%20su%20sitio%20de%20Aroma%20%26%20Carbón%20y%20quiero%20hacer%20un%20pedido." class="btn-whatsapp-flotante" target="_blank">
