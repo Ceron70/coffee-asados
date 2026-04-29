@@ -507,7 +507,7 @@
     const API_URL_PRODUCTOS = 'https://script.google.com/macros/s/AKfycbxYZY89WjAdRXXwS1UFoGotccdP1QKlYYWqvY6__3BTm0xKEYjD87Pn_8u4LqiaIuCD/exec';
     
     // URL para guardar solicitudes en Google Sheets
-  const API_URL_GUARDAR = 'https://script.google.com/macros/s/AKfycbwRi1h-vAVo2-FTVGocaGyKZknqpW3isoIWaJs1gnvYSE59x208xq0RaAprS711E9fhMA/exec';
+const API_URL_GUARDAR = 'https://script.google.com/macros/s/AKfycbwRi1h-vAVo2-FTVGocaGyKZknqpW3isoIWaJs1gnvYSE59x208xq0RaAprS711E9fhMA/exec';
   
 	
     
@@ -549,22 +549,23 @@
     }
 
     function guardarEnSheet(datos) {
-        // Codificar los datos para URL
-        const params = new URLSearchParams();
-        for (const [clave, valor] of Object.entries(datos)) {
-            params.append(clave, valor);
-        }
-        
-        const url = API_URL_GUARDAR + '?' + params.toString();
-        
-        // Usar fetch sin iframe (más confiable)
-        fetch(url, {
-            method: 'GET',
-            mode: 'no-cors'
-        }).catch(error => console.error('Error al guardar:', error));
-        
-        console.log('📤 Datos enviados a Google Sheets:', url);
-    }
+    // Enviar por POST (no por GET)
+    fetch(API_URL_GUARDAR, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datos)
+    }).catch(error => {
+        console.error('Error al guardar:', error);
+        mostrarNotificacion('Error al guardar la solicitud. Intenta de nuevo.', true);
+    });
+    console.log('📤 Solicitud enviada (POST)');
+}
+
+
+
 
     async function cargarOpciones() {
         try {

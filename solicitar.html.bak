@@ -507,58 +507,7 @@
     const API_URL_PRODUCTOS = 'https://script.google.com/macros/s/AKfycbxYZY89WjAdRXXwS1UFoGotccdP1QKlYYWqvY6__3BTm0xKEYjD87Pn_8u4LqiaIuCD/exec';
     
     // URL para guardar solicitudes en Google Sheets
-  const API_URL_GUARDAR = 'function doGet(e) {
-  try {
-    const ss = SpreadsheetApp.openById("18rFOrfcQxoRqpRmwCcGy-gzbYK9rxo8BXNXN39xLNHM");
-    let sheet = ss.getSheetByName("Solicitudes");
-    
-    if (!sheet) {
-      sheet = ss.insertSheet("Solicitudes");
-      sheet.appendRow(["Fecha", "Nombre", "Teléfono", "Email", "FechaEvento", "Dirección", "Observaciones", "Opción", "Personas"]);
-    }
-    
-    // Obtener datos de la URL (porque se envía por GET)
-    const datos = e.parameter;
-    
-    // Guardar en hoja
-    sheet.appendRow([
-      new Date(),
-      datos.nombre,
-      datos.telefono,
-      datos.email,
-      datos.fechaEvento,
-      datos.direccion,
-      datos.observaciones || "",
-      datos.opcion,
-      datos.personas
-    ]);
-    
-    // Enviar correo electrónico
-    const destinatario = "cerobitdata@gmail.com";
-    const asunto = "Nueva solicitud de cotización - Aroma & Carbón";
-    const cuerpo = `Se ha recibido una nueva solicitud:\n\n` +
-      `Nombre: ${datos.nombre}\n` +
-      `Teléfono: ${datos.telefono}\n` +
-      `Email: ${datos.email}\n` +
-      `Fecha del evento: ${datos.fechaEvento}\n` +
-      `Dirección: ${datos.direccion}\n` +
-      `Observaciones: ${datos.observaciones}\n` +
-      `Opción: ${datos.opcion}\n` +
-      `Personas: ${datos.personas}\n\n` +
-      `Puedes ver todos los detalles en la hoja "Solicitudes" de tu archivo de Google Sheets.`;
-    
-    MailApp.sendEmail(destinatario, asunto, cuerpo);
-    
-    return ContentService
-      .createTextOutput(JSON.stringify({ success: true, message: "Datos guardados y correo enviado" }))
-      .setMimeType(ContentService.MimeType.JSON);
-      
-  } catch (error) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ success: false, error: error.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}';
+  const API_URL_GUARDAR = 'https://script.google.com/macros/s/AKfycbwRi1h-vAVo2-FTVGocaGyKZknqpW3isoIWaJs1gnvYSE59x208xq0RaAprS711E9fhMA/exec';
   
 	
     
@@ -600,22 +549,23 @@
     }
 
     function guardarEnSheet(datos) {
-        // Codificar los datos para URL
-        const params = new URLSearchParams();
-        for (const [clave, valor] of Object.entries(datos)) {
-            params.append(clave, valor);
-        }
-        
-        const url = API_URL_GUARDAR + '?' + params.toString();
-        
-        // Usar fetch sin iframe (más confiable)
-        fetch(url, {
-            method: 'GET',
-            mode: 'no-cors'
-        }).catch(error => console.error('Error al guardar:', error));
-        
-        console.log('📤 Datos enviados a Google Sheets:', url);
-    }
+    // Enviar por POST (no por GET)
+    fetch(API_URL_GUARDAR, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datos)
+    }).catch(error => {
+        console.error('Error al guardar:', error);
+        mostrarNotificacion('Error al guardar la solicitud. Intenta de nuevo.', true);
+    });
+    console.log('📤 Solicitud enviada (POST)');
+}
+
+
+
 
     async function cargarOpciones() {
         try {
