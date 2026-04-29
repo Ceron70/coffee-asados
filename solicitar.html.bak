@@ -200,6 +200,7 @@
             background: white;
             color: #2C1A10;
             font-weight: bold;
+            transition: all 0.2s ease;
         }
         .personas-destacado input:focus {
             outline: none;
@@ -480,7 +481,6 @@
         <small>Ingresa el número de invitados</small>
     </div>
 
-    <!-- OPCIONES COFFEE -->
     <div class="opciones-section">
         <div class="opciones-header">
             <h2><span class="granos-cafe">☕✨</span> Opciones de Coffee</h2>
@@ -489,7 +489,6 @@
         <div id="opciones-coffee" class="opciones-grid"><p>Cargando opciones de coffee...</p></div>
     </div>
 
-    <!-- OPCIONES ASADOS -->
     <div class="opciones-section">
         <div class="opciones-header">
             <h2><span class="parrilla">🥩🔥<span class="fuego"><span class="fuego-1">🔥</span><span class="fuego-2">🔥</span><span class="fuego-3">🔥</span></span><span class="brasas"><span class="brasa-1">•</span><span class="brasa-2">•</span><span class="brasa-3">•</span></span></span> Opciones de Asados</h2>
@@ -508,9 +507,60 @@
     const API_URL_PRODUCTOS = 'https://script.google.com/macros/s/AKfycbxYZY89WjAdRXXwS1UFoGotccdP1QKlYYWqvY6__3BTm0xKEYjD87Pn_8u4LqiaIuCD/exec';
     
     // URL para guardar solicitudes en Google Sheets
-  const API_URL_GUARDAR = 'https://script.google.com/macros/s/AKfycbzTQ4E8UJfd_VdDE-jMPSmD_hQxy554nR48xxYO4BqpdOgk3bltJQGST2n7YyCVf0YrYQ/exec';
+  const API_URL_GUARDAR = 'function doGet(e) {
+  try {
+    const ss = SpreadsheetApp.openById("18rFOrfcQxoRqpRmwCcGy-gzbYK9rxo8BXNXN39xLNHM");
+    let sheet = ss.getSheetByName("Solicitudes");
+    
+    if (!sheet) {
+      sheet = ss.insertSheet("Solicitudes");
+      sheet.appendRow(["Fecha", "Nombre", "Teléfono", "Email", "FechaEvento", "Dirección", "Observaciones", "Opción", "Personas"]);
+    }
+    
+    // Obtener datos de la URL (porque se envía por GET)
+    const datos = e.parameter;
+    
+    // Guardar en hoja
+    sheet.appendRow([
+      new Date(),
+      datos.nombre,
+      datos.telefono,
+      datos.email,
+      datos.fechaEvento,
+      datos.direccion,
+      datos.observaciones || "",
+      datos.opcion,
+      datos.personas
+    ]);
+    
+    // Enviar correo electrónico
+    const destinatario = "cerobitdata@gmail.com";
+    const asunto = "Nueva solicitud de cotización - Aroma & Carbón";
+    const cuerpo = `Se ha recibido una nueva solicitud:\n\n` +
+      `Nombre: ${datos.nombre}\n` +
+      `Teléfono: ${datos.telefono}\n` +
+      `Email: ${datos.email}\n` +
+      `Fecha del evento: ${datos.fechaEvento}\n` +
+      `Dirección: ${datos.direccion}\n` +
+      `Observaciones: ${datos.observaciones}\n` +
+      `Opción: ${datos.opcion}\n` +
+      `Personas: ${datos.personas}\n\n` +
+      `Puedes ver todos los detalles en la hoja "Solicitudes" de tu archivo de Google Sheets.`;
+    
+    MailApp.sendEmail(destinatario, asunto, cuerpo);
+    
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: true, message: "Datos guardados y correo enviado" }))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ success: false, error: error.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}';
   
-  
+	
     
     let opcionesCoffee = [];
     let opcionesAsados = [];
@@ -550,44 +600,23 @@
     }
 
     function guardarEnSheet(datos) {
-    // Crear un iframe oculto para enviar los datos
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.name = 'hiddenFrame';
-    document.body.appendChild(iframe);
-    
-    // Crear un formulario y enviarlo al iframe
-    const form = document.createElement('form');
-    form.method = 'GET';
-    form.action = API_URL_GUARDAR;
-    form.target = 'hiddenFrame';
-    form.style.display = 'none';
-    
-    // Agregar los datos como campos ocultos
-    Object.keys(datos).forEach(key => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = datos[key];
-        form.appendChild(input);
-    });
-    
-    document.body.appendChild(form);
-    form.submit();
-    
-    // Limpiar después de 1 segundo
-    setTimeout(() => {
-        document.body.removeChild(form);
-        document.body.removeChild(iframe);
-    }, 1000);
-    
-    console.log('Datos enviados a Google Sheets (GET):', datos);
-}
+        // Codificar los datos para URL
+        const params = new URLSearchParams();
+        for (const [clave, valor] of Object.entries(datos)) {
+            params.append(clave, valor);
+        }
+        
+        const url = API_URL_GUARDAR + '?' + params.toString();
+        
+        // Usar fetch sin iframe (más confiable)
+        fetch(url, {
+            method: 'GET',
+            mode: 'no-cors'
+        }).catch(error => console.error('Error al guardar:', error));
+        
+        console.log('📤 Datos enviados a Google Sheets:', url);
+    }
 
-
-	
-	
-	
     async function cargarOpciones() {
         try {
             const response = await fetch(API_URL_PRODUCTOS);
